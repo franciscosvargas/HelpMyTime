@@ -7,14 +7,12 @@
 	</div>
 </header>
 <div class="navigation-menu">
-	<a class="carousel-cell" href="#">Unhas</a>
-	<a class="carousel-cell" href="#">Cabelo</a>
-	<a class="carousel-cell" href="#">Barbearia</a>
-    <a class="carousel-cell" href="#">Depilação</a>
-	<a class="carousel-cell" href="#">Maquiagem</a>
-	<a class="carousel-cell" href="#">Sombrancelhas</a>
-	<a class="carousel-cell" href="#">Massagem e Estética</a>
-	<a class="carousel-cell" href="#">Podologia</a>
+	{{#each categories}}
+		<a class="carousel-cell" href="categorias/{{slug}}">{{name}}</a>
+	{{else}}
+		
+
+	{{/each}}
 </div>
 
 <script src="/js/index.js"></script>

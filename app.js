@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
+const categoriesRouter = require('./routes/categories');
 const handlebars = require('express-handlebars');
 const path = require('path');
-const configDB = require('./dbconfig')
+const configDB = require('./dbconfig');
 
 // Config
     // Template Engine
@@ -16,11 +17,14 @@ const configDB = require('./dbconfig')
         app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
+    app.use('/categorias', categoriesRouter);
+
     app.get('/', (req, res) => {
-        res.render('home');
+        var Ref =  configDB.getCategoryReference();
+        Ref.find().sort({rank: 'desc'}).limit(8).then((categories) => {
+            res.render('home', {categories: categories});
+        })
     });
-
-
 
 app.listen(3001, () =>{
     console.log("Servidor iniciado na porta 3001");

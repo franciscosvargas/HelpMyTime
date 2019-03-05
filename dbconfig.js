@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Models
 const User = require('./models/User');
+const Category = require('./models/Category');
 
 var database_name = "htm";
 mongoose.Promise = global.Promise;
@@ -15,6 +16,7 @@ var connect = () => {
     });
 
     mongoose.model('users', User);
+    mongoose.model('categories', Category);
 }
 
 var createUser = () => {
@@ -32,7 +34,28 @@ var createUser = () => {
     });
 }
 
+
+var createCategory = (name, slug) => {
+    const UserRef = mongoose.model('categories');
+    new UserRef({
+        name: name,
+        slug: slug,
+        rank: 1
+    }).save().then(() =>{
+        console.log("Categoria cadastrada com sucesso");
+    }).catch((erro) => {
+        console.log("Erro ao criar categoria: "+erro);
+    });
+}
+
+var getCategoryReference = () => {
+    const Ref = mongoose.model('categories');
+    return Ref;
+}
+
 module.exports = {
     connect: connect,
-    createUser: createUser
+    createUser: createUser,
+    createCategory: createCategory,
+    getCategoryReference: getCategoryReference
 }
