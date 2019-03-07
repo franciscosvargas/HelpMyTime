@@ -1,27 +1,33 @@
 const express = require('express');
 const app = express();
-const categoriesRouter = require('./routes/categories');
 const handlebars = require('express-handlebars');
+const bodyParser = require('body-parser');    
 const path = require('path');
-const configDB = require('./dbconfig');
 
+const database = require('./config/database');
+const categoriesRouter = require('./routes/categories');
+const accountRouter = require('./routes/account');
 // Config
     // Template Engine
         app.engine('handlebars', handlebars({defaultLayout: 'main'}));
         app.set('view engine', 'handlebars');
 
+    // BodyParser
+        app.use(bodyParser.urlencoded({extended: false}));
+        app.use(bodyParser.json());
+
     // Start Database Connection
-        configDB.connect();
+        database.connect();
         
     // Public
         app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
     app.use('/categorias', categoriesRouter);
+    app.use('/conta', accountRouter);
 
     app.get('/', (req, res) => {
-        var Ref =  configDB.getCategoryReference();
-        Ref.find().sort({rank: 'desc'}).limit(8).then((categories) => {
+        database.getCategoryHomeList((categories) => {
             res.render('home', {categories: categories});
         })
     });

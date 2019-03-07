@@ -1,5 +1,5 @@
 <header id="page-header">
-	<img src="img/helpMyTime-logo.svg" width="192" alt="helpMyTime-logo">
+	<img src="/img/helpMyTime-logo.svg" width="192" alt="helpMyTime-logo">
 	<h2 class="header-headline">Encontre e agende os melhores serviços perto de você</h2>
 	<div class="input-group">
 		<i class="input-group-icon fas fa-search"></i>
@@ -10,8 +10,9 @@
 	{{#each categories}}
 		<a class="carousel-cell" href="categorias/{{slug}}">{{name}}</a>
 	{{else}}
-		
-
+		<script>
+			$(".navigation-menu").css("display", "none");
+		</script>
 	{{/each}}
 </div>
 

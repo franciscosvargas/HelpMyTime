@@ -21,6 +21,21 @@ const User = mongoose.Schema ({
     password: {
         type: String,
         require: true
+    }, 
+    account_type: {
+        type: String,
+        require: true,
+    },
+    plan: {
+        type: String,
+        require: true,
+        default: "free"
+
+    },
+    confirmated: {
+        type: Boolean,
+        require: true,
+        default: false
     }
 })
 

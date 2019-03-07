@@ -19,6 +19,7 @@
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
     "mongoose": "^5.4.17",
+    "nodemailer": "^5.1.1",
     "nodemon": "^1.18.10"
   }
 }
