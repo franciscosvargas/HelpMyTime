@@ -19,33 +19,33 @@ router.get('/cadastro', (req, res) => {
 });
 
 router.post('/cadastro', (req, res) => {
-    database.userExists(req.body.email, (callback) => {
-        if (callback == 0){
-            database.createUserFromEmail(
-                req.body.name,
-                req.body.email,
-                req.body.city,
-                req.body.phone,
-                req.body.password,
-                "email"
-            );
+    database.userExists(req.body.email).then(() => {
+        database.createUserFromEmail(
+            req.body.name,
+            req.body.email,
+            req.body.city,
+            req.body.phone,
+            req.body.password,
+            "email"
+        ).then(() => {
             confirmation(req.body.email);
-            res.send("Cadastrado");
-        }else{
-            res.send(callback);
-        }
+            res.redirect('/');
+        }).catch((error) => {
+            res.send(error);
+        });  
+    }).catch(error => {
+        res.send(error);
     });
     
 });
 
 router.get('/confirmation/:email', async (req, res) => {
-    database.confirmationSucess(req.params.email, (result) =>{
-        if (result == "success"){
-            res.send("Conta confimada");
-        } else {
-            res.send("Erro ao confirmar"+result);
-        }
+    database.confirmationSucess(req.params.email, () =>{
 
+    }).then(result => {
+        res.send(result);
+    }).catch(result => {
+        res.send(result);
     });
     
 });

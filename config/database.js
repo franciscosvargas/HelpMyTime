@@ -1,11 +1,20 @@
 const mongoose = require('mongoose');
-const readline = require('readline');
+const crypto = require("crypto");
 
 // Models
 const User = require('../models/User');
 const Category = require('../models/Category');
 var UserRef = null;
 var CategoryRef = null;
+
+const ENCRYPT_DATA = {
+    algoritmo : "aes256",
+    segredo : "chico",
+    tipo : "hex"
+};
+
+
+
 
 var database_name = "htm";
 mongoose.Promise = global.Promise;
@@ -26,47 +35,56 @@ const connect = () => {
 
 
 // User tools
-const createUserFromEmail = (name, email, city, phone, password, ac_type) => {
-    new UserRef({
-        name: name,
-        email: email,
-        city: city,
-        phone: phone,
-        password: password,
-        account_type: ac_type
-    }).save().then(() =>{
-        console.log("Usuário cadastrado com sucesso.");
-    }).catch((erro) => {
-        console.log("Erro ao criar usuário: "+erro);
+const createUserFromEmail = (name, email, city, phone, password, ac_type) => { 
+    return new Promise((resolve, reject) => {
+        new UserRef({
+            name: name,
+            email: email,
+            city: city,
+            phone: phone,
+            password: encryptPassword(password),
+            account_type: ac_type
+        }).save().then(() =>{
+            resolve("Usuário cadastrado com sucesso");
+        }).catch((erro) => {
+            reject(erro);
+        });
     });
 }
-const userExists = (email, callback) => {
-    UserRef.findOne({email: email}, function(err, user){            
-        if(!user && err == null){
-            callback(0);
-        } else if(err){
-            callback(err);
-        }else{
-            callback("Usuário já cadastrado.")
-        }
+const userExists = (email) => {
+    return new Promise((resolve, reject) => {
+        UserRef.findOne({email: email}, function(err, user){            
+            if(!user && err == null){
+                resolve(true);
+            } else if(err){
+                reject(err);
+            }else{
+                reject("Este usuário já está cadastrado");
+            }
+        });
+        
     });
+    
 }
 
-const confirmationSucess = (email, callback) => {
-     UserRef.findOne({email: email}, function(err, user){            
-        if(user){
-            user.confirmated = true;
-            user.save(function(error) {
-                if(err){
-                    callback(error);
-                } else {
-                    callback("success");
-                } 
-            });
-        } else {
-            callback(err);
-        }
+const confirmationSucess = (email) => {
+    return new Promise((resolve, reject) => {
+        UserRef.findOne({email: email}, function(err, user){            
+            if(user){
+                user.confirmated = true;
+                user.save(function(error) {
+                    if(error){
+                        reject(error);
+                    } else {
+                        resolve("Conta confirmada com sucesso.")
+                    } 
+                });
+            } else {
+                reject(err);
+            }
+        });
     });
+     
 }
 
 // CATEGORY TO0LS
@@ -78,7 +96,7 @@ const createCategory = (name, slug) => {
     }).save().then(() =>{
         console.log("Categoria cadastrada com sucesso");
     }).catch((erro) => {
-        console.log("Erro ao criar categoria: "+erro);
+        console.log("Erro ssssao criar categoria: "+erro);
     });
 }
 
@@ -114,6 +132,18 @@ const getCategoryHomeList = (callback) => {
     })
 }
 
+// Encrypt and Decrypt Tools
+const encryptPassword = (password) => {
+    const cipher = crypto.createCipher(ENCRYPT_DATA.algoritmo, ENCRYPT_DATA.segredo);
+    cipher.update(password);
+    return cipher.final(ENCRYPT_DATA.tipo);
+};
+
+const decryptPassword = (password) => {
+    const decipher = crypto.createDecipher(ENCRYPT_DATA.algoritmo, ENCRYPT_DATA.segredo);
+    decipher.update(password, ENCRYPT_DATA.tipo);
+    return decipher.final();
+};
 
 // Exporting the modules
 module.exports = {
