@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 const database = require('../config/database');
 const confirmation = require('../config/auth/confirmation');
@@ -14,7 +15,7 @@ router.get('/login', (req, res) => {
 
 router.get('/cadastro', (req, res) => {
     database.getCategoryList((categories) => {
-        res.render('register', {categories: categories})
+        res.send("Erro ao criar usuário");
     })
 });
 
@@ -51,10 +52,12 @@ router.get('/confirmation/:email', async (req, res) => {
 });
 
 
-router.post('/login/enter', (req, res) => {
-    var nome = req.body.email;
-    var senha = req.body.password;
-    res.redirect('/');
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: "/",
+        failureRedirect: "/conta/cadastro",
+        failureFlash: true
+    })(req, res, next)
 })
 
 

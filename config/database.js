@@ -1,18 +1,11 @@
 const mongoose = require('mongoose');
-const crypto = require("crypto");
+const bcrypt = require('bcryptjs');
 
 // Models
 const User = require('../models/User');
 const Category = require('../models/Category');
 var UserRef = null;
 var CategoryRef = null;
-
-const ENCRYPT_DATA = {
-    algoritmo : "aes256",
-    segredo : "chico",
-    tipo : "hex"
-};
-
 
 
 
@@ -37,18 +30,33 @@ const connect = () => {
 // User tools
 const createUserFromEmail = (name, email, city, phone, password, ac_type) => { 
     return new Promise((resolve, reject) => {
-        new UserRef({
+        const newUser = new UserRef({
             name: name,
             email: email,
             city: city,
             phone: phone,
-            password: encryptPassword(password),
+            password: password,
             account_type: ac_type
-        }).save().then(() =>{
-            resolve("Usuário cadastrado com sucesso");
-        }).catch((erro) => {
-            reject(erro);
-        });
+        })
+        
+        bcrypt.genSalt(10, (error, salt) =>{
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                if(err){
+                    reject(err);
+                }
+                
+                newUser.password = hash;
+                newUser.save().then(() =>{
+                    resolve("Usuário cadastrado com sucesso");
+                }).catch((erro) => {
+                    reject(erro);
+                });
+            })
+        })
+        
+        
+
+        
     });
 }
 const userExists = (email) => {
@@ -134,16 +142,9 @@ const getCategoryHomeList = (callback) => {
 
 // Encrypt and Decrypt Tools
 const encryptPassword = (password) => {
-    const cipher = crypto.createCipher(ENCRYPT_DATA.algoritmo, ENCRYPT_DATA.segredo);
-    cipher.update(password);
-    return cipher.final(ENCRYPT_DATA.tipo);
+    
 };
 
-const decryptPassword = (password) => {
-    const decipher = crypto.createDecipher(ENCRYPT_DATA.algoritmo, ENCRYPT_DATA.segredo);
-    decipher.update(password, ENCRYPT_DATA.tipo);
-    return decipher.final();
-};
 
 // Exporting the modules
 module.exports = {
@@ -154,5 +155,5 @@ module.exports = {
     getCategoryHomeList: getCategoryHomeList,
     createCategoryFromFile: createCategoryFromFile,
     confirmationSucess: confirmationSucess,
-    userExists: userExists
+    userExists: userExists,
 }

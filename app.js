@@ -3,11 +3,34 @@ const app = express();
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');    
 const path = require('path');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
+require('./config/auth/auth')(passport);
 
 const database = require('./config/database');
 const categoriesRouter = require('./routes/categories');
 const accountRouter = require('./routes/account');
 // Config
+    // Session  
+        app.use(session({
+            secret: "htmadminsession",
+            resave: true,
+            saveUninitialized: true
+        }));
+
+        app.use(passport.initialize());
+        app.use(passport.session());
+
+        app.use(flash());
+
+    // Middleware
+        app.use((req, res, next) => {
+            res.locals.msg = req.flash("alert_message");
+            res.locals.user = req.user || null;
+            next();
+        });
+        
     // Template Engine
         app.engine('handlebars', handlebars({defaultLayout: 'main'}));
         app.set('view engine', 'handlebars');
@@ -23,13 +46,20 @@ const accountRouter = require('./routes/account');
         app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
+
     app.use('/categorias', categoriesRouter);
     app.use('/conta', accountRouter);
 
     app.get('/', (req, res) => {
-        database.getCategoryHomeList((categories) => {
-            res.render('home', {categories: categories});
-        })
+
+        if(req.isAuthenticated()){
+            res.send("Olá ," + req.user.name);
+        } else {
+            database.getCategoryHomeList((categories) => {
+                res.render('home', {categories: categories});
+            })
+        }
+        
     });
 
 app.listen(3001, () =>{
