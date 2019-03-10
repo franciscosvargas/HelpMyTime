@@ -54,12 +54,30 @@ const createUserFromEmail = (name, email, city, phone, password, ac_type) => {
             })
         })
         
-        
-
-        
     });
 }
-const userExists = (email) => {
+
+const createUserFromFacebook = (name, email, city, phone, password, ac_type) => {
+    return new Promise((resolve, reject) => {
+        const newUser = new UserRef({
+            name: name,
+            email: email,
+            city: city,
+            phone: phone,
+            password: password,
+            account_type: ac_type,
+            confirmated: true
+        });
+        
+        newUser.save().then(() =>{
+            resolve("Usuário cadastrado com sucesso");
+        }).catch((erro) => {
+            console.log(erro);
+            reject(erro);
+        });
+    });
+}
+const userNotExists = (email) => {
     return new Promise((resolve, reject) => {
         UserRef.findOne({email: email}, function(err, user){            
             if(!user && err == null){
@@ -67,7 +85,7 @@ const userExists = (email) => {
             } else if(err){
                 reject(err);
             }else{
-                reject("Este usuário já está cadastrado");
+                reject("Usuário já cadastrado");
             }
         });
         
@@ -140,20 +158,17 @@ const getCategoryHomeList = (callback) => {
     })
 }
 
-// Encrypt and Decrypt Tools
-const encryptPassword = (password) => {
-    
-};
 
 
 // Exporting the modules
 module.exports = {
     connect: connect,
     createUserFromEmail: createUserFromEmail,
+    createUserFromFacebook: createUserFromFacebook, 
     createCategory: createCategory,
     getCategoryList: getCategoryList,
     getCategoryHomeList: getCategoryHomeList,
     createCategoryFromFile: createCategoryFromFile,
     confirmationSucess: confirmationSucess,
-    userExists: userExists,
+    userNotExists: userNotExists,
 }

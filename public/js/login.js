@@ -106,11 +106,11 @@ console.log('testando');
 		$(".register-btn").attr("disabled", "true");
 		return false;
 	}
-	if (validateCPF($("[name='cpf']").val()) == false) {
+	/*if (validateCPF($("[name='cpf']").val()) == false) {
 		console.log("CPF inválido!");
 		$(".register-btn").attr("disabled", "true");
 		return false;
-	}
+	}*/
 	if ($(".register-form").find("input[name='password']").val().length < 8) {
 		console.log("A senha deve ter no mínimo 8 caracteres");
 		$(".register-btn").attr("disabled", "true");
