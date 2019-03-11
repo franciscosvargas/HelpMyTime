@@ -4,7 +4,7 @@ body {margin: 0; height: 200vh}
 /* HEADER */
 #page-header {
 	width: 100%;
-	background-image: url("../img/1.jpg"),
+	background-image: url("../img/1_compressed.jpg"),
 		linear-gradient(
 			90deg, 
 			rgba(2,0,36,1) 0%,
