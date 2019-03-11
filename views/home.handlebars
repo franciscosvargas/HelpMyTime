@@ -1,21 +1,22 @@
-
-<link rel="stylesheet" href="/css/login.css">
-
 <header id="page-header">
-	<img src="/img/helpMyTime-logo.svg" id="open-login" width="192" alt="helpMyTime-logo">
+	<img src="/img/helpMyTime-logo.svg"  width="192" alt="helpMyTime-logo">
 	<h2 class="header-headline">Encontre e agende os melhores serviços perto de você</h2>
 	<div class="input-group">
 		<i class="input-group-icon fas fa-search"></i>
 		<input class="input-group-input" type="search" placeholder="Preciso de um coach">
+		<button id="open-login" class="mdc-icon-button">
+			<i class="material-icons">account_circle</i>
+		</button>
 	</div>
 </header>
-<!-- Categories bar !-->
+<!-- Categories bar -->
 <div class="navigation-menu">
 	{{#each categories}}
 		<a class="carousel-cell" href="categorias/{{slug}}">{{name}}</a>
 	{{else}}
 		<script>
-			$(".navigation-menu").css("display", "none");
+			document.querySelectorAll(".navigation-menu").style.display = "none";
+			$(".navigation-menu").hide();
 		</script>
 	{{/each}}
 </div>
@@ -175,5 +176,3 @@
 			</div>
 		</div>
 	</div>
-<script src="/js/login.js"></script>
-<script src="/js/index.js"></script>

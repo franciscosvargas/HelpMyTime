@@ -1,9 +1,16 @@
+const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
 $(".navigation-menu").flickity({
 	cellAlign: "center",
 	groupCells: true,
 	contain: true,
 	pageDots: false
 });
+
+function showSnackBar(message) {
+	snackbar.labelText = message;
+	snackbar.actionButtonText = "ok";
+	snackbar.open();
+}
 
 placeholderText = [
 	"Qual serviço você precisa hoje?",
