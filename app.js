@@ -47,7 +47,6 @@ const accountRouter = require('./routes/account');
 		app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-
 	app.use('/categorias', categoriesRouter);
 	app.use('/conta', accountRouter);
 

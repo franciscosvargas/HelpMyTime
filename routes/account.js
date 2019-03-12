@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 router.post('/login', (req, res, next) => {
 	passport.authenticate('local', {
 		successRedirect: "/",
-		failureRedirect: "/conta/cadastro",
+		failureRedirect: "/",
 		failureFlash: true
 	})(req, res, next)
 });
@@ -23,7 +23,7 @@ router.post('/login/facebook', (req, res, next) => {
 });
 
 router.get('/login/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
 	// Successful authentication, redirect home.
 	res.redirect('/');
@@ -31,12 +31,12 @@ router.get('/login/facebook/callback',
 
 router.post('/login/google', (req, res, next) => {
 	passport.authenticate('google', {
-		 scope : ['email'] 
+		 scope : ['email', 'profile'] 
 	})(req, res, next)
 });
 
-router.get('/google/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+router.get('/login/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
 	// Successful authentication, redirect home.
 	res.redirect('/');
