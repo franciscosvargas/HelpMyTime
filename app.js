@@ -6,17 +6,11 @@ const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
-const fs = require('fs');
-var https = require('https');
 require('./config/auth/auth')(passport);
 
 const database = require('./config/database');
 const categoriesRouter = require('./routes/categories');
 const accountRouter = require('./routes/account');
-var certOptions = {
-	key: fs.readFileSync(path.resolve('config/ssl/server.key')),
-	cert: fs.readFileSync(path.resolve('config/ssl/server.crt'))
-}
 // Config
 	// Session  
 		app.use(session({
@@ -57,13 +51,6 @@ var certOptions = {
 	app.use('/categorias', categoriesRouter);
 	app.use('/conta', accountRouter);
 
-	app.all('*', function(req, res, next) {
-		if (req.secure) {
-			return next();
-		}
-		res.redirect('https://' + req.hostname + ':' + 3002 + req.url);
-	});
-
 	app.get('/', (req, res) => {
 		if (req.isAuthenticated()) {
 			res.send("Olá ," + req.user.name);
@@ -79,7 +66,6 @@ app.listen(3001, () => {
 	console.log("Servidor iniciado na porta 3001");
 });
 
-https.createServer(certOptions, app).listen(3002)
 
 
 
