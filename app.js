@@ -28,6 +28,7 @@ const accountRouter = require('./routes/account');
 	
 		app.use((req, res, next) => {
 			res.locals.msg = req.flash("alert_message");
+			res.locals.error = req.flash("error");
 			res.locals.user = req.user || null;
 			next();
 		});

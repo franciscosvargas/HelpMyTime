@@ -135,7 +135,7 @@ function validateResetPasswordForm() {
 
 $("#register-user-tab").show();
 $(document).on("click", "#register-panel .mdc-tab", (e) => { openTab(`#${$(e.target).closest("[data-tab]").data("tab")}-tab`) });
-$(document).on("click", "#open-login", (e) => { openLoginContainer() });
+$(document).on("click", "#login_button", (e) => { openLoginContainer() });
 $(document).on("click", ".back-btn", (e) => { goBackContainer() });
 $(document).on("click", ".close-panel-btn", (e) => { closeLoginContainer() });
 $(document).on("click", ".create-account-btn", (e) => { openPanel("#register-panel") });

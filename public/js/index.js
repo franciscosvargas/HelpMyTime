@@ -1,3 +1,4 @@
+
 const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
 $(".navigation-menu").flickity({
 	cellAlign: "center",
@@ -13,7 +14,7 @@ function showSnackBar(message) {
 }
 
 placeholderText = [
-	"Qual serviço você precisa hoje?",
+	"Que serviço você precisa hoje?",
 	"Dentista?", 
 	"Psicólogo?", 
 	"Manicure?", 

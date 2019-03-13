@@ -5,7 +5,7 @@ const database = require('../config/database');
 const confirmation = require('../config/auth/confirmation');
 
 router.get('/', (req, res) => {
-	res.send('Conta');
+	res.send(req.body.error);
 });
 
 router.post('/login', (req, res, next) => {
@@ -54,12 +54,15 @@ router.post('/cadastro', (req, res) => {
 			"email"
 		).then(() => {
 			confirmation(req.body.email);
+			req.flash("alert_message", "Usuário criado com sucesso!");
 			res.redirect('/');
 		}).catch((error) => {
-			res.send(error);
+			req.flash("alert_message", error);
+			res.redirect('/');
 		});  
 	}).catch(error => {
-		res.send(error);
+		req.flash("alert_message", error);
+		res.redirect('/');
 	});   
 });
 

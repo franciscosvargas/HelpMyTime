@@ -15,7 +15,7 @@ module.exports = (passport) => {
 		RefUser.findOne({ email: email, account_type: "email" }).then((user) => {
 			if (!user) {
 				console.log("usuario não encontrado");
-				return done(null, false, { message: "Usuário não encontrado" });
+				return done(null, false, { message: "Usuário não encontrado. Cadastre-se." });
 			}
 
 			bcrypt.compare(password, user.password, (error, okay) => {
@@ -24,7 +24,7 @@ module.exports = (passport) => {
 					return done(null, user);
 
 				} else {
-					return done(null, false, { message: "Senha incorreta" });
+					return done(null, false, { message: "Email e/ou senha incorretos." });
 				}
 			});
 		});
