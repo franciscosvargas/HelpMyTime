@@ -8,9 +8,11 @@ router.get('/', (req, res) => {
 	res.send(req.body.error);
 });
 
+
+// Login 
 router.post('/login', (req, res, next) => {
 	passport.authenticate('local', {
-		successRedirect: "/",
+		successRedirect: "/painel",
 		failureRedirect: "/",
 		failureFlash: true
 	})(req, res, next)
@@ -42,7 +44,7 @@ router.get('/login/google/callback',
 	res.redirect('/');
 });
 
-
+// Cadastro
 router.post('/cadastro', (req, res) => {
 	database.userNotExists(req.body.email).then(() => {
 		database.createUserFromEmail(
@@ -53,9 +55,8 @@ router.post('/cadastro', (req, res) => {
 			req.body.password,
 			"email"
 		).then(() => {
-			confirmation(req.body.email);
 			req.flash("alert_message", "Usuário criado com sucesso!");
-			res.redirect('/');
+			res.redirect(307, '/conta/confirm/'+req.body.email);
 		}).catch((error) => {
 			req.flash("alert_message", error);
 			res.redirect('/');
@@ -64,6 +65,12 @@ router.post('/cadastro', (req, res) => {
 		req.flash("alert_message", error);
 		res.redirect('/');
 	});   
+});
+
+// Confirmation
+router.post('/confirm/:email', async (req, res) => {
+	confirmation(req.body.email);
+	res.send('Enviamos um email');
 });
 
 router.get('/confirmation/:email', async (req, res) => {

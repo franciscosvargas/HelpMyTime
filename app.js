@@ -9,6 +9,9 @@ const passport = require('passport');
 require('./config/auth/auth')(passport);
 
 const database = require('./config/database');
+
+// Importing Routes
+const panelRouter = require('./routes/panel');
 const categoriesRouter = require('./routes/categories');
 const accountRouter = require('./routes/account');
 // Config
@@ -25,7 +28,7 @@ const accountRouter = require('./routes/account');
 		app.use(flash());
 
 	// Middleware
-	
+
 		app.use((req, res, next) => {
 			res.locals.msg = req.flash("alert_message");
 			res.locals.error = req.flash("error");
@@ -50,16 +53,16 @@ const accountRouter = require('./routes/account');
 // Routes
 	app.use('/categorias', categoriesRouter);
 	app.use('/conta', accountRouter);
+	app.use('/painel', panelRouter);
 
 	app.get('/', (req, res) => {
 		if (req.isAuthenticated()) {
-			res.send("Olá ," + req.user.name);
+			res.redirect('/painel');
 		} else {
 			database.getCategoryHomeList((categories) => {
 				res.render('home', {categories: categories});
 			});
 		}
-		
 	});
 
 app.listen(3001, () => {
