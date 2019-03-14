@@ -1,15 +1,16 @@
 * {box-sizing: border-box}
-body {margin: 0; height: 200vh}
+body {margin: 0; height: 200vh; background-color: #eaeaea}
 
+/* GRADIENTE 1 => linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)*/
 /* HEADER */
 #page-header {
 	width: 100%;
-	background-image: url("../img/1.jpg"),
+	background-image: url("../img/2.jpg"),
 		linear-gradient(
 			90deg, 
-			rgba(2,0,36,1) 0%,
-			rgba(9,9,121,1) 35%,
-			rgba(0,212,255,1) 100%
+			rgba(0,65,139,1) 0%,
+			rgba(58,58,176,1) 62%,
+			rgba(8,122,158,1) 100%
 		);
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -23,6 +24,14 @@ body {margin: 0; height: 200vh}
 	box-shadow: 1px 3px 15px rgba(0, 0, 0, 0.5);
 }
 
+#open-login {
+	display: none;
+	align-self: flex-end;
+	font-size: 13.3333px !important;
+	width: 48px;
+	height: 48px;
+}
+
 .header-headline {
 	font-size: 22px;
 	font-family: "Open Sans";
@@ -30,6 +39,7 @@ body {margin: 0; height: 200vh}
 }
 
 .input-group {
+	display: none;
 	width: 50%;
 	max-width: 320px;
 	display: flex;
