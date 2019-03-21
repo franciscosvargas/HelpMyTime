@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const database = require('../config/database');
-const confirmation = require('../config/auth/confirmation');
+const sendEmail = require('../config/email/send');
 
 router.get('/', (req, res) => {
 	res.send(req.body.error);
@@ -56,7 +56,7 @@ router.post('/cadastro', (req, res) => {
 			"email"
 		).then(() => {
 			req.flash("alert_message", "Usuário criado com sucesso!");
-			res.redirect(307, '/conta/confirm/'+req.body.email);
+			res.redirect(307, '/conta/confirm/');
 		}).catch((error) => {
 			req.flash("alert_message", error);
 			res.redirect('/');
@@ -68,18 +68,46 @@ router.post('/cadastro', (req, res) => {
 });
 
 // Confirmation
-router.post('/confirm/:email', async (req, res) => {
-	confirmation(req.body.email);
-	res.send('Enviamos um email');
+router.post('/confirm', async (req, res) => {
+	await sendEmail({
+		type: "confirm",
+		email: req.body.email,
+		title: "Sua confirmação de email chegou",
+		action: req.hostname+":3001/conta/confirmation"
+	});
+	req.flash("alert_message", "Um email de confirmação foi enviado para o seu email. Confira.");
+	res.redirect('/');
 });
 
-router.get('/confirmation/:email', async (req, res) => {
-	database.confirmationSucess(req.params.email, () => {
+router.post('/confirmation', async (req, res) => {
+	database.confirmationSucess(req.body.email, () => {
 	}).then(result => {
-		res.send(result);
+		req.flash("alert_message", result);
+		res.redirect('/');
 	}).catch(result => {
-		res.send(result);
+		req.flash("alert_message", result);
+		res.redirect('/');
 	});
+});
+
+router.post('/redefinir-senha', async (req, res) => {
+	database.forgotPassword(req.body.email).then((message) => {
+		sendEmail({
+			type: "password",
+			email: req.body.email,
+			title: "Sua redefinição de senha chegou",
+			action: req.hostname+":3001/conta/novasenha"
+		});
+		req.flash("alert_message", message);
+		res.redirect('/');
+	}).catch((err) => {
+		req.flash("alert_message", err);
+		res.redirect('/');
+	});
+});
+
+router.post('/novasenha', async (req, res) => {
+	res.send(req.body.email);
 });
 
 module.exports = router;

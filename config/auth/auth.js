@@ -20,7 +20,6 @@ module.exports = (passport) => {
 
 			bcrypt.compare(password, user.password, (error, okay) => {
 				if (okay) {
-					console.log("Usuário: " + user.name + " autenticado");
 					return done(null, user);
 
 				} else {
@@ -40,7 +39,7 @@ module.exports = (passport) => {
 			// Verify if user exists
 			database.userNotExists(profile.emails[0].value).then(() => {
 				// Case user not exists, create the user
-				database.createUserFromFacebook(
+				database.createUserFromSocial(
 					profile.displayName,
 					profile.emails[0].value,
 					"Palmas",
@@ -76,7 +75,7 @@ module.exports = (passport) => {
 			// Verify if user exists
 			database.userNotExists(profile.emails[0].value).then(() => {
 				// Case user not exists, create the user
-				database.createUserFromFacebook(
+				database.createUserFromSocial(
 					profile.name,
 					profile.emails[0].value,
 					"undefined",

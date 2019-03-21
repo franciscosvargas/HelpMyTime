@@ -24,7 +24,6 @@ const connect = () => {
 	CategoryRef = mongoose.model('categories');
 }
 
-
 // User tools
 const createUserFromEmail = (name, email, city, phone, password, ac_type) => { 
 	return new Promise((resolve, reject) => {
@@ -36,25 +35,22 @@ const createUserFromEmail = (name, email, city, phone, password, ac_type) => {
 			password: password,
 			account_type: ac_type
 		});
-		
-		bcrypt.genSalt(10, (error, salt) => {
-			bcrypt.hash(newUser.password, salt, (err, hash) => {
-				if (err) {
-					reject(err);
-				}
-				
-				newUser.password = hash;
-				newUser.save().then(() => {
-					resolve("Usuário cadastrado com sucesso");
-				}).catch((erro) => {
-					reject(erro);
-				});
+	
+		encrypt(newUser.password).then((hash) => {
+			newUser.password = hash;
+			newUser.save().then(() => {
+				resolve("Usuário cadastrado com sucesso");
+			}).catch((erro) => {
+				reject(erro);
 			});
+		}).catch((erro) => {
+			reject(erro);
 		});
+				
 	});
 }
 
-const createUserFromFacebook = (name, email, city, phone, password, ac_type) => {
+const createUserFromSocial = (name, email, city, phone, password, ac_type) => {
 	return new Promise((resolve, reject) => {
 		const newUser = new UserRef({
 			name: name,
@@ -73,6 +69,7 @@ const createUserFromFacebook = (name, email, city, phone, password, ac_type) => 
 		});
 	});
 }
+
 const userNotExists = (email) => {
 	return new Promise((resolve, reject) => {
 		UserRef.findOne({email: email}, function(err, user){            
@@ -107,6 +104,34 @@ const confirmationSucess = (email) => {
 	 
 }
 
+const forgotPassword = (email) => {
+	return new Promise ((resolve, reject) => {
+		userNotExists(email).then(() => {
+			reject("Não há nenhum usuário associado à este email.");
+		}).catch((err) => {
+			if (err =  "Usuário já cadastrado") {
+				//sendEmail();
+				resolve("Um link com a redefinição de senha foi enviada para o seu email.");
+			} else {
+				reject(err);
+			}
+		});
+	});
+}
+
+const encrypt = (data) => {
+	return new Promise((resolve, reject) => {
+		bcrypt.genSalt(10, (error, salt) => {
+			bcrypt.hash(data, salt, (err, hash) => {
+				if (err) {
+					reject (err);
+				}
+
+				resolve(hash);
+			});
+		});
+	});
+}
 // CATEGORY TO0LS
 const createCategory = (name, slug) => {
 	new CategoryRef({
@@ -147,20 +172,23 @@ const getCategoryList = (callback) => {
 }
 
 const getCategoryHomeList = (callback) => {
-	CategoryRef.find().sort({rank: 'desc'}).limit(8).then((categories) => {
+	CategoryRef.find().sort({rank: 'desc'}).limit(7).then((categories) => {
 		callback(categories);
 	});
 }
+
 
 // Exporting the modules
 module.exports = {
 	connect: connect,
 	createUserFromEmail: createUserFromEmail,
-	createUserFromFacebook: createUserFromFacebook, 
+	createUserFromSocial: createUserFromSocial, 
 	createCategory: createCategory,
 	getCategoryList: getCategoryList,
 	getCategoryHomeList: getCategoryHomeList,
 	createCategoryFromFile: createCategoryFromFile,
 	confirmationSucess: confirmationSucess,
 	userNotExists: userNotExists,
+	forgotPassword: forgotPassword,
+	encrypt: encrypt
 }

@@ -30,6 +30,7 @@ const accountRouter = require('./routes/account');
 	// Middleware
 
 		app.use((req, res, next) => {
+			res.locals.url = "http://localhost:3001";
 			res.locals.msg = req.flash("alert_message");
 			res.locals.error = req.flash("error");
 			res.locals.user = req.user || null;

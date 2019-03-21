@@ -165,9 +165,9 @@
 		</div>
 		<div class="panel-body">
 			<p class="panel-subtitle">Informe o seu endereço de email abaixo, para que possamos enviar um email com um link para alterar sua senha</p>
-			<form id="reset-password-form">
+			<form action="/conta/redefinir-senha" method="POST" id="reset-password-form">
 				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-					<input type="email" class="mdc-text-field__input">
+					<input type="email"  name="email"class="mdc-text-field__input">
 					<label class="mdc-floating-label">Seu email</label>
 					<div class="mdc-line-ripple"></div>
 				</div>
