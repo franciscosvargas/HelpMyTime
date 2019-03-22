@@ -13,7 +13,7 @@ router.use((req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-	res.send('olá');
+	res.render('p_overview', {usuario: req.user, layout: 'panel'});
 });
 
 

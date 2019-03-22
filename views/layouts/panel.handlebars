@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Painel</title>
+	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+	<link rel="stylesheet" href="/css/panel.css">
+	<link rel="stylesheet" href="/css/tabs/overview.css" />
+</head>
+<body>
+	<div id="sidebar-panel">
+		<div id="sidebar-header">
+			<img class="helpMyTime-logo" width="123.75" height="73.8" src="/img/helpMyTime-logo.png" alt="helpMyTime-logo">
+			<button class="close-sidebar-btn mdc-icon-button">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+		<div id="sidebar-menu" class="mdc-list-group">
+			<h3 class="mdc-list-group__subheader">Para Você</h3>
+			<ul class="mdc-list">
+				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-list-item__graphic fas fa-briefcase" aria-hidden="true"></span>
+					<span class="mdc-list-item__text">Buscar Serviços</span>
+					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+				</li>
+				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-list-item__graphic fas fa-clock" aria-hidden="true"></span>
+					<span class="mdc-list-item__text">Meus Agendamentos</span>
+					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+				</li>
+			</ul>
+			<h3 class="mdc-list-group__subheader">Para o seu negócio</h3>
+			<ul class="mdc-list">
+				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
+					<span class="mdc-list-item__text">Cadastrar negócio</span>
+					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+				</li>					
+			</ul>
+		</div>
+	</div>
+	<div id="content-container">
+		<div id="main-navbar">
+			<div class="navbar-left-section">
+				<button id="open-sidebar-btn" class="mdc-icon-button">
+					<i class="fas fa-bars"></i>
+				</button>
+			</div>
+			<div class="navbar-right-section">
+				<button id="notifications-btn" class="mdc-icon-button">
+					<i class="fas fa-bell"></i>
+				</button>
+			</div>
+		</div>
+
+		{{{body}}}
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script src="/js/panel.js"></script>
+	<script>window.mdc.autoInit()</script>
+</body>
+</html>
+
