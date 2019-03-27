@@ -3,7 +3,7 @@ const fbStrategy = require('passport-facebook').Strategy;
 const googleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const database = require('../database');
+const database = require('../database/db_users');
 
 const User = require('../../models/User');
 

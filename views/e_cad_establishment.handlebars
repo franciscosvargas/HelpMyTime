@@ -1,0 +1,30 @@
+<div style="margin: auto;">
+    <form action="/dashboard/cad-est" method="POST" encType="multipart/form-data">
+        <input type="hidden" name="user_id" value="{{user.id}}"><br>
+        <input type="text" name="name" placeholder="Nome do estabelecimento"/><br>
+        <input type="text" name="adress" placeholder="Endereço"/><br>
+        <select name="city" hint="cidade">
+            <option value="trp">cidade1</option>
+            <option value="tpa">cidade2</option>
+            <option value="tbn">cidade3</option>
+            <option value="tub">cidade4</option>
+        </select>
+
+        <select name="state" hint="estado">
+            <option value="trp">estado1</option>
+            <option value="tpa">estado2</option>
+            <option value="tbn">estado3</option>
+            <option value="tub">estado4</option>
+        </select><br>
+
+        <input type="number" name="cpnj" placeholder="CNPJ"/><br>
+        <input type="number" name="phone" placeholder="Telefone"/><br>
+        <span>Facilidades</span><br>
+        <input type="checkbox" name="f1" value="Bike">Aceita Cartão<br>
+        <input type="checkbox" name="f2" value="Car">Ar-Condicionado<br>
+        <input type="checkbox" name="f3" value="Boat" checked>Entrada para cadeirantes<br>
+        <span>Logo do estabelecimento</span><br>
+        <input type="file" name="file" placeholder="Foto de perfil"/><br>
+        <input type="submit" name="submit" placeholder="submit"/><br>
+    </form>
+</div>

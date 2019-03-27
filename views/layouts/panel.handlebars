@@ -30,17 +30,37 @@
 				</li>
 				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 					<span class="mdc-list-item__graphic fas fa-clock" aria-hidden="true"></span>
-					<span class="mdc-list-item__text">Meus Agendamentos</span>
+					<span class="mdc-list-item__text">Agendamentos</span>
 					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 				</li>
 			</ul>
 			<h3 class="mdc-list-group__subheader">Para o seu negócio</h3>
 			<ul class="mdc-list">
-				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
-					<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
-					<span class="mdc-list-item__text">Cadastrar negócio</span>
-					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-				</li>					
+
+				{{#if user.plan}}
+					<li class="mdc-list-item mdc-list-item--selected" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-eye" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Visão Geral</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</li>
+					<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-wrench" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Serviços</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</li>
+					<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-building	" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Estabelecimento</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</li>
+					
+				{{else}}
+					<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Cadastrar negócio</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</li>
+				{{/if}}					
 			</ul>
 		</div>
 	</div>

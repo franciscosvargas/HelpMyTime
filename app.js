@@ -7,8 +7,12 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 require('./config/auth/auth')(passport);
+/* --------------------------------------------------------- */
 
-const database = require('./config/database');
+// Database 
+const connectDatabase = require('./config/database/db_config');
+const dbCategories = require('./config/database/db_categories');
+
 
 // Importing Routes
 const panelRouter = require('./routes/panel');
@@ -46,7 +50,7 @@ const accountRouter = require('./routes/account');
 		app.use(bodyParser.json());
 
 	// Start Database Connection
-		database.connect();
+		connectDatabase();
 		
 	// Public
 		app.use(express.static(path.join(__dirname, "public")));
@@ -54,18 +58,20 @@ const accountRouter = require('./routes/account');
 // Routes
 	app.use('/categorias', categoriesRouter);
 	app.use('/conta', accountRouter);
-	app.use('/painel', panelRouter);
+	app.use('/dashboard', panelRouter);
 
 	app.get('/', (req, res) => {
 		if (req.isAuthenticated()) {
-			res.redirect('/painel');
+			res.redirect('/dashboard');
 		} else {
-			database.getCategoryHomeList((categories) => {
+			dbCategories.getCategoryHomeList((categories) => {
 				res.render('home', {categories: categories});
 			});
 		}
 	});
 
+
+	
 app.listen(3001, () => {
 	console.log("Servidor iniciado na porta 3001");
 });
