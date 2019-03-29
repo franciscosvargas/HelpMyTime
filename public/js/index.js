@@ -1,5 +1,4 @@
-
-const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
+const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector(".mdc-snackbar"));
 $(".navigation-menu").flickity({
 	cellAlign: "center",
 	groupCells: true,
@@ -23,10 +22,8 @@ placeholderText = [
 	"HelpMyTime agenda pra você!"
 ];
 
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
-
+// Typewriter effect
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
 async function typewriter(array) {
 	for (var y = 0; y < array.length; y++) {
 		var placeholder = "";
@@ -43,5 +40,4 @@ async function typewriter(array) {
 	await sleep(3000);
 	typewriter(placeholderText);
 }
-
 typewriter(placeholderText);

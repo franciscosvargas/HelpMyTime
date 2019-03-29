@@ -25,11 +25,12 @@ const User = mongoose.Schema ({
 	account_type: {
 		type: String,
 		require: true,
+		default: "email"
 	},
 	plan: {
-		type: String,
+		type: Boolean,
 		require: true,
-		default: "free"
+		default: false
 
 	},
 	confirmated: {
