@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Category = require('../../models/Category');
 const CategoryRef = mongoose.model('categories', Category);
 
-const createCategory = (name, slug) => {
+function createCategory(name, slug) {
 	new CategoryRef({
 		name: name,
 		slug: slug,
@@ -10,11 +10,11 @@ const createCategory = (name, slug) => {
 	}).save().then(() => {
 		console.log("Categoria cadastrada com sucesso");
 	}).catch((erro) => {
-		console.log("Erro ssssao criar categoria: "+erro);
+		console.log("Erro ao criar categoria: "+erro);
 	});
 }
 
-const createCategoryFromFile = () => {
+function createCategoryFromFile(){
 	var lineReader = require('line-reader');
 	lineReader.eachLine('./public/database_start/categorys.txt', function(line, last) {
 		var name = line;

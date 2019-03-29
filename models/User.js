@@ -25,6 +25,7 @@ const User = mongoose.Schema ({
 	account_type: {
 		type: String,
 		require: true,
+		default: "email"
 	},
 	plan: {
 		type: Boolean,

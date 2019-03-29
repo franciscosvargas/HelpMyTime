@@ -17,3 +17,4 @@ function closeSidebar() {
 $(document).on("click", "#open-sidebar-btn", () => {openSidebar()});
 $(document).on("click", ".close-sidebar-btn", () => {closeSidebar()});
 
+/* js */

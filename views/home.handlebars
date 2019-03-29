@@ -1,23 +1,20 @@
 <header id="page-header">
-	<img src="/img/helpMyTime-logo.svg" id="login_button"  width="192" alt="helpMyTime-logo">
+	<img src="/img/helpMyTime-logo.svg" width="192" alt="helpMyTime-logo">
 	<h2 class="header-headline">Encontre e agende os melhores serviços perto de você</h2>
 	<div class="input-group">
-			<i class="input-group-icon fas fa-search"></i>
-			<input class="input-group-input" type="search" placeholder="Preciso de um coach">
-			<button id="open-login" class="mdc-icon-button">
-					<i class="material-icons">account_circle</i>
-			</button>
+		<i class="input-group-icon fas fa-search"></i>
+		<input class="input-group-input" type="search" placeholder="Preciso de um coach">
 	</div>
 </header>
 <!-- Categories bar -->
 <div class="navigation-menu">
 	{{#each categories}}
-			<a class="carousel-cell" href="categorias/{{slug}}">{{name}}</a>
+	<a class="carousel-cell" href="categorias/{{slug}}">{{name}}</a>
 	{{else}}
-			<script>
-					document.querySelectorAll(".navigation-menu").style.display = "none";
-					$(".navigation-menu").hide();
-			</script>
+	<script>
+		document.querySelectorAll(".navigation-menu").style.display = "none";
+		$(".navigation-menu").hide();
+	</script>
 	{{/each}}
 </div>
 
@@ -33,36 +30,39 @@
 	-->
 	<div id="login-panel" class="panel">
 		<div class="panel-header">
-				<button class="close-panel-btn mdc-icon-button">
-						<i class="fas fa-times"></i>
-				</button>
-				<h2 class="panel-headline">Entrar</h2>
+			<button class="close-panel-btn mdc-icon-button">
+				<i class="fas fa-times"></i>
+			</button>
+			<h2 class="panel-headline">Entrar</h2>
 		</div>
-			<div class="panel-body">
-				<p class="panel-subtitle">Faça login na sua conta para aproveitar o melhor do HelpMyTime</p>
-				<form action="/conta/login" method="POST" id="login-form">
-					<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-						<input type="text" name="email" class="mdc-text-field__input">
-						<label class="mdc-floating-label">Email</label>
-						<div class="mdc-line-ripple"></div>
-					</div>
-					<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-						<input type="password" name="password" class="mdc-text-field__input">
-						<label class="mdc-floating-label">Senha</label>
-						<div class="mdc-line-ripple"></div>
-					</div>
-				</form>
-				<div id="login-form-buttons">
-					<button id="login-btn" type="submit" form="login-form" name="submit" class="submit-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
-						<span class="mdc-button__label">Entrar</span>
-					</button>
-					<button class="create-account-btn mdc-button" data-mdc-auto-init="MDCRipple">
-						<span class="mdc-button__label">Criar uma conta</span>
-					</button>
-					<button class="reset-password-btn mdc-button" data-mdc-auto-init="MDCRipple">
-						<span class="mdc-button__label">Esqueceu sua senha?</span>
-					</button>
+		<div class="panel-body">
+			<p class="panel-subtitle">Faça login na sua conta para aproveitar o melhor do HelpMyTime</p>
+			<form action="/conta/login" method="POST" id="login-form">
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="text" name="email" class="mdc-text-field__input">
+					<label class="mdc-floating-label">Email</label>
+					<div class="mdc-line-ripple"></div>
 				</div>
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="password" name="password" class="mdc-text-field__input">
+					<label class="mdc-floating-label">Senha</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+			</form>
+			<div id="login-form-buttons">
+				<button id="login-btn" type="submit" form="login-form" name="submit"
+					class="submit-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Entrar</span>
+				</button>
+				<button class="create-account-btn mdc-button" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Criar uma conta</span>
+				</button>
+				<button class="reset-password-btn mdc-button" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Esqueceu sua senha?</span>
+				</button>
+			</div>
+			<!--
+					SOCIAL LOGIN BUTTONS
 				<div id="alternative-login-container">
 					<p id="alternative-login-label">- Ou conecte-se usando -</p>
 					<form action="/conta/login/google" style="display: inline;"method="POST">
@@ -78,7 +78,8 @@
 							</button>
 					</form>
 				</div>
-			</div>
+				-->
+		</div>
 	</div>
 	<!--
 	██████╗ ███████╗ ██████╗ ██╗███████╗████████╗███████╗██████╗
@@ -137,9 +138,11 @@
 					<div class="mdc-line-ripple"></div>
 				</div>
 				<p>
-					Ao clicar no botão abaixo, você estará concordando com os nossos Termos de Uso e Condições de Serviço
+					Ao clicar no botão abaixo, você estará concordando com os nossos Termos de Uso e Condições de
+					Serviço
 				</p>
-				<button type="submit" name="submit" class="register-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" disabled>
+				<button type="submit" name="submit" class="register-btn mdc-button mdc-button--raised"
+					data-mdc-auto-init="MDCRipple" disabled>
 					<span class="mdc-button__label">Criar conta</span>
 				</button>
 			</form>
@@ -156,18 +159,19 @@
 	<div id="reset-password-panel" class="panel">
 		<div class="panel-header">
 			<button class="back-btn mdc-icon-button">
-					<i class="fas fa-arrow-left"></i>
+				<i class="fas fa-arrow-left"></i>
 			</button>
 			<h2 class="panel-headline">Recuperar senha</h2>
 			<button class="close-panel-btn mdc-icon-button">
-					<i class="fas fa-times"></i>
+				<i class="fas fa-times"></i>
 			</button>
 		</div>
 		<div class="panel-body">
-			<p class="panel-subtitle">Informe o seu endereço de email abaixo, para que possamos enviar um email com um link para alterar sua senha</p>
+			<p class="panel-subtitle">Informe o seu endereço de email abaixo, para que possamos enviar um email com um
+				link para alterar sua senha</p>
 			<form action="/conta/redefinir-senha" method="POST" id="reset-password-form">
 				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-					<input type="email"  name="email"class="mdc-text-field__input">
+					<input type="email" name="email" class="mdc-text-field__input">
 					<label class="mdc-floating-label">Seu email</label>
 					<div class="mdc-line-ripple"></div>
 				</div>
@@ -177,11 +181,14 @@
 			</form>
 		</div>
 	</div>
-
 </div>
 
+<button class="open-login-panel open-login-panel-fab mdc-fab" aria-label="Entrar/Cadastrar" data-mdc-auto-init="MDCRipple">
+	<span class="mdc-fab__icon material-icons">account_circle</span>
+</button>
+
 {{> snackbar }}
- 
+
 {{> scripts }}
 
 {{> show_snackbar}}

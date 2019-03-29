@@ -17,55 +17,16 @@ router.post('/login', (req, res, next) => {
 	})(req, res, next)
 });
 
-router.post('/login/facebook', (req, res, next) => {
-	passport.authenticate('facebook', {
-		 scope : ['email'] 
-	})(req, res, next)
-});
-
-router.get('/login/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/' }),
-  function(req, res) {
-	// Successful authentication, redirect home.
-	res.redirect('/dashboard');
-});
-
-router.post('/login/google', (req, res, next) => {
-	passport.authenticate('google', {
-		 scope : ['email', 'profile'] 
-	})(req, res, next)
-});
-
-router.get('/login/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
-  function(req, res) {
-	// Successful authentication, redirect home.
-	res.redirect('/dashboard');
-});
-
 // Cadastro
-router.post('/cadastro', (req, res) => {
-	dbUser.userNotExists(req.body.email).then(() => {
-		dbUser.createUserFromEmail({
-			name: req.body.name,
-			email: req.body.email,
-			city: req.body.city,
-			phone: req.body.phone,
-			password: req.body.password,
-			account_type: "email"
-		}).then(() => {
-			req.flash("alert_message", "Usuário criado com sucesso!");
-			res.redirect(307, '/conta/confirm/');
-		}).catch((error) => {
-			console.log(error);
-			req.flash("alert_message", error);
-			res.redirect('/');
-		});  
-	}).catch(error => {
-		console.log(error);
-		req.flash("alert_message", error);
+router.post('/cadastro', async (req, res) => {
+	try {
+		await dbUser.createUserFromEmail(req.body);
+		req.flash("alert_message", "Usuário criado com sucesso!");
+		res.redirect(307, '/conta/confirm/');
+	} catch (err) {
+		req.flash("alert_message", err);
 		res.redirect('/');
-	});   
+	}
 });
 
 // Confirmation
@@ -81,30 +42,27 @@ router.post('/confirm', async (req, res) => {
 });
 
 router.post('/confirmation', (req, res) => {
-	dbUser.confirmationSucess(req.body.email, () => {
-	}).then(result => {
-		req.flash("alert_message", result);
-		res.redirect('/');
-	}).catch(result => {
-		req.flash("alert_message", result);
-		res.redirect('/');
-	});
+	dbUser.confirmationSucess(req.body.email)
+		.then(result => { req.flash("alert_message", result) })
+		.catch(result => { req.flash("alert_message", result) });
+	res.redirect("/");
 });
 
-router.post('/redefinir-senha',(req, res) => {
-	dbUser.forgotPassword(req.body.email).then((message) => {
+router.post('/redefinir-senha', async (req, res) => {
+	try {
+		await dbUser.forgotPassword(req.body.email)
+			.then(message => {req.flash("alert_message", message)});
 		sendEmail({
 			type: "password",
 			email: req.body.email,
 			title: "Sua redefinição de senha chegou",
 			action: req.hostname+":3001/conta/novasenha"
 		});
-		req.flash("alert_message", message);
 		res.redirect('/');
-	}).catch((err) => {
+	} catch (err) {
 		req.flash("alert_message", err);
 		res.redirect('/');
-	});
+	}
 });
 
 router.post('/novasenha', (req, res) => {

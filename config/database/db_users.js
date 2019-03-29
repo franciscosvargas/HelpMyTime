@@ -1,133 +1,84 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+
 // Model
 const User = require('../../models/User');
 const UserRef = mongoose.model('users', User);
 
-const createUserFromEmail = (data) => { 
-	return new Promise((resolve, reject) => {
-		const newUser = new UserRef(data);
-
-		encrypt(newUser.password).then((hash) => {
-			newUser.password = hash;
-			newUser.save().then(() => {
-				resolve("Usuário cadastrado com sucesso");
-			}).catch((erro) => {
-				console.log(erro);
-				reject(erro);
-			});
-		}).catch((erro) => {
-			console.log(erro);
-			reject(erro);
-		});		
-	});
+async function createUserFromEmail(data) { 
+	const newUser = new UserRef(data);
+	try {
+		await userNotExists(newUser.email);
+		newUser.password = await encrypt(newUser.password);
+ 		newUser.save();
+		return Promise.resolve(true);
+	} catch (err) {
+		return Promise.reject(err);
+	}
 }
 
-const createUserFromSocial = (name, email, city, phone, password, ac_type) => {
-	return new Promise((resolve, reject) => {
-		const newUser = new UserRef({
-			name: name,
-			email: email,
-			city: city,
-			phone: phone,
-			password: password,
-			account_type: ac_type,
-			confirmated: true
-		});
-		newUser.save().then(() => {
-			resolve("Usuário cadastrado com sucesso");
-		}).catch((erro) => {
-			console.log(erro);
-			reject(erro);
-		});
-	});
-}
-
-const userNotExists = (email) => {
-	console.log("teste");
-	return new Promise((resolve, reject) => {
-		UserRef.findOne({email: email}, function(err, user){            
-			if (!user && err == null) {
-				resolve(true);
-			} else if (err) {
-				reject(err);
-			} else {
-				reject("Usuário já cadastrado");
-			}
-		});
-	});
-}
-
-const confirmationSucess = (email) => {
+async function userNotExists(email) {
 	return new Promise((resolve, reject) => {
 		UserRef.findOne({email: email}, function(err, user) {            
-			if (user) {
-				user.confirmated = true;
-				user.save(function(error) {
-					if (error){
-						reject(error);
-					} else {
-						resolve("Conta confirmada com sucesso.")
-					} 
-				});
-			} else {
-				reject(err);
-			}
-		});
-	});
-	 
-}
-
-const forgotPassword = (email) => {
-	return new Promise ((resolve, reject) => {
-		userNotExists(email).then(() => {
-			reject("Não há nenhum usuário associado à este email.");
-		}).catch((err) => {
-			if (err =  "Usuário já cadastrado") {
-				//sendEmail();
-				resolve("Um link com a redefinição de senha foi enviada para o seu email.");
-			} else {
-				reject(err);
+			if (!user && err == null) {
+				resolve(true);
+			} else if (user) {
+				reject("Há um usuário cadastrado com esse endereço de email.");
 			}
 		});
 	});
 }
 
-const rewritePassword = async (data) => {
-	let status;
-	await encrypt(data.password).then(async (password) => {
-		await UserRef.findOneAndUpdate({email: data.email}, {$set: {password: password}}, (err, todo) => {
-			if (err){
-				status = err;
-			} else {
-				status = "A sua senha foi alterada. Faça login novamente.";
-			}
-		});
-	});
-	return status;
+async function confirmationSucess(email) {
+	try {
+		await UserRef.findOne({email: email})   ;    
+		return Promise.resolve("Não encontramos uma conta com o email informado.");
+	} catch (err) {
+		return Promise.reject("Algum problema aconteceu, tente novamente.");
+	}	
 }
 
-const encrypt = (data) => {
-	return new Promise((resolve, reject) => {
+async function forgotPassword(email) {
+	try {
+		await userNotExists(email);
+		return Promise.reject("Não encontramos nenhuma conta com o email informado.");
+	} catch (err) {
+		if(err.length == 52) {
+			return Promise.resolve("Um link com a redefinição de senha foi enviada para o seu email.");
+		}
+	}
+}
+
+async function rewritePassword(data) {
+	try {
+		await encrypt(data.password)
+			.then(password => {data.password = password});
+		await UserRef.findOneAndUpdate({email: data.email}, {$set: {password: data.password}});
+		return "A sua senha foi alterada. Faça login novamente.";
+	} catch (err) {
+		return "Aconteceu algum problema, tente novamente.";
+	}
+}
+
+async function encrypt(data){
+	return new Promise(resolve => {
 		bcrypt.genSalt(10, (error, salt) => {
 			bcrypt.hash(data, salt, (err, hash) => {
 				if (err) {
-					reject (err);
+					reject(err);
+				} else {
+					resolve(hash);
 				}
-
-				resolve(hash);
 			});
 		});
 	});
 }
-
 
 module.exports = {
     encrypt: encrypt,
     forgotPassword: forgotPassword,
     confirmationSucess: confirmationSucess,
     userNotExists: userNotExists,
-    createUserFromSocial: createUserFromSocial,
 	createUserFromEmail: createUserFromEmail,
 	rewritePassword: rewritePassword 
 }
