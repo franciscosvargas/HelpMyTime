@@ -41,8 +41,8 @@ router.post('/confirm', async (req, res) => {
 	res.redirect('/');
 });
 
-router.post('/confirmation', (req, res) => {
-	dbUser.confirmationSucess(req.body.email)
+router.post('/confirmation', async (req, res) => {
+	await dbUser.confirmationSucess(req.body.email)
 		.then(result => { req.flash("alert_message", result) })
 		.catch(result => { req.flash("alert_message", result) });
 	res.redirect("/");

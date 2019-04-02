@@ -31,8 +31,12 @@ async function userNotExists(email) {
 
 async function confirmationSucess(email) {
 	try {
-		await UserRef.findOne({email: email})   ;    
-		return Promise.resolve("Não encontramos uma conta com o email informado.");
+		await UserRef.findOne({email: email})
+				.then(user => {
+					user.confirmated = true;
+					user.save();
+				});    
+		return Promise.resolve("Conta confirmada com sucesso! Faça login para continuar.");
 	} catch (err) {
 		return Promise.reject("Algum problema aconteceu, tente novamente.");
 	}	
