@@ -13,7 +13,6 @@ require('./config/auth/auth')(passport);
 const connectDatabase = require('./config/database/db_config');
 const dbCategories = require('./config/database/db_categories');
 
-
 // Importing Routes
 const panelRouter = require('./routes/panel');
 const categoriesRouter = require('./routes/categories');
@@ -70,8 +69,10 @@ const accountRouter = require('./routes/account');
 		}
 	});
 
+	app.get('*', function(req, res){
+		res.send('SORRY, DEU ERRO, MAS VAMOS POR UMA PÁGINA AQUI', 404);
+	  });
 
-	
 app.listen(3001, () => {
 	console.log("Servidor iniciado na porta 3001");
 });

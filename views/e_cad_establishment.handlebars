@@ -1,0 +1,211 @@
+<div id="header-container">
+	<h1 class="container-headline">Cadastre o seu negócio no HelpMyTime</h1>
+	<h4 class="container-subtitle">Garanta hoje mesmo a visibilidade que sua empresa precisa!</h4>
+</div>
+<div id="content-container">
+	<form id="register-business-form" action="/dashboard/cad-est" enctype="multipart/form-data" method="post">
+		<div id="progress-counter-container">
+			<ul class="progress-bar">
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<div class="progress-counter-label"></div>
+		</div>
+		{{!-- First step (Personal information) --}}
+		<div class="register-form-step" data-step-number="1" data-step-label="Informações pessoais">
+			<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+				<input type="text" name="est-name" class="mdc-text-field__input" required>
+				<label class="mdc-floating-label">Nome do estabelecimento</label>
+				<div class="mdc-line-ripple"></div>
+			</div>
+			<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+				<input type="text" name="business_name" class="mdc-text-field__input" required>
+				<label class="mdc-floating-label">Nome ou Razão Social</label>
+				<div class="mdc-line-ripple"></div>
+			</div>
+			<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+				<input type="number" maxlength="14" name="business_id" class="mdc-text-field__input" required>
+				<label class="mdc-floating-label">CPF ou CNPJ (somente números)</label>
+				<div class="mdc-line-ripple"></div>
+			</div>
+			<div class="mdc-text-field"id="cep-div" data-mdc-auto-init="MDCTextField">
+				<input type="number" maxlength="8" name="cep" id="cep" class="mdc-text-field__input" required>
+				<label  class="mdc-floating-label">CEP</label>
+				<div class="mdc-line-ripple"></div>
+			</div>
+			<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+				<input type="text" name="address" id="address" class="mdc-text-field__input" required>
+				<label class="mdc-floating-label">Endereço</label>
+				<div class="mdc-line-ripple"></div>
+			</div>
+			<div class="mdc-text-field" id="div-uf-city" data-mdc-auto-init="MDCTextField">
+				<input type="text"  name="uf-city" id="uf-city" class="mdc-text-field__input" required>
+				<label class="mdc-floating-label">Cidade/UF</label>
+				<div class="mdc-line-ripple"></div>
+			</div>
+			
+			<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+				<input type="tel" name="phone" id="phone-number" pattern="\([0-9]{2}\)[\s][0-9]{4}-[0-9]{4,5}" class="mdc-text-field__input" required>
+				<label class="mdc-floating-label">Telefone</label>
+				<div class="mdc-line-ripple"></div>
+			</div>
+			<div class="business-features-footer">
+				<button type="button" class="form-next-step mdc-button mdc-button--raised"
+					data-mdc-auto-init="MDCRipple" disabled>
+					<span class="mdc-button__label">Continuar</span>
+				</button>
+			</div>
+		</div>
+		{{!-- Second step (Business features) --}}
+		<div class="register-form-step" data-step-number="2" data-step-label="Facilidades oferecidas">
+			<div class="business-features-panel">
+				<div class="mdc-form-field">
+					<div class="mdc-checkbox">
+						<input type="checkbox" name="feature_acessibility" value="true"
+							class="mdc-checkbox__native-control">
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+					<label for="checkbox-1">Acessível por deficientes</label>
+				</div>
+				<div class="mdc-form-field">
+					<div class="mdc-checkbox">
+						<input type="checkbox" name="feature_air_conditioner" value="true"
+							class="mdc-checkbox__native-control">
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+					<label for="checkbox-1">Ar-condicionado</label>
+				</div>
+				<div class="mdc-form-field">
+					<div class="mdc-checkbox">
+						<input type="checkbox" name="feature_wifi" value="true"
+							class="mdc-checkbox__native-control">
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+					<label for="checkbox-1">Wi-Fi</label>
+				</div>
+				<div class="mdc-form-field">
+					<div class="mdc-checkbox">
+						<input type="checkbox" name="feature_park" value="true" class="mdc-checkbox__native-control">
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+					<label for="checkbox-1">Estacionamento</label>
+				</div>
+				<h4 class="features-panel-headline">Logo do estabelecimento</h4>
+				<div class="upload-logo-wrapper">
+					<img class="upload-logo-preview" src="">
+					<button type="button" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+						<i class="fas fa-folder-open mdc-button__icon" aria-hidden="true"></i>
+						<span class="mdc-button__label">Enviar logotipo</span>
+					</button>
+					<input type="file" name="logo" accept="image/*" placeholder="Logo do estabelecimento">
+				</div>
+			</div>
+			<div class="business-features-footer">
+				<button type="button" class="form-previous-step mdc-button mdc-button--unelevated"
+					data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Retornar</span>
+				</button>
+				<button type="button" name="submit" class="form-next-step mdc-button mdc-button--raised"
+					data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Continuar</span>
+				</button>
+			</div>
+		</div>
+		{{!-- Third step (Payment method) --}}
+		<div class="register-form-step" data-step-number="3" data-step-label="Métodos de pagamento">
+			<div class="payment-method-panel">
+				<div class="payment-method-notice">
+					<p class="mdc-typography--caption">É necessário selecionar pelo menos 1 dos métodos de pagamento abaixo</p>
+				</div>
+				<div class="mdc-form-field">
+					<div class="mdc-checkbox">
+						<input type="checkbox" name="payment_method_money" value="true" class="mdc-checkbox__native-control">
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+					<label for="checkbox-1">Dinheiro</label>
+				</div>
+				<div class="mdc-form-field">
+					<div class="mdc-checkbox">
+						<input type="checkbox" name="payment_method_credit_card" value="true" class="mdc-checkbox__native-control">
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+					<label for="checkbox-1">Cartão de crédito</label>
+				</div>
+				<div class="mdc-form-field">
+					<div class="mdc-checkbox">
+						<input type="checkbox" name="payment_method_debit_card" value="true" class="mdc-checkbox__native-control">
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+					<label for="checkbox-1">Cartão de débito</label>
+				</div>
+				<div class="mdc-form-field">
+					<div class="mdc-checkbox">
+						<input type="checkbox" name="payment_method_check" value="true" class="mdc-checkbox__native-control">
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+					<label for="checkbox-1">Cheque</label>
+				</div>
+				<div class="mdc-text-field mdc-text-field--textarea" data-mdc-auto-init="MDCTextField">
+					<textarea id="textarea" name="addtional_info" class="mdc-text-field__input" rows="8"></textarea>
+					<div class="mdc-notched-outline">
+						<div class="mdc-notched-outline__leading"></div>
+						<div class="mdc-notched-outline__notch">
+							<label for="textarea" class="mdc-floating-label">Informações adicionais: </label>
+						</div>
+						<div class="mdc-notched-outline__trailing"></div>
+					</div>
+				</div>
+			</div>
+			<div class="payment-method-footer">
+				<button type="button" class="form-previous-step mdc-button mdc-button--unelevated"
+					data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Retornar</span>
+				</button>
+				<button type="submit" class="mdc-button mdc-button--unelevated" data-mdc-auto-init="MDCRipple" disabled>
+					<span class="mdc-button__label">Confirmar</span>
+				</button>
+			</div>
+		</div>
+	</form>
+</div>

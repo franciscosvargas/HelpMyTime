@@ -1,0 +1,135 @@
+/*
+This panel is the wrapper of the tabs that are inside it
+This stylesheet is unique and exclusively dedicated to immutable elements of the panel (wrapper), like the sidebar and the navbar
+*/
+* {
+	box-sizing: border-box;
+
+	:not(.fas) {
+		font-family: "Poppins";
+	}
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	background-color: #f3f6f9;
+	margin: 0;
+	font-family: "Poppins" !important;
+}
+
+a:link {
+	text-decoration: none;
+	margin: 0;
+}
+
+#sidebar-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 2;
+}
+
+#sidebar-panel {
+	position: fixed;
+	top: 0;
+	left: -306px;
+	background-color: white;
+	height: 100%;
+	max-width: 300px;
+	box-shadow: 6px 1px 10px rgba(0, 0, 0, 0.3);
+	z-index: 3;
+	overflow: hidden;
+	transition: 0.5s;
+
+	#sidebar-header {
+		padding: 16px;
+		background-image: url("/img/2.jpg"),
+			linear-gradient(
+				90deg,
+				rgba(0, 65, 139, 1) 0%,
+				rgba(58, 58, 176, 1) 62%,
+				rgba(8, 122, 158, 1) 100%
+			);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-blend-mode: overlay;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+		align-items: center;
+
+		.close-sidebar-btn {
+			display: none;
+			font-size: 16px;
+			color: white;
+		}
+	}
+
+	#sidebar-menu {
+		margin-top: 24px;
+
+		.mdc-list-item {
+			padding: 0 24px 0 18px;
+			color: #333;
+		}
+
+		.mdc-list-item__graphic {
+			margin-right: 16px;
+			color: #707070;
+		}
+
+		.mdc-list-group__subheader {
+			font-weight: bold;
+			text-transform: uppercase;
+			color: #12559a;
+		}
+
+		.fa-chevron-right {
+			padding-left: 15px;
+		}
+	}
+}
+
+#main-container {
+	transition: margin-left 500ms;
+
+	#main-navbar {
+		padding: 12px;
+		display: flex;
+		background-color: #fff;
+		box-shadow: 0 0 1.5rem rgba(120, 130, 140, 0.13);
+		transition: width 0.5s;
+
+		.navbar-left-section {
+			margin-right: auto;
+
+			#toggle-sidebar-btn {
+				transition: transform 1s ease;
+				transform-origin: center center;
+			}
+		}
+
+		.mdc-icon-button {
+			color: #707070;
+			font-size: 18px;
+		}
+	}
+}
+
+@media only screen and (max-width: 800px) {
+	#sidebar-panel {
+		position: fixed;
+	}
+	
+	#sidebar-panel #sidebar-header .close-sidebar-btn {
+		display: block;
+	}
+}

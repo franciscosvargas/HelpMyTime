@@ -99,8 +99,6 @@ function validateCPF(cpf) {
 }
 
 function validateRegisterForm() {
-	
-console.log('testando');
 	if ($(".register-form").find("input").parent().hasClass("mdc-text-field--invalid") == true || $(".register-form").find("input").val().trim() == "") {
 		console.log("Verifique se todos os campos estão devidamente preenchidos!");
 		$(".register-btn").attr("disabled", "true");
@@ -137,6 +135,10 @@ $("#register-user-tab").show();
 $(document).on("click", "#register-panel .mdc-tab", (e) => { openTab(`#${$(e.target).closest("[data-tab]").data("tab")}-tab`) });
 $(document).on("click", ".open-login-panel", (e) => { openLoginContainer() });
 $(document).on("click", ".back-btn", (e) => { goBackContainer() });
+$("#login-container").on("click", function(e) {
+	if (e.target !== this) return;
+	closeLoginContainer();
+});
 $(document).on("click", ".close-panel-btn", (e) => { closeLoginContainer() });
 $(document).on("click", ".create-account-btn", (e) => { openPanel("#register-panel") });
 $(document).on("click", ".reset-password-btn", (e) => { openPanel("#reset-password-panel") });

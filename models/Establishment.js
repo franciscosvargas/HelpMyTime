@@ -7,34 +7,90 @@ const Establishment = mongoose.Schema ({
 		require: true
 	},
 	owner: {
+		type: String, 
+		require: true
+	},
+	business_name: {
 		type: String,
 		require: true
 	},
-	adress: {
-		type: String,
-		require: true
-	},
-	juristic_id: {
+	business_id: {
 		type: Number,
-		require:true
+		require: true
 	},
+	cep: {
+		type: Number,
+		require: true
+	},
+	address: {
+		type: String,
+		require: true
+	},
+	uf_city: {
+		type: String,
+		require: true
+	}, 
 	phone: {
-		type: Number,
+		type: String,
 		require: true
-	},
-	facilites: {
-		type: Object,
+	}, 
+	uf_city: {
+		type: String,
 		require: true
+	}, 
+	feature_acessibility: {
+		type: Boolean,
+		require: true,
+		default: false
 	},
-	logo: {
+	feature_air_conditioner: {
+		type: Boolean,
+		require: true,
+		default: false
+	},
+	feature_wifi: {
+		type: Boolean,
+		require: true,
+		default: false
+	},
+	feature_park: {
+		type: Boolean,
+		require: true,
+		default: false
+	},
+	feature_acessibility: {
+		type: Boolean,
+		require: true,
+		default: false
+	},
+	payment_method_money: {
+		type: Boolean,
+		require: true,
+		default: false
+	},
+	payment_method_credit_card: {
+		type: Boolean,
+		require: true,
+		default: false
+	},
+	payment_method_debit_card: {
+		type: Boolean,
+		require: true,
+		default: false
+	},
+	payment_method_check: {
+		type: Boolean,
+		require: true,
+		default: false
+	},
+	addtional_info: {
 		type: String,
 		require: false
 	},
-	rank: {
-		type: Number,
-		require: true,
-		default: 0,
+	logo: {
+		type: Object,
+		require: false
 	}
-})
+});
 
 module.exports = Establishment;

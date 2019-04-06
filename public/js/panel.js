@@ -1,20 +1,36 @@
+sidebarOpen = false;
 function openSidebar() {
-	let sidebarWidth =  $("#sidebar-panel").width();
+	var sidebarWidth = $("#sidebar-panel").width();
+	$("#toggle-sidebar-btn").css("transform", "rotate(180deg)");
+	$("#toggle-sidebar-btn i").removeClass("fa-bars").addClass("fa-times");
 	if ($(window).width() > 800) {
-		$("#content-container").css("margin-left", sidebarWidth);
+		$("#main-container").css("margin-left", sidebarWidth);
+	} else if ($(window).width() < 800) {
+		$("#sidebar-overlay").css("display", "block");
 	}
 	$("#sidebar-panel").css("left", "0");
+	sidebarOpen = true;
 }
 
 function closeSidebar() {
-	let sidebarWidth =  $("#sidebar-panel").width();
+	var sidebarMaxWidth =  $("#sidebar-panel").css("max-width");
+	$("#toggle-sidebar-btn").css("transform", "rotate(-180deg)");
+	$("#toggle-sidebar-btn i").removeClass("fa-times").addClass("fa-bars");
 	if ($(window).width() > 800) {
-		$("#content-container").css("margin-left", "0");
+		$("#main-container").css("margin-left", "0");
+	} else if ($(window).width() < 800) {
+		$("#sidebar-overlay").css("display", "none");
 	}
-	$("#sidebar-panel").css("left", -Math.abs(sidebarWidth) - 6);
+	$("#sidebar-panel").css("left", "-306px");
+	sidebarOpen = false;
 }
 
-$(document).on("click", "#open-sidebar-btn", () => {openSidebar()});
-$(document).on("click", ".close-sidebar-btn", () => {closeSidebar()});
-
-/* js */
+$(document).on("click", "#toggle-sidebar-btn", () => {
+	if (sidebarOpen == false) {
+		openSidebar();
+	} else if (sidebarOpen == true) {
+		closeSidebar();
+	}
+});
+$(document).on("click", ".close-sidebar-btn", () => { closeSidebar() });
+$(document).on("click", "#sidebar-overlay", () => { closeSidebar() });
