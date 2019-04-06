@@ -15,7 +15,7 @@ const Establishment = mongoose.Schema ({
 		require: true
 	},
 	business_id: {
-		type: Number,
+		type: String,
 		require: true
 	},
 	cep: {
@@ -88,7 +88,7 @@ const Establishment = mongoose.Schema ({
 		require: false
 	},
 	logo: {
-		type: Object,
+		type: Buffer,
 		require: false
 	}
 });

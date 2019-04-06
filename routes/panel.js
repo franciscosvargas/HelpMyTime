@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const sharp = require('sharp');
 const fs = require('fs');
 const db_Est = require("../config/database/db_establishment");
 
@@ -35,23 +36,27 @@ router.use((req, res, next) => {
 // Routes
 router.get('/', (req, res) => {
 	console.log(req.user);
+	res.render('e_overview', {user: req.user, layout: 'panel'});
+});
+
+router.get('/cad-est', (req, res) => {
 	res.render('e_cad_establishment', {user: req.user, layout: 'panel'});
 });
 
-router.post('/cad-est', upload.single('logo'), (req, res) => {
+router.post('/cad-est', upload.single('logo'), async (req, res) => {
 	try {
 		let data = req.body;
-		let imgpath = fs.readFileSync(req.file.path);
-		let encode_image = imgpath.toString('base64');
-
-		data.logo = {
-			contentType: req.file.mimetype,
-			image:  new Buffer(encode_image, 'base64')
-		}
-
 		data.owner = req.user._id;
+		// Resize and compress logo
+		await sharp(req.file.path)
+			.rotate()
+			.resize(500)
+			.toBuffer()
+			.then(buffer => {data.logo = buffer});
 
-		db_Est.createEst(data);
+		// Save establishment on database
+		await db_Est.createEst(data);
+		fs.unlink(req.file.path);
 		res.send("Estabelecimento criado com sucesso");
 	} catch (e) {
 		res.send(e);
