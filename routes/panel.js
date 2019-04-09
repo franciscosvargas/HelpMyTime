@@ -71,7 +71,7 @@ router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res
 		// Save establishment on database
 		await db_Est.createEst(data);
 		fs.unlink(req.file.path);
-		res.send("Estabelecimento criado com sucesso");
+		res.redirect("http://pag.ae/7UMFDwyr1");
 	} catch (e) {
 		res.send(e);
 	}	

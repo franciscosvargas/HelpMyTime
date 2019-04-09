@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-
+const dbUser = require('./db_users');
 // Model
 const Est = require('../../models/Establishment');
 const EstRef = mongoose.model('establishment', Est);
@@ -23,7 +23,9 @@ async function createEst(data) {
     try {
         const newEst = new EstRef(data);
         await notExists(data.business_id);
-        newEst.save();
+        await newEst.save();
+	await dbUser.changePlan(data.owner);
+
     } catch (err) {
         console.log(err);
     }

@@ -35,7 +35,7 @@ router.post('/confirm', async (req, res) => {
 		type: "confirm",
 		email: req.body.email,
 		title: "Sua confirmação de email chegou",
-		action: req.hostname+":3001/conta/confirmation"
+		action: req.hostname+"/conta/confirmation"
 	});
 	req.flash("alert_message", "Um email de confirmação foi enviado para o seu email. Confira.");
 	res.redirect('/');
@@ -56,7 +56,7 @@ router.post('/redefinir-senha', async (req, res) => {
 			type: "password",
 			email: req.body.email,
 			title: "Sua redefinição de senha chegou",
-			action: req.hostname+":3001/conta/novasenha"
+			action: req.hostname+"/conta/novasenha"
 		});
 		res.redirect('/');
 	} catch (err) {
