@@ -8,6 +8,9 @@ html {
 body {
 	margin: 0;
 	font-family: "Poppins" !important;
+}
+
+#register-business-container {
 	background-image: url("../../img/tabs/e-cad-wpp.jpg");
 	background-color: rgba(0, 0, 0, 0.8);
 	background-blend-mode: multiply;
@@ -15,201 +18,201 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-}
 
-#header-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 32px 20px 0 20px;
-	text-align: center;
-	color: white;
-	.container-headline {
-		margin: 0;
-	}
-	.container-subtitle {
-		margin: 10px 0;
-	}
-}
-
-#content-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding: 0 20px 20px 20px;
-	#register-business-form {
+	#header-container {
 		display: flex;
 		flex-direction: column;
-		margin: auto;
-		.register-form-step {
-			display: none;
-			flex-direction: column;
-			// Next step button
-			.form-next-step, .mdc-button[type="submit"] {
-				background-image: linear-gradient(
-					-15deg,
-					rgba(2, 0, 100, 1) 0%,
-					rgba(9, 9, 121, 1) 20%,
-					rgba(0, 212, 255, 1) 100%
-				);
-				flex-grow: 1;
-				margin: 0 8px;
-				border-radius: 18px;
-				&[disabled] {
-					color: white;
-					opacity: 0.5;
-				}
-			}
-			// Previous step button
-			.form-previous-step {
-				border-radius: 18px;
-			}
-			#div-uf-city {
-				display: none;
-			}
+		align-items: center;
+		padding: 32px 20px 0 20px;
+		text-align: center;
+		color: white;
+		.container-headline {
+			margin: 0;
 		}
-		#progress-counter-container {
+		.container-subtitle {
+			margin: 10px 0;
+		}
+	}
+
+	#content-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 20px 20px 20px;
+		#register-business-form {
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			margin: 16px;
-			color: white;
-			.progress-bar {
-				width: 100%;
-				padding-left: 0;
-				margin-bottom: 0;
-				li {
-					list-style-type: none;
-					float: left;
-					width: 33.33%;
-					position: relative;
-					text-align: center;
-					color: black;
-					&:nth-child(1):before {
-						content: "\f007";
+			margin: auto;
+			.register-form-step {
+				display: none;
+				flex-direction: column;
+				// Next step button
+				.form-next-step, .mdc-button[type="submit"] {
+					background-image: linear-gradient(
+						-15deg,
+						rgba(2, 0, 100, 1) 0%,
+						rgba(9, 9, 121, 1) 20%,
+						rgba(0, 212, 255, 1) 100%
+					);
+					flex-grow: 1;
+					margin: 0 8px;
+					border-radius: 18px;
+					&[disabled] {
+						color: white;
+						opacity: 0.5;
 					}
-					&:nth-child(2):before {
-						content: "\f005";
-					}
-					&:nth-child(3):before {
-						content: "\f09d";
-					}
-					// Progress circle
-					&:before {
-						font-family: "Font Awesome 5 Free";
-						width: 30px;
-						height: 30px;
-						line-height: 30px;
-						border: 3px solid #ddd;
-						display: block;
+				}
+				// Previous step button
+				.form-previous-step {
+					border-radius: 18px;
+				}
+				#div-uf-city {
+					display: none;
+				}
+			}
+			#progress-counter-container {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin: 16px;
+				color: white;
+				.progress-bar {
+					width: 100%;
+					padding-left: 0;
+					margin-bottom: 0;
+					li {
+						list-style-type: none;
+						float: left;
+						width: 33.33%;
+						position: relative;
 						text-align: center;
-						margin: 0 auto 10px auto;
-						border-radius: 50%;
-						background-color: white;
+						color: black;
+						&:nth-child(1):before {
+							content: "\f007";
+						}
+						&:nth-child(2):before {
+							content: "\f005";
+						}
+						&:nth-child(3):before {
+							content: "\f09d";
+						}
+						// Progress circle
+						&:before {
+							font-family: "Font Awesome 5 Free";
+							width: 30px;
+							height: 30px;
+							line-height: 30px;
+							border: 3px solid #ddd;
+							display: block;
+							text-align: center;
+							margin: 0 auto 10px auto;
+							border-radius: 50%;
+							background-color: white;
+						}
+						// Progress line
+						&:after {
+							content: "";
+							position: absolute;
+							width: 100%;
+							height: 2px;
+							background-color: #ddd;
+							top: 15px;
+							left: -50%;
+							z-index: -1;
+						}
+						&:first-child:after {
+							content: none;
+						}
+						&.active {
+							color: dodgerblue;
+							&:before {
+								border-color: dodgerblue;
+							}
+							&:after {
+								background-color: dodgerblue;
+							}
+						}
 					}
-					// Progress line
-					&:after {
-						content: "";
+				}
+				.progress-counter-label {
+					text-align: center;
+					font-size: 22px;
+				}
+			}
+			.mdc-text-field,
+			.mdc-select {
+				margin: 6px;
+			}
+			// Hides the arrows on the number mdc text field
+			.mdc-text-field[type="number"] {
+				appearance: none;
+			}
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+			}
+			.business-features-panel {
+				display: flex;
+				flex-direction: column;
+				color: black;
+				background-color: white;
+				padding: 16px;
+				border-radius: 4px;
+				.features-panel-headline {
+					text-align: center;
+					margin: 16px 0 10px 0;
+				}
+				.upload-logo-wrapper {
+					text-align: center;
+					position: relative;
+					overflow: hidden;
+					.upload-logo-preview {
+						margin: 0 auto;
+						width: 192px;
+					}
+					// Upload logo button
+					.mdc-button {
+						margin: 16px;
+					}
+					input[type="file"] {
 						position: absolute;
 						width: 100%;
-						height: 2px;
-						background-color: #ddd;
-						top: 15px;
-						left: -50%;
-						z-index: -1;
-					}
-					&:first-child:after {
-						content: none;
-					}
-					&.active {
-						color: dodgerblue;
-						&:before {
-							border-color: dodgerblue;
-						}
-						&:after {
-							background-color: dodgerblue;
-						}
+						height: 100%;
+						top: 0;
+						left: 0;
+						opacity: 0;
 					}
 				}
 			}
-			.progress-counter-label {
-				text-align: center;
-				font-size: 22px;
+			.business-features-footer {
+				display: flex;
+				justify-content: space-around;
+				margin: 12px;
 			}
-		}
-		.mdc-text-field,
-		.mdc-select {
-			margin: 6px;
-		}
-		// Hides the arrows on the number mdc text field
-		.mdc-text-field[type="number"] {
-			appearance: none;
-		}
-		input::-webkit-outer-spin-button,
-		input::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-		}
-		.business-features-panel {
-			display: flex;
-			flex-direction: column;
-			color: black;
-			background-color: white;
-			padding: 16px;
-			border-radius: 4px;
-			.features-panel-headline {
-				text-align: center;
-				margin: 16px 0 10px 0;
-			}
-			.upload-logo-wrapper {
-				text-align: center;
-				position: relative;
-				overflow: hidden;
-				.upload-logo-preview {
-					margin: 0 auto;
-					width: 192px;
-				}
-				// Upload logo button
-				.mdc-button {
-					margin: 16px;
-				}
-				input[type="file"] {
-					position: absolute;
-					width: 100%;
-					height: 100%;
-					top: 0;
-					left: 0;
-					opacity: 0;
-				}
-			}
-		}
-		.business-features-footer {
-			display: flex;
-			justify-content: space-around;
-			margin: 12px;
-		}
-		.payment-method-panel {
-			display: flex;
-			flex-direction: column;
-			color: black;
-			background-color: white;
-			padding: 16px;
-			border-radius: 4px;
-			.payment-method-notice {
+			.payment-method-panel {
+				display: flex;
+				flex-direction: column;
+				color: black;
+				background-color: white;
 				padding: 16px;
-				background-color: gainsboro;
-				border-left: 6px solid darkgrey;
-				box-shadow: 0 0 6px #ddd;
-				margin-bottom: 12px;
-				p {
-					margin: 0;
+				border-radius: 4px;
+				.payment-method-notice {
+					padding: 16px;
+					background-color: gainsboro;
+					border-left: 6px solid darkgrey;
+					box-shadow: 0 0 6px #ddd;
+					margin-bottom: 12px;
+					p {
+						margin: 0;
+					}
 				}
 			}
-		}
-		.payment-method-footer {
-			display: flex;
-			justify-content: space-around;
-			margin: 12px;
+			.payment-method-footer {
+				display: flex;
+				justify-content: space-around;
+				margin: 12px;
+			}
 		}
 	}
 }

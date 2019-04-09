@@ -6,6 +6,7 @@ function openSidebar() {
 	if ($(window).width() > 800) {
 		$("#main-container").css("margin-left", sidebarWidth);
 	} else if ($(window).width() < 800) {
+		$("body").css("overflow", "hidden");
 		$("#sidebar-overlay").css("display", "block");
 	}
 	$("#sidebar-panel").css("left", "0");
@@ -20,6 +21,7 @@ function closeSidebar() {
 		$("#main-container").css("margin-left", "0");
 	} else if ($(window).width() < 800) {
 		$("#sidebar-overlay").css("display", "none");
+		$("body").css("overflow", "visible");
 	}
 	$("#sidebar-panel").css("left", "-306px");
 	sidebarOpen = false;
@@ -32,5 +34,6 @@ $(document).on("click", "#toggle-sidebar-btn", () => {
 		closeSidebar();
 	}
 });
+
 $(document).on("click", ".close-sidebar-btn", () => { closeSidebar() });
 $(document).on("click", "#sidebar-overlay", () => { closeSidebar() });

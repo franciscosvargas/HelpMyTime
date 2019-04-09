@@ -20,7 +20,8 @@
 	<div id="sidebar-overlay"></div>
 	<div id="sidebar-panel">
 		<div id="sidebar-header">
-			<img class="helpMyTime-logo" width="123.75" height="73.8" src="/img/helpMyTime-logo.png" alt="helpMyTime-logo">
+			<img class="helpMyTime-logo" width="123.75" height="73.8" src="/img/helpMyTime-logo.png"
+				alt="helpMyTime-logo">
 			<button class="close-sidebar-btn mdc-icon-button">
 				<i class="fas fa-times"></i>
 			</button>
@@ -41,12 +42,12 @@
 			</ul>
 			<h3 class="mdc-list-group__subheader">Para o seu negócio</h3>
 			<ul class="mdc-list">
-				{{#if user.plan}}
-				<li class="mdc-list-item mdc-list-item--selected" data-mdc-auto-init="MDCRipple">
+				{{!-- {{#if user.plan}} --}}
+				<a class="mdc-list-item" href="/dashboard/visao-geral" data-mdc-auto-init="MDCRipple">
 					<span class="mdc-list-item__graphic fas fa-eye" aria-hidden="true"></span>
 					<span class="mdc-list-item__text">Visão Geral</span>
 					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-				</li>
+				</a>
 				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 					<span class="mdc-list-item__graphic fas fa-wrench" aria-hidden="true"></span>
 					<span class="mdc-list-item__text">Serviços</span>
@@ -57,15 +58,18 @@
 					<span class="mdc-list-item__text">Estabelecimento</span>
 					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 				</li>
-				{{else}}
-				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
-					<a href="/dashboard/cad-est">
-						<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
-						<span class="mdc-list-item__text">Cadastrar negócio</span>
-						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-					</a>
-				</li>
-				{{/if}}
+				{{!-- {{else}} --}}
+				<a class="mdc-list-item" href="/dashboard/cadastrar-estabelecimento">
+					<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
+					<span class="mdc-list-item__text">Cadastrar negócio</span>
+					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+				</a>
+				<a class="mdc-list-item" href="/dashboard/pagamento" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-list-item__graphic fas fa-wallet" aria-hidden="true"></span>
+					<span class="mdc-list-item__text">Pagamento (Beta)</span>
+					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+				</a>
+				{{!-- {{/if}} --}}
 			</ul>
 		</div>
 	</div>
@@ -91,6 +95,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 	<script src="/js/jquery.mask.min.js"></script>
+
 	<script src="/js/panel.js"></script>
 	<script src="/js/tabs/e-cad.js"></script>
 	<script>window.mdc.autoInit()</script>
