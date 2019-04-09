@@ -64,6 +64,15 @@ async function rewritePassword(data) {
 	}
 }
 
+async function changePlan(id) {
+	try {
+		await UserRef.findOneAndUpdate({_id: id}, {$set: {plan: true}});
+		resolve(true);
+	} catch (err) {
+		reject(err);
+	}
+}
+
 async function encrypt(data){
 	return new Promise(resolve => {
 		bcrypt.genSalt(10, (error, salt) => {
@@ -83,6 +92,7 @@ module.exports = {
     forgotPassword: forgotPassword,
     confirmationSucess: confirmationSucess,
     userNotExists: userNotExists,
-	createUserFromEmail: createUserFromEmail,
-	rewritePassword: rewritePassword 
+    createUserFromEmail: createUserFromEmail,
+    rewritePassword: rewritePassword,
+    changePlan: changePlan
 }
