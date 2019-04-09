@@ -21,12 +21,11 @@ const upload = multer({storage});
 // Middleware 
 router.use((req, res, next) => {
 	try {
-		/*if (req.isAuthenticated && req.user.confirmated) {
+		if (req.isAuthenticated && req.user.confirmated) {
 			next();
 		} else if (req.isAuthenticated && !req.user.confirmated) {
 			res.redirect(307, '/conta/confirm/'+req.body.email);
-		} */
-		next();
+		} 
 	} catch (err) {
 		req.flash('alert_message', 'Faça login ou cadastre-se primeiro.');
 		res.redirect('/');
