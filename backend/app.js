@@ -41,6 +41,7 @@ const accountRouter = require('./routes/account');
 		});
 		
 	// Template Engine
+		app.set('views', path.join(__dirname, '../frontend/views'));
 		app.engine('handlebars', handlebars({defaultLayout: 'main'}));
 		app.set('view engine', 'handlebars');
 
@@ -52,7 +53,7 @@ const accountRouter = require('./routes/account');
 		connectDatabase();
 		
 	// Public
-		app.use(express.static(path.join(__dirname, "public")));
+		app.use(express.static(path.join(__dirname, "../frontend/public")));
 
 // Routes
 	app.use('/categorias', categoriesRouter);
