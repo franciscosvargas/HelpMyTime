@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const dbUser = require('./db_users');
 // Model
 const Est = require('../../models/Establishment');
-const EstRef = mongoose.model('establishment', Est);
+const User = require('../../models/User');
+const Service = require('../../models/Establishment');
+
+const EstRef = mongoose.model('establishments', Est);
+const ServiceRef = mongoose.model('establishments', Service);
+const UserRef = mongoose.model('users', User);
 
 function notExists(business_id) {
     return new Promise((resolve, reject) => {
@@ -21,17 +25,28 @@ function notExists(business_id) {
 
 async function createEst(data) {
     try {
-        const newEst = new EstRef(data);
+        console.log(data.owner);
+        const user = await UserRef.findById(data.owner);
         await notExists(data.business_id);
-        await newEst.save();
-	await dbUser.changePlan(data.owner);
-
+        const newEst = await EstRef.create(data);
+        user.establishment = newEst;
+        user.save();
     } catch (err) {
         console.log(err);
     }
 }
 
+async function createService(data) {
+    
+}
+async function getEst(id) {
+    const Est = await EstRef.findById(id);
+    return Est;
+}
+
+
 module.exports = {
     notExists: notExists,
-    createEst: createEst
+    createEst: createEst,
+    getEst: getEst
 }

@@ -90,7 +90,8 @@ const Establishment = mongoose.Schema ({
 	logo: {
 		type: Buffer,
 		require: false
-	}
+	},
+	services: []
 });
 
 module.exports = Establishment;

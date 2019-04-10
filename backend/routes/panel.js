@@ -34,30 +34,40 @@ router.use((req, res, next) => {
 
 // Routes
 router.get('/', (req, res) => {
-	console.log(req.user);
-	res.redirect('/dashboard/visao-geral')
+	res.redirect('/dashboard/visao-geral');
 });
 
 
 // Routes for establishment 
-router.get('/visao-geral', (req, res) => {
+router.get('/visao-geral', async (req, res) => {
 	try {
-		//restrict(req.user.plan);
-		res.render('e_overview', {user: req.user, layout: 'panel'});
+		restrict(req.establishment);
+		const establishment = await db_Est.getEst(req.user.establishment);
+		res.render('e_overview', {user: req.user,
+			establishment: establishment,
+			layout: 'panel'
+		});
 	} catch (err) {
 		res.send("Você n tem um plano");
 	}
 });
 
-router.get('/meus-servicos', (req, res) => {
-	res.render('cadastrar-servico', {user: req.user, layout: 'panel'});
+router.get('/meus-servicos', async (req, res) => {
+	const establishment = await db_Est.getEst(req.user.establishment);
+	res.render('cadastrar-servico', {user: req.user,
+		establishment: establishment,
+		layout: 'panel'
+	});
+});
+
+router.post('/cadastrar-servico', (req, res) => {
+	db_Est.createService(req.body, req.user.establishment);
+	res.send(req.body);
 });
 
 router.get('/cadastrar-estabelecimento', (req, res) => {
 	res.render('cadastrar-estabelecimento', {user: req.user, layout: 'panel'});
 });
-
-
 
 router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res) => {
 	try {
@@ -80,9 +90,9 @@ router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res
 });
 
 
-async function restrict(plan) {
+async function restrict(establishment) {
 	try {
-		if (plan) resolve(true);
+		if (true) resolve(true);
 	}  catch (e) {
 		reject(false);
 	}

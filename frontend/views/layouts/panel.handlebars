@@ -57,10 +57,10 @@
 			</ul>
 			<h3 class="mdc-list-group__subheader">Para o seu negócio</h3>
 			<ul class="mdc-list">
-				{{#if user.plan}}
+				{{#if user.establishment}}
 					<a class="mdc-list-item" href="/dashboard/visao-geral" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-eye" aria-hidden="true"></span>
-						<span class="mdc-list-item__text">Visão Geral</span>
+						<span class="mdc-list-item__text">{{establishment.business_id}}</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 					</a>
 					<a class="mdc-list-item" href="/dashboard/meus-servicos" data-mdc-auto-init="MDCRipple">

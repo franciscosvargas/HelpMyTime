@@ -21,22 +21,14 @@ const User = mongoose.Schema ({
 	password: {
 		type: String,
 		require: true
-	}, 
-	account_type: {
-		type: String,
-		require: true,
-		default: "email"
-	},
-	plan: {
-		type: Boolean,
-		require: true,
-		default: false
-
 	},
 	confirmated: {
 		type: Boolean,
 		require: true,
 		default: false
+	}, 
+	establishment: {
+		type: mongoose.Schema.Types.ObjectId, ref: 'establishments'
 	}
 })
 

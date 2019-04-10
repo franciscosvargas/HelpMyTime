@@ -64,14 +64,6 @@ async function rewritePassword(data) {
 	}
 }
 
-async function changePlan(id) {
-	try {
-		await UserRef.findOneAndUpdate({_id: id}, {$set: {plan: true}});
-		resolve(true);
-	} catch (err) {
-		reject(err);
-	}
-}
 
 async function encrypt(data){
 	return new Promise(resolve => {
@@ -87,12 +79,19 @@ async function encrypt(data){
 	});
 }
 
+async function getUserInfo(id){
+	console.log(id);
+	const data = await UserRef.findById(id).populate({path: 'establishment'});
+	console.log(data);
+	return 0;
+}
+
 module.exports = {
     encrypt: encrypt,
     forgotPassword: forgotPassword,
     confirmationSucess: confirmationSucess,
     userNotExists: userNotExists,
     createUserFromEmail: createUserFromEmail,
-    rewritePassword: rewritePassword,
-    changePlan: changePlan
+	rewritePassword: rewritePassword,
+	getUserInfo: getUserInfo
 }

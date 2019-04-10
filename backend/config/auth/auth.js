@@ -11,11 +11,10 @@ const RefUser = mongoose.model('users');
 module.exports = (passport) => {
 	/* AUTHENTICATION USING EMAIL AND PASSWORD */
 	passport.use(new localStrategy({ usernameField: 'email', passwordField: 'password' }, (email, password, done) => {
-		RefUser.findOne({ email: email, account_type: "email" }).then((user) => {
+		RefUser.findOne({ email: email}).then((user) => {
 			if (!user) {
 				return done(null, false, { message: "Usuário não encontrado. Cadastre-se." });
 			}
-
 			bcrypt.compare(password, user.password, (error, okay) => {
 				if (okay) {
 					return done(null, user);

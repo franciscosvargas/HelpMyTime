@@ -1,15 +1,9 @@
 <!-- Service management panel -->
 <div class="title-bar">
-	<h4 class="title-bar-headline">Seus serviços</h4>	
+	<h4 class="title-bar-headline">Serviços de {{establishment.name}}</h4>
 </div>
 <div class="manage-services-panel">
-	<div class="services-not-found">
-		<img class="not-found-icon" src="/img/search.svg">
-		<p>Nenhum serviço encontrado!</p>
-		<button class="add-service-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
-			<span class="mdc-button__label">Adicionar serviços</span>
-		</button>
-	</div>
+	{{#if establishment.services}}
 	<!-- Services table -->
 	<table class="mdc-table">
 		<thead>
@@ -58,4 +52,15 @@
 			</tr>
 		</tbody>
 	</table>
+
+	{{else}}
+	<div class="services-not-found">
+		<img class="not-found-icon" src="/img/search.svg">
+		<p>Nenhum serviço encontrado!</p>
+		<button class="add-service-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+			<span class="mdc-button__label">Adicionar serviços</span>
+		</button>
+	</div>
+
+	{{/if}}
 </div>

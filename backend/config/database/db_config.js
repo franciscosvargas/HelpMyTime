@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 // Models
 const User = require('../../models/User');
 const Category = require('../../models/Category');
+const Establishment = require('../../models/Establishment');
 
 var database_name = "htm";
 mongoose.Promise = global.Promise;
@@ -14,6 +15,7 @@ function connect() {
 		
 	mongoose.model('users', User);
 	mongoose.model('categories', Category);
+	mongoose.model('establishments', Establishment);
 }
 
 module.exports = connect;

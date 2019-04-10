@@ -8,15 +8,15 @@ $(function () {
 					<div class="mdc-dialog__surface">
 						<h2 class="mdc-dialog__title">Adicionar serviço</h2>
 						<div class="mdc-dialog__content">
-							<form id="add-service-form" action="" method="post">
+							<form id="add-service-form" action="/dashboard/cadastrar-servico" method="post">
 								<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-									<input type="text" name="service-name" class="mdc-text-field__input" required>
+									<input type="text" name="name" class="mdc-text-field__input" required>
 									<label class="mdc-floating-label">Nome do serviço</label>
 									<div class="mdc-line-ripple"></div>
 								</div>
 								<div class="mdc-select" data-mdc-auto-init="MDCSelect">
 									<i class="mdc-select__dropdown-icon"></i>
-									<select class="mdc-select__native-control" required>
+									<select class="mdc-select__native-control" name="category" required>
 										<option value="" disabled selected></option>
 										<option value="categoria1">Categoria 1</option>
 										<option value="categoria2">Categoria 2</option>
@@ -26,7 +26,7 @@ $(function () {
 									<div class="mdc-line-ripple"></div>
 								</div>
 								<div class="mdc-text-field mdc-text-field--textarea" data-mdc-auto-init="MDCTextField">
-									<textarea name="service-description" class="mdc-text-field__input" required></textarea>
+									<textarea name="description" class="mdc-text-field__input" required></textarea>
 									<div class="mdc-notched-outline">
 										<div class="mdc-notched-outline__leading"></div>
 										<div class="mdc-notched-outline__notch">
@@ -36,23 +36,23 @@ $(function () {
 									</div>
 								</div>
 								<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-									<input type="number" step="any" name="service-price" class="mdc-text-field__input" required>
+									<input type="number" step="any" name="price" class="mdc-text-field__input" required>
 									<label class="mdc-floating-label">Preço (em reais)</label>
 									<div class="mdc-line-ripple"></div>
 								</div>
 								<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-									<input type="number" step="any" name="service-price" class="mdc-text-field__input" required>
+									<input type="number" step="any" name="duration" class="mdc-text-field__input" required>
 									<label class="mdc-floating-label">Duração do atendimento</label>
 									<div class="mdc-line-ripple"></div>
 								</div>
 								<h4 class="form-section-title">Horário de atendimento</h4>
 								<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-									<input type="time" name="service-start-time" class="mdc-text-field__input" required>
+									<input type="time" name="start_time" class="mdc-text-field__input" required>
 									<label class="mdc-floating-label">Inicio do atendimento</label>
 									<div class="mdc-line-ripple"></div>
 								</div>
 								<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-									<input type="time" name="service-end-time" class="mdc-text-field__input" required>
+									<input type="time" name="end_time" class="mdc-text-field__input" required>
 									<label class="mdc-floating-label">Término do atendimento</label>
 									<div class="mdc-line-ripple"></div>
 								</div>
