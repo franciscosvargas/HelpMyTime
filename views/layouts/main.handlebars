@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +14,24 @@
 	<link rel="stylesheet" href="/css/index.css">
 	<link rel="stylesheet" href="/css/login.css">
 	<title>HelpMyTime</title>
+	<!-- Prevent FOUC (flash of unstyled content) -->
+	<style>
+		.fouc-hidden {
+			display: none
+		}
+	</style>
+	<script>
+		var html = document.querySelector("html");
+		html.classList.add("fouc-hidden");
+		window.onload = function () {
+			html.classList.remove("fouc-hidden");
+			$(".navigation-menu").flickity("resize");
+		}
+	</script>
 </head>
-<body> 
-	{{{body}}}	
+
+<body>
+	{{{body}}}
 </body>
+
 </html>

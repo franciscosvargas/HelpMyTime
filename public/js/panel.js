@@ -7,20 +7,25 @@ function openSidebar() {
 		$("#main-container").css("margin-left", sidebarWidth);
 	} else if ($(window).width() < 800) {
 		$("body").css("overflow", "hidden");
-		$("#sidebar-overlay").css("display", "block");
+		$("#sidebar-overlay").addClass("animated fadeIn faster").show().one("animationend", function() {
+			$(this).removeClass("animated fadeIn faster");
+		});
 	}
 	$("#sidebar-panel").css("left", "0");
 	sidebarOpen = true;
 }
 
 function closeSidebar() {
-	var sidebarMaxWidth =  $("#sidebar-panel").css("max-width");
+	var sidebarMaxWidth = $("#sidebar-panel").css("max-width");
 	$("#toggle-sidebar-btn").css("transform", "rotate(-180deg)");
 	$("#toggle-sidebar-btn i").removeClass("fa-times").addClass("fa-bars");
 	if ($(window).width() > 800) {
 		$("#main-container").css("margin-left", "0");
 	} else if ($(window).width() < 800) {
-		$("#sidebar-overlay").css("display", "none");
+		$("#sidebar-overlay").addClass("animated fadeOut faster").one("animationend", function() {
+			$(this).removeClass("animated fadeOut faster");
+			$(this).hide();
+		});
 		$("body").css("overflow", "visible");
 	}
 	$("#sidebar-panel").css("left", "-306px");

@@ -1,0 +1,107 @@
+:root {
+	--mdc-theme-primary: #007f99;
+}
+
+* {
+	box-sizing: border-box;
+
+	&:not(.material-icons, .fas) {
+		font-family: "Poppins" !important;
+	}
+}
+
+html,
+body {
+	animation: fadeIn 0.5s;
+	height: 100%;
+}
+
+.manage-services-panel {
+	display: flex;
+	flex-direction: column;
+	color: black;
+	padding: 20px 24px 32px 24px;
+	min-height: calc(100% - 107px);
+	align-items: center;
+
+	.services-not-found {
+		text-align: center;
+		color: grey;
+		margin: auto;
+
+		.not-found-icon {
+			width: 128px;
+		}
+
+		.add-service-btn {
+			background-image: linear-gradient(to left,
+				rgba(2, 0, 100, 1) 0%,
+				rgba(9, 9, 121, 1) 50%,
+				rgba(0, 212, 255, 1) 100%);
+		}
+	}
+
+	.panel-body {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+#add-service-form {
+
+	.mdc-text-field,
+	.mdc-select {
+		width: 100%;
+
+		.mdc-floating-label--float-above {
+			color: var(--mdc-theme-primary);
+		}
+
+		&:not(:last-child) {
+			margin-bottom: 16px;
+		}
+	}
+
+	.mdc-text-field-helper-line {
+		margin-bottom: 16px;
+	}
+
+	input::-webkit-outer-spin-button,
+	.register-form input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+	}
+
+	textarea {
+		resize: none;
+	}
+
+	.form-section-title {
+		margin: 10px 0 10px;
+	}
+}
+
+.slideInUp {
+	animation: slideInUp 0.5s;
+}
+
+.slideOutDown {
+	animation: slideOutDown 0.5s;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 100;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	#add-service-dialog .mdc-dialog-body {
+		margin-top: 56px;
+	}
+}

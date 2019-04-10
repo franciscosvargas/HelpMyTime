@@ -6,14 +6,14 @@ body {
 	margin: 0;
 }
 
-#title-bar {
+.title-bar {
 	width: 100%;
 	background: #ece8fd;
 	color: #7f63f4;
 	padding: 12px;
 }
 
-#title-bar .title-bar-headline {
+.title-bar .title-bar-headline {
 	margin: 0;
 }
 

@@ -6,6 +6,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Painel</title>
+	<!-- Prevent FOUC (flash of unstyled content) -->
+	<style>
+		.fouc-hidden {
+			display: none
+		}
+	</style>
+	<script>
+		var html = document.querySelector("html");
+		html.classList.add("fouc-hidden");
+		window.onload = function () {
+			html.classList.remove("fouc-hidden")
+		}
+	</script>
 	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
@@ -13,6 +26,8 @@
 	<link rel="stylesheet/less" href="/css/panel.less">
 	<link rel="stylesheet" href="/css/tabs/overview.css">
 	<link rel="stylesheet/less" href="/css/tabs/e-cad.less">
+	<link rel="stylesheet/less" href="/css/tabs/e-cad-service.less">
+	<link rel="stylesheet/less" href="/css/tabs/e-cad-service-table.less">
 </head>
 
 <body>
@@ -42,34 +57,29 @@
 			</ul>
 			<h3 class="mdc-list-group__subheader">Para o seu negócio</h3>
 			<ul class="mdc-list">
-				{{!-- {{#if user.plan}} --}}
-				<a class="mdc-list-item" href="/dashboard/visao-geral" data-mdc-auto-init="MDCRipple">
-					<span class="mdc-list-item__graphic fas fa-eye" aria-hidden="true"></span>
-					<span class="mdc-list-item__text">Visão Geral</span>
-					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-				</a>
-				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
-					<span class="mdc-list-item__graphic fas fa-wrench" aria-hidden="true"></span>
-					<span class="mdc-list-item__text">Serviços</span>
-					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-				</li>
-				<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
-					<span class="mdc-list-item__graphic fas fa-building	" aria-hidden="true"></span>
-					<span class="mdc-list-item__text">Estabelecimento</span>
-					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-				</li>
-				{{!-- {{else}} --}}
-				<a class="mdc-list-item" href="/dashboard/cadastrar-estabelecimento">
-					<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
-					<span class="mdc-list-item__text">Cadastrar negócio</span>
-					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-				</a>
-				<a class="mdc-list-item" href="/dashboard/pagamento" data-mdc-auto-init="MDCRipple">
-					<span class="mdc-list-item__graphic fas fa-wallet" aria-hidden="true"></span>
-					<span class="mdc-list-item__text">Pagamento (Beta)</span>
-					<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-				</a>
-				{{!-- {{/if}} --}}
+				{{#if user.plan}}
+					<a class="mdc-list-item" href="/dashboard/visao-geral" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-eye" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Visão Geral</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a class="mdc-list-item" href="/dashboard/meus-servicos" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-wrench" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Serviços</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-building	" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Estabelecimento</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</li>
+				{{else}}
+					<a class="mdc-list-item" href="/dashboard/cadastrar-estabelecimento">
+						<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Cadastrar negócio</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+				{{/if}}
 			</ul>
 		</div>
 	</div>
@@ -98,7 +108,8 @@
 
 	<script src="/js/panel.js"></script>
 	<script src="/js/tabs/e-cad.js"></script>
-	<script>window.mdc.autoInit()</script>
+	<script src="/js/tabs/e-cad-service.js"></script>
+	<script>window.mdc.autoInit(document, () => { })</script>
 </body>
 
 </html>

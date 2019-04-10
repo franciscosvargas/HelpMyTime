@@ -1,10 +1,4 @@
 const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector(".mdc-snackbar"));
-$(".navigation-menu").flickity({
-	cellAlign: "center",
-	groupCells: true,
-	contain: true,
-	pageDots: false
-});
 
 function showSnackBar(message) {
 	snackbar.labelText = message;
@@ -14,13 +8,21 @@ function showSnackBar(message) {
 
 placeholderText = [
 	"Que serviço você precisa hoje?",
-	"Dentista?", 
-	"Psicólogo?", 
-	"Manicure?", 
-	"Marceneiro?", 
-	"Fazer uma progressiva?", 
+	"Dentista?",
+	"Psicólogo?",
+	"Manicure?",
+	"Marceneiro?",
+	"Fazer uma progressiva?",
 	"HelpMyTime agenda pra você!"
 ];
+
+// Initialize category slider
+$(".navigation-menu").flickity({
+	cellAlign: "center",
+	groupCells: true,
+	contain: true,
+	pageDots: false
+});
 
 // Typewriter effect
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
@@ -40,4 +42,5 @@ async function typewriter(array) {
 	await sleep(3000);
 	typewriter(placeholderText);
 }
+
 typewriter(placeholderText);

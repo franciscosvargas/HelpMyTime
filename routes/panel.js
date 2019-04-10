@@ -25,7 +25,7 @@ router.use((req, res, next) => {
 			next();
 		} else if (req.isAuthenticated && !req.user.confirmated) {
 			res.redirect(307, '/conta/confirm/'+req.body.email);
-		} 
+		}
 	} catch (err) {
 		req.flash('alert_message', 'Faça login ou cadastre-se primeiro.');
 		res.redirect('/');
@@ -49,13 +49,15 @@ router.get('/visao-geral', (req, res) => {
 	}
 });
 
-router.post('/pagamento', (req, res) => {
-	res.send(req.body);
+router.get('/meus-servicos', (req, res) => {
+	res.render('cadastrar-servico', {user: req.user, layout: 'panel'});
 });
 
 router.get('/cadastrar-estabelecimento', (req, res) => {
 	res.render('cadastrar-estabelecimento', {user: req.user, layout: 'panel'});
 });
+
+
 
 router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res) => {
 	try {
