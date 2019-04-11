@@ -1,36 +1,42 @@
-<!-- Service management panel -->
-<div class="title-bar">
-	<h4 class="title-bar-headline">{{establishment.name}}</h4>
+<div class="dashboard-header">
+	<h1 class="dashboard-header-title animated slideInLeft">{{ establishment.name }}</h1>
 </div>
+<!-- Service management panel -->
 <div class="manage-services-panel">
 	{{#if establishment.services}}
 	<!-- Services table -->
-	<table class="mdc-table">
+	<table id="show-services" class="mdc-table">
 		<thead>
 			<th>Serviço</th>
-			<th>Descrição</th>
 			<th>Preço</th>
 			<th>Duração da sessão</th>
-			<th>Horário</th>
+			<th>Categoria</th>
+			<th>Disponibilidade</th>
+			<th>Editar</th>
 		</thead>
 		<tbody>
 			{{#each establishment.services}}
-			<tr>
+			<tr >
 				<td>
 					<span class="row-title">{{this.name}}</span>
 					<button class="toggle-table-row mdc-icon-button">
 						<i class="fas fa-angle-down"></i>
 					</button>
 				</td>
-				<td>{{this.description}}</td>
 				<td>R${{this.price}}</td>
 				<td>{{this.duration}}min</td>
-				<td>{{this.start_time}}hs - {{this.end_time}}hs</td>
+				<td>{{this.category}}</td>
+				<td class="available">Alta</td>
+				<td id="{{this._id}}">
+					<button class="mdc-icon-button">
+						<i class="fas fa-pencil-alt"></i>
+					</button>
+				</td>
 			</tr>
 			{{/each}}
 		</tbody>
 	</table>
-	<button class="add-more-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+	<button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
 		<span class="mdc-button__label">Adicionar mais serviços</span>
 	</button>
 	{{else}}

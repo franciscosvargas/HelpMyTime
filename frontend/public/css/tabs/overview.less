@@ -1,0 +1,159 @@
+// Cards
+.card-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 10px;
+
+	.card {
+		flex-grow: 1;
+		flex-basis: 0;
+		color: white;
+		display: flex;
+		padding: 18px 12px;
+		margin: 4px;
+		border-radius: 0.25rem;
+		transition: opacity 0.3s;
+
+		&:hover {
+			opacity: 0.8;
+		}
+
+		.card-icon {
+			width: 50px;
+			height: 45px;
+			margin: auto 12px auto 0;
+		}
+
+		.card-text {
+			margin: auto 0;
+		}
+
+		.card-title, .card-subtitle {
+			margin: 0;
+		}
+
+		.card-subtitle {
+			text-transform: uppercase;
+		}
+
+		&.gradient-pink {
+			background: linear-gradient(135deg, #e36cd9 0%, #fe60ae 100%);
+		}
+
+		&.gradient-orange {
+			background: linear-gradient(135deg, #f48665 0%, #fda23f 100%);
+		}
+
+		&.gradient-purple {
+			background: linear-gradient(135deg, #9a56ff 0%, #e36cd9 100%);
+		}
+
+		&.gradient-green {
+			background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+		}
+	}
+}
+
+#dashboard-panels {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	padding: 0 10px 10px 10px;
+
+	.schedule-container {
+		flex-grow: 1;
+		margin: 6px;
+		background-color: white;
+		padding: 12px;
+		overflow: hidden;
+		box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+
+		.schedule-title {
+			font-family: "Poppins";
+			font-size: 1.063em;
+			margin: 16px 24px 24px 16px;
+			font-weight: bold;
+		}
+
+		.schedule-list {
+			font-family: "Poppins";
+			margin: 32px 12px;
+		}
+
+		.schedule-list-item {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.schedule-item-time {
+			color: grey;
+		}
+
+		.schedule-card-joint {
+			margin: 0 16px;
+		}
+
+		.schedule-task-name {
+			margin-top: 0;
+		}
+
+		.schedule-task-description {
+			margin: 0;
+			color: grey;
+		}
+	}
+
+	.schedule-table-container {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		margin: 6px;
+		background-color: lavender;
+		padding: 12px;
+		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+
+		.schedule-table-header {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			margin-bottom: 24px;
+		}
+
+		.schedule-table-title {
+			margin: 16px 0 0 16px;
+			font-size: 1.063em;
+			font-weight: bold;
+		}
+
+		.schedule-time-select {
+			padding: 0 8px;
+			background-color: white;
+			outline: none;
+			font-size: 16px;
+			border-radius: 5px;
+		}
+	}
+}
+
+.availability-btn {
+	width: 100%;
+	border: none;
+	padding: 12px;
+	border-radius: 25px;
+	color: white;
+	font-size: 1.15em;
+	outline: none;
+}
+
+.green-state-btn {
+	background-color: limegreen;
+}
+
+.yellow-state-btn {
+	background-color: gold;
+}
+
+.red-state-btn {
+	background-color: red;
+}

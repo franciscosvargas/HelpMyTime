@@ -1,26 +1,18 @@
 <div class="dashboard-header">
-	<h1 class="dashboard-header-title animated slideInLeft">Yotta Desenvolvimento</h1>
+	<h1 class="dashboard-header-title animated slideInLeft">{{ establishment.name }}</h1>
 </div>
-<!-- 
-	 ██████╗ █████╗ ██████╗ ██████╗ ███████╗
-	██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝
-	██║     ███████║██████╔╝██║  ██║███████╗
-	██║     ██╔══██║██╔══██╗██║  ██║╚════██║
-	╚██████╗██║  ██║██║  ██║██████╔╝███████║
-	 ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝
--->
 <div class="card-container">
 	<div class="card gradient-orange">
 		<img src="/img/tabs/time-left.svg" class="card-icon">
 		<div class="card-text">
-			<h2 class="card-title">14</h2>
+			<h2 class="card-title">{{horary.today_open}}</h2>
 			<h5 class="card-subtitle">Agendamentos para hoje</h5>
 		</div>
 	</div>
 	<div class="card gradient-green">
 		<img src="/img/tabs/tick.svg" class="card-icon">
 		<div class="card-text">
-			<h2 class="card-title">19</h2>
+			<h2 class="card-title">{{horary.today_closed}}</h2>
 			<h5 class="card-subtitle">Atendimentos feitos hoje</h5>
 		</div>
 	</div>
@@ -28,7 +20,7 @@
 	<div class="card gradient-purple">
 		<img src="/img/tabs/weekly-calendar.svg" class="card-icon">
 		<div class="card-text">
-			<h2 class="card-title">14</h2>
+			<h2 class="card-title">{{horary.week_open}}</h2>
 			<h5 class="card-subtitle">Agendamentos para essa semana</h5>
 		</div>
 	</div>
@@ -36,78 +28,33 @@
 	<div class="card gradient-pink">
 		<img src="/img/tabs/day.svg" class="card-icon">
 		<div class="card-text">
-			<h2 class="card-title">45</h2>
+		<h2 class="card-title">{{horary.week_closed}}</h2>
 			<h5 class="card-subtitle">Atendimentos feitos essa semana</h5>
 		</div>
 	</div>
 </div>
 <div id="dashboard-panels">
-	<!--
-		███████╗ ██████╗██╗  ██╗███████╗██████╗ ██╗   ██╗██╗     ███████╗
-		██╔════╝██╔════╝██║  ██║██╔════╝██╔══██╗██║   ██║██║     ██╔════╝
-		███████╗██║     ███████║█████╗  ██║  ██║██║   ██║██║     █████╗  
-		╚════██║██║     ██╔══██║██╔══╝  ██║  ██║██║   ██║██║     ██╔══╝  
-		███████║╚██████╗██║  ██║███████╗██████╔╝╚██████╔╝███████╗███████╗
-		╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝  ╚═════╝ ╚══════╝╚══════╝
-	-->
 	<div class="schedule-container animated slideInLeft faster">
 		<div class="schedule-title">Próximos Clientes</div>
 		<div class="schedule-list">
-			<div class="schedule-list-item">
-				<div class="schedule-item-time">10:00</div>
-				<img class="schedule-card-joint" src="/img/tabs/schedule-card-joint.svg">
-				<div class="schedule-task">
-					<p class="schedule-task-name">Marcela Carvalho</p>
-					<p class="schedule-task-description">
-						Hidratação e escova progressiva
-					</p>
+			{{#each clients}}
+				<div class="schedule-list-item">
+					<div class="schedule-item-time">{{this.hour}}:{{this.min}}</div>
+					<img class="schedule-card-joint" src="/img/tabs/schedule-card-joint.svg">
+					<div class="schedule-task">
+						<p class="schedule-task-name">{{this.name}}</p>
+						<p class="schedule-task-description">{{this.service}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="schedule-list-item">
-				<div class="schedule-item-time">10:00</div>
-				<img class="schedule-card-joint" src="/img/tabs/schedule-card-joint.svg">
-				<div class="schedule-task">
-					<p class="schedule-task-name">Fernanda Rios</p>
-					<p class="schedule-task-description">
-						Maquiagem
-					</p>
-				</div>
-			</div>
-			<div class="schedule-list-item">
-				<div class="schedule-item-time">10:00</div>
-				<img class="schedule-card-joint" src="/img/tabs/schedule-card-joint.svg">
-				<div class="schedule-task">
-					<p class="schedule-task-name">Rafaella Martins</p>
-					<p class="schedule-task-description">
-						Depilação
-					</p>
-				</div>
-			</div>
-			<div class="schedule-list-item">
-				<div class="schedule-item-time">10:00</div>
-				<img class="schedule-card-joint" src="/img/tabs/schedule-card-joint.svg">
-				<div class="schedule-task">
-					<p class="schedule-task-name">Juliana Silva</p>
-					<p class="schedule-task-description">
-						Selagem e Escova progressiva
-					</p>
-				</div>
-			</div>
+			{{/each}}
+			
 		</div>
 	</div>
-	<!--
-		███████╗ ██████╗██╗  ██╗██████╗        ████████╗ █████╗ ██████╗ ██╗     ███████╗
-		██╔════╝██╔════╝██║  ██║██╔══██╗       ╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝
-		███████╗██║     ███████║██║  ██║          ██║   ███████║██████╔╝██║     █████╗  
-		╚════██║██║     ██╔══██║██║  ██║          ██║   ██╔══██║██╔══██╗██║     ██╔══╝  
-		███████║╚██████╗██║  ██║██████╔╝██╗       ██║   ██║  ██║██████╔╝███████╗███████╗
-		╚══════╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═╝       ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝
-	-->
 	<div class="schedule-table-container animated slideInRight faster">
 		<div class="schedule-table-header">
 			<p class="schedule-table-title">Serviços</p>
 			<select class="schedule-time-select">
-				<option value="">Semana</option>
+				<option value="week">Semana</option>
 			</select>
 		</div>
 		<table class="mdc-table animated slideInRight faster">
@@ -128,7 +75,7 @@
 					</td>
 					<td>{{this.start_time}} - {{this.end_time}}</td>
 					<td>{{this.price}}</td>
-					<td>Disponibilidade</td>
+					<td class="available" >Alta</td>
 				</tr>
 				{{/each}}
 			</tbody>

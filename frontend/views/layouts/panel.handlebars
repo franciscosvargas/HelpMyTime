@@ -3,6 +3,9 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="description" content="Encontre e agende os melhores serviços perto de você">
+	<meta name="keywords" content="HelpMyTime, helpmytime, hmt">
+	<meta name="author" content="Yotta">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Painel</title>
@@ -32,6 +35,18 @@
 		<button id="menu-btn" class="mdc-icon-button">
 			<i class="fas fa-bars"></i>
 		</button>
+		<button class="mdc-icon-button">
+			<i class="fas fa-briefcase"></i>
+		</button>
+		<button class="mdc-icon-button">
+			<i class="fas fa-clock"></i>
+		</button>
+		<button class="mdc-icon-button">
+			<i class="fas fa-cogs"></i>
+		</button>
+		<button onclick="window.location.replace('/conta/logout');" class="logout-btn mdc-icon-button">
+			<i class="fas fa-sign-out-alt"></i>
+		</button>
 		<button class="notification-btn mdc-icon-button">
 			<i class="fas fa-bell"></i>
 		</button>
@@ -40,7 +55,7 @@
 	{{!-- Toggleable menu --}}
 	<div id="menu-container">
 		<a href="/dashboard">
-			<img class="hmt-logo" src="https://htm.yottadev.com.br/img/helpMyTime-logo.png" alt="helpMyTime-logo">
+			<img class="hmt-logo" src="https://htm.yottadev.com.br/img/helpMyTime-logo.png" alt="HelpMyTime - Agendamento de Serviços">
 		</a>
 		<div class="menu-content">
 			<div class="menu-panel">
@@ -54,6 +69,16 @@
 					<a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-clock" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Agendamentos</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-cogs" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Configurações</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-sign-out-alt" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Sair</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 					</a>
 				</ul>
@@ -87,6 +112,7 @@
 				</ul>
 			</div>
 		</div>
+
 	</div>
 
 	<div id="page-content">{{{ body }}}</div>
@@ -102,10 +128,12 @@
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.1.1/ElementQueries.min.js"></script>
 	<script src="/js/jquery.mask.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="/js/panel.js"></script>
 	<script src="/js/tabs/e-cad.js"></script>
 	<script src="/js/tabs/e-cad-service.js"></script>
 	<script>window.mdc.autoInit(document, () => { })</script>
+	{{> show_snackbar}}
 </body>
 
 </html>

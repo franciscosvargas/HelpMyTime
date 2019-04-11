@@ -37,20 +37,24 @@ router.get('/', (req, res) => {
 	res.redirect('/dashboard/visao-geral');
 });
 
-
 // Routes for establishment
 router.get('/visao-geral', async (req, res) => {
 	try {
 		//await restrict(req.user.establishment);
 		const establishment = await db_Est.getEst(req.user.establishment);
+		const horary = await db_Est.getHoraryInfo(req.user.establishment);
+		const clients = await db_Est.getNextClients(req.user.establishment);
 		res.render('e_overview', {
 			user: req.user,
 			establishment: establishment,
+			horary: horary,
+			clients: clients,
 			layout: 'panel'
 		});
 	} catch (err) {
-		req.flash('error', 'Página somente para assinantes');
-		res.redirect('/dashboard');
+		console.log(err);
+		/* req.flash('error', 'Página somente para assinantes');
+		res.redirect('/dashboard'); */
 	}
 });
 
@@ -64,8 +68,25 @@ router.get('/meus-servicos', async (req, res) => {
 			layout: 'panel'
 		});
 	} catch (e) {
-		req.flash('error', 'Página somente para assinantes');
-		res.redirect('/dashboard');
+		console.log(e);
+		/* req.flash('error', 'Página somente para assinantes');
+		res.redirect('/dashboard'); */
+	}
+	
+});
+
+router.get('/getservico/:id', async (req, res) => {
+	const service =  await db_Est.getService(req.params.id);
+	res.send(service);
+});
+
+router.post('/atualizar-servico', async (req, res) => {
+	try {
+		await db_Est.updateService(req.body);
+		res.redirect('/dashboard/meus-servicos');
+	} catch (e) {
+		req.flash('error', 'Todo mundo falha, dessa vez fomos nós. \nNos dê uma segunda chance, tente novamente. ');
+		res.redirect('/dashboard/meus-servicos');
 	}
 	
 });
@@ -93,18 +114,17 @@ router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res
 			.rotate()
 			.resize(500)
 			.toBuffer()
-			.then(buffer => { data.logo = buffer });
+			.then(buffer => { data.logo = buffer.toString('base64') });
 
 		// Save establishment on database
 		await db_Est.createEst(data);
 		fs.unlink(req.file.path);
 		//res.redirect("http://pag.ae/7UMFDwyr1");
-		res.redirect("/dashboard/meus-servicos")
+		res.redirect("/dashboard/meus-servicos");
 	} catch (e) {
 		res.send(e);
 	}
 });
-
 
 async function restrict(establishment) {
 	try {

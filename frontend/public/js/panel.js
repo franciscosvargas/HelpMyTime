@@ -30,11 +30,13 @@ function closeMenu() {
 
 	// Animates the menu panel
 	if ($(window).width() <= 480) {
+		$("#menu-container").scrollTop(0);
 		$("#menu-container").addClass("animated slideOutDown fast").one("animationend", function () {
 			$(this).removeClass("animated slideOutDown fast");
 			$(this).hide();
 		});
 	} else if ($(window).width() > 480) {
+		$("#menu-container").scrollTop(0);
 		$("#menu-container").addClass("animated slideOutLeft fast").one("animationend", function () {
 			$(this).removeClass("animated slideOutLeft fast");
 			$(this).hide();
@@ -56,9 +58,5 @@ $(function () {
 		if ($(e.target).attr("id") == "menu-container") { 
 			closeMenu();
 		}
-	});
-	// Adjust the dashboard header title to the actual screen width
-	$(window).on("resize", function () {
-		$(".dashboard-header .dashboard-header-title").css("max-width", "100%");
 	});
 });

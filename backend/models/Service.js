@@ -5,7 +5,7 @@ const Service = mongoose.Schema ({
 		type: String,
 		require: true
 	},
-	Category: {
+	category: {
 		type: String,
 		require: true
 	},
@@ -28,7 +28,8 @@ const Service = mongoose.Schema ({
 	end_time: {
 		type: String,
 		require: true
-	}
+	},
+	horary: []
 
 })
 

@@ -1,11 +1,3 @@
-const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector(".mdc-snackbar"));
-
-function showSnackBar(message) {
-	snackbar.labelText = message;
-	snackbar.actionButtonText = "ok";
-	snackbar.open();
-}
-
 placeholderText = [
 	"Que serviço você precisa hoje?",
 	"Dentista?",

@@ -16,13 +16,10 @@
 		th {
 			padding: 6px 48px 6px 14px;
 			font-size: 0.813em;
-			color: dimgrey;
+			
 			word-wrap: break-word;
 			text-align: center;
-
-			&:first-child {
-				border-right: 1px solid #ddd;
-			}
+			color: #333;
 
 			&:last-child {
 				padding: 16px 16px 16px 18px;
@@ -32,12 +29,30 @@
 		td {
 			font-size: 0.844em;
 			font-weight: bold;
+			color: dimgrey;
+
+			&:last-child {
+				.mdc-icon-button {
+					font-size: 18px;
+				}
+
+				// Sets the availability table element color
+				&.available {
+					color: green;
+
+					&::before {
+						color: dimgrey;
+					}
+				}
+			}
 
 			.toggle-table-row {
 				font-size: 18px;
 				transition: all 0.5s ease;
 
 				&.toggled-table-row {
+					margin-left: auto;
+					margin-right: 0;
 					transform: rotate(180deg);
 				}
 			}
@@ -45,10 +60,10 @@
 	}
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 838px) {
 	.toggle-table-row {
 		display: block;
-		margin: 0 8px;
+		margin: 0 8px 0 auto;
 	}
 
 	.mdc-table {
@@ -82,6 +97,16 @@
 
 				&:not(:first-child) {
 					display: none;
+
+					&::before {
+						content: attr(data-label);
+						margin-right: auto;
+						font-weight: bold;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						max-width: 120px;
+					}
 				}
 
 				&:first-child {
@@ -90,16 +115,6 @@
 
 				&:last-child {
 					border: none;
-				}
-
-				&::before {
-					content: attr(data-label);
-					margin-right: auto;
-					font-weight: bold;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					max-width: 120px;
 				}
 			}
 		}

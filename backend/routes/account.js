@@ -17,6 +17,11 @@ router.post('/login', (req, res, next) => {
 	})(req, res, next)
 });
 
+router.get('/logout', function(req, res){
+	req.logout();
+	res.redirect('/');
+  });
+
 // Cadastro
 router.post('/cadastro', async (req, res) => {
 	try {
