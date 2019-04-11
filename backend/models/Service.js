@@ -22,11 +22,11 @@ const Service = mongoose.Schema ({
 		default: 30
 	},
 	start_time: {
-		type: Number,
+		type: String,
 		require: true
 	},
 	end_time: {
-		type: Number,
+		type: String,
 		require: true
 	}
 

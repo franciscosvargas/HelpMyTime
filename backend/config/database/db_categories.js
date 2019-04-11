@@ -34,10 +34,12 @@ function createCategoryFromFile(){
 	});
 }
 
-const getCategoryList = (callback) => {
-	CategoryRef.find().then((categories) => {
-		callback(categories);
-	})
+/* já tentei, será que n é na settings do live share */
+/* vou ver aq*/
+
+async function getCategoryList(){
+	const categories = CategoryRef.find();
+	return Promise.resolve(categories)
 }
 
 const getCategoryHomeList = (callback) => {

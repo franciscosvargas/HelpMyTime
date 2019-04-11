@@ -1,6 +1,6 @@
 <!-- Service management panel -->
 <div class="title-bar">
-	<h4 class="title-bar-headline">Serviços de {{establishment.name}}</h4>
+	<h4 class="title-bar-headline">{{establishment.name}}</h4>
 </div>
 <div class="manage-services-panel">
 	{{#if establishment.services}}
@@ -14,50 +14,30 @@
 			<th>Horário</th>
 		</thead>
 		<tbody>
+			{{#each establishment.services}}
 			<tr>
 				<td>
-					<span class="row-title">Serviço 1</span>
+					<span class="row-title">{{this.name}}</span>
 					<button class="toggle-table-row mdc-icon-button">
 						<i class="fas fa-angle-down"></i>
 					</button>
 				</td>
-				<td>Lorem ipsum dolor sit amet consectetur</td>
-				<td>R$6.00</td>
-				<td>1 hora</td>
-				<td>6:00AM - 12:00AM</td>
+				<td>{{this.description}}</td>
+				<td>R${{this.price}}</td>
+				<td>{{this.duration}}min</td>
+				<td>{{this.start_time}}hs - {{this.end_time}}hs</td>
 			</tr>
-			<tr>
-				<td>
-					<span class="row-title">Serviço 2</span>
-					<button class="toggle-table-row mdc-icon-button">
-						<i class="fas fa-angle-down"></i>
-					</button>
-				</td>
-				<td>Lorem ipsum dolor sit amet consectetur</td>
-				<td>R$9.00</td>
-				<td>2 horas</td>
-				<td>6:00AM - 12:00AM</td>
-			</tr>
-			<tr>
-				<td>
-					<span class="row-title">Serviço 3</span>
-					<button class="toggle-table-row mdc-icon-button">
-						<i class="fas fa-angle-down"></i>
-					</button>
-				</td>
-				<td>Lorem ipsum dolor sit amet consectetur</td>
-				<td>R$16.00</td>
-				<td>3 horas</td>
-				<td>24/7</td>
-			</tr>
+			{{/each}}
 		</tbody>
 	</table>
-
+	<button class="add-more-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+		<span class="mdc-button__label">Adicionar mais serviços</span>
+	</button>
 	{{else}}
 	<div class="services-not-found">
 		<img class="not-found-icon" src="/img/search.svg">
 		<p>Nenhum serviço encontrado!</p>
-		<button class="add-service-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+		<button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
 			<span class="mdc-button__label">Adicionar serviços</span>
 		</button>
 	</div>

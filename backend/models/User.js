@@ -10,6 +10,14 @@ const User = mongoose.Schema ({
 		type: String,
 		require: true
 	}, 
+	cep: {
+		type: String,
+		require: true
+	},
+	uf: {
+		type: String,
+		require: true
+	},
 	city: {
 		type: String,
 		require: true

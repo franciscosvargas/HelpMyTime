@@ -1,7 +1,12 @@
-/*
-This panel is the wrapper of the tabs that are inside it
-This stylesheet is unique and exclusively dedicated to immutable elements of the panel (wrapper), like the sidebar and the navbar
-*/
+@import "tabs/overview.css";
+@import "tabs/e-cad";
+@import "tabs/e-cad-service";
+@import "tabs/e-cad-service-table";
+
+:root {
+	--mdc-theme-secondary: #cccc00;
+}
+
 * {
 	box-sizing: border-box;
 
@@ -16,9 +21,12 @@ body {
 }
 
 body {
-	background-color: #f3f6f9;
+	display: flex;
+	background: linear-gradient(to bottom left, #e3ffe7 0%, #d9e7ff 100%);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
 	margin: 0;
-	font-family: "Poppins" !important;
 
 	&::-webkit-scrollbar {
 		width: 12px;
@@ -34,136 +42,114 @@ body {
 	&::-webkit-scrollbar-corner {
 		background-color: transparent;
 	}
-}
 
-a {
-	color: #333;
-	text-decoration: none !important;
-	margin: 0;
-}
-
-#sidebar-overlay {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 2;
-}
-
-#sidebar-panel {
-	position: fixed;
-	display: flex;
-	flex-direction: column;
-	top: 0;
-	left: -306px;
-	background-color: white;
-	height: 100%;
-	max-width: 300px;
-	box-shadow: 6px 1px 10px rgba(0, 0, 0, 0.3);
-	z-index: 3;
-	transition: 0.5s;
-
-	#sidebar-header {
-		padding: 16px;
-		background-image: url("/img/2.jpg"),
-			linear-gradient(
-				90deg,
-				rgba(0, 65, 139, 1) 0%,
-				rgba(58, 58, 176, 1) 62%,
-				rgba(8, 122, 158, 1) 100%
-			);
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-blend-mode: overlay;
+	#vertical-nav {
+		position: fixed;
+		height: 100%;
 		display: flex;
-		justify-content: space-between;
-		flex-direction: row;
-		align-items: center;
+		flex-direction: column;
+		background-color: white;
+		padding: 4px;
+		z-index: 2;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 
-		.close-sidebar-btn {
-			display: none;
-			font-size: 16px;
-			color: white;
-		}
-	}
-
-	#sidebar-menu {
-		height: 100%;
-		overflow: auto;
-
-		&::-webkit-scrollbar {
-			width: 12px;
-		}
-
-		&::-webkit-scrollbar-thumb {
-			background-clip: padding-box;
-			border: 4px solid transparent;
-			background-color: rgba(0, 0, 0, 0.3);
-			border-radius: 8px;
-		}
-
-		&::-webkit-scrollbar-corner {
-			background-color: transparent;
-		}
-
-		.mdc-list-item {
-			padding: 0 24px 0 18px;
-			color: #333;
-		}
-
-		.mdc-list-item__graphic {
-			margin-right: 16px;
+		.mdc-icon-button {
+			margin: 4px;
 			color: #707070;
-		}
-
-		.mdc-list-group__subheader {
-			font-weight: bold;
-			text-transform: uppercase;
-			color: #12559a;
-		}
-
-		.fa-chevron-right {
-			padding-left: 15px;
-		}
-	}
-}
-
-#main-container {
-	transition: margin-left 500ms;
-
-	#main-navbar {
-		padding: 12px;
-		display: flex;
-		background-color: #fff;
-		box-shadow: 0 0 1.5rem rgba(120, 130, 140, 0.13);
-		transition: width 0.5s;
-
-		.navbar-left-section {
-			margin-right: auto;
-
-			#toggle-sidebar-btn {
+			font-size: 18px;
+			
+			&#menu-btn {
 				transition: transform 1s ease;
 				transform-origin: center center;
 			}
+			
+			&.notification-btn {
+				margin-top: auto;
+			}
 		}
+	}
 
-		.mdc-icon-button {
-			color: #707070;
-			font-size: 18px;
+	#menu-container {
+		position: fixed;
+		user-select: none;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		height: 100%;
+		width: 100%;
+		margin-left: 65px;
+		display: none;
+		padding: 16px 81px 16px 16px;
+		z-index: 1;
+		background-image: linear-gradient(to bottom right, rgba(0, 65, 139, 0.7) 0%, rgba(58, 58, 176, 0.7) 62%, rgba(8, 122, 158, 0.7) 100%);
+		color: white;
+		
+		.hmt-logo {
+			width: 123.75px;
+			height: 73.8px;
+		}
+		
+		.menu-content {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin-top: 16px;
+			
+			.menu-panel {
+				width: 100%;
+				background: white;
+				color: black;
+				margin: 8px;
+				border-radius: 6px;
+				box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+				
+				.panel-title {
+					font-weight: bold;
+    				text-transform: uppercase;
+    				color: #12559a;
+				}
+			}
+		}
+	}
+
+	#page-content {
+		margin-left: 65px;
+		flex-grow: 1;
+	}
+
+	#open-menu-fab {
+		position: fixed;
+		bottom: 16px;
+		right: 16px;
+		display: none;
+		z-index: 3;
+		
+		.mdc-fab__icon {
+			transition: transform 1s;
+			transform-origin: center center;
+			
+			.fas {
+				font-size: 18px;
+			}
 		}
 	}
 }
 
-@media only screen and (max-width: 800px) {
-	#sidebar-panel {
-		position: fixed;
+@media only screen and (max-width: 480px) {
+	body #vertical-nav {
+		display: none;
+	}
+
+	body #page-content,
+	body #menu-container {
+		margin-left: 0;
 	}
 	
-	#sidebar-panel #sidebar-header .close-sidebar-btn {
-		display: block;
+	body #menu-container {
+		padding: 16px;
 	}
+	
+	body #open-menu-fab {
+		display: block;
+	} 
 }

@@ -1,7 +1,12 @@
 window.mdc.autoInit(document, () => { });
 
 $(function () {
-	$(document).on("click", ".add-service-btn", () => {
+	let categorias = [];
+	$.get("/categorias/lista-categorias", function (resultado) {
+		categorias = resultado;
+	})
+
+	$(document).on("click", ".add-service", () => {
 		$("body").append(`
 			<div id="add-service-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
 				<div class="mdc-dialog__container">
@@ -16,11 +21,8 @@ $(function () {
 								</div>
 								<div class="mdc-select" data-mdc-auto-init="MDCSelect">
 									<i class="mdc-select__dropdown-icon"></i>
-									<select class="mdc-select__native-control" name="category" required>
+									<select id="categories" class="mdc-select__native-control" name="category" required>
 										<option value="" disabled selected></option>
-										<option value="categoria1">Categoria 1</option>
-										<option value="categoria2">Categoria 2</option>
-										<option value="categoria3">Categoria 3</option>
 									</select>
 									<label class="mdc-floating-label">Categoria</label>
 									<div class="mdc-line-ripple"></div>
@@ -71,10 +73,14 @@ $(function () {
 				<div class="mdc-dialog__scrim"></div>
 			</div>
 		`);
+
 		window.mdc.autoInit(document, () => { });
 		addServiceDialog = mdc.dialog.MDCDialog.attachTo(document.querySelector("#add-service-dialog"));
 		addServiceDialog.open();
 
+		categorias.forEach(function(item){
+			$('#categories').append('<option>' + item.name + '</option>');
+		});
 		$("#add-service-dialog").on("MDCDialog:closed", function (e) {
 			$(this).remove();
 		})

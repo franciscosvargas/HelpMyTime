@@ -91,7 +91,7 @@ const Establishment = mongoose.Schema ({
 		type: Buffer,
 		require: false
 	},
-	services: []
+	services: [{type: mongoose.Schema.Types.ObjectId, ref: 'services'}]
 });
 
 module.exports = Establishment;

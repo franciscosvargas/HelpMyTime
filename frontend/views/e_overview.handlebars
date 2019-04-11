@@ -1,14 +1,14 @@
-<div class="title-bar">
-	<h4 class="title-bar-headline">{{establishment.name}}</h4>
+<div class="dashboard-header">
+	<h1 class="dashboard-header-title animated slideInLeft">Yotta Desenvolvimento</h1>
 </div>
-<!--
+<!-- 
 	 ██████╗ █████╗ ██████╗ ██████╗ ███████╗
 	██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝
 	██║     ███████║██████╔╝██║  ██║███████╗
 	██║     ██╔══██║██╔══██╗██║  ██║╚════██║
 	╚██████╗██║  ██║██║  ██║██████╔╝███████║
 	 ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝
-	-->
+-->
 <div class="card-container">
 	<div class="card gradient-orange">
 		<img src="/img/tabs/time-left.svg" class="card-icon">
@@ -49,7 +49,7 @@
 		╚════██║██║     ██╔══██║██╔══╝  ██║  ██║██║   ██║██║     ██╔══╝  
 		███████║╚██████╗██║  ██║███████╗██████╔╝╚██████╔╝███████╗███████╗
 		╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝  ╚═════╝ ╚══════╝╚══════╝
-		-->
+	-->
 	<div class="schedule-container animated slideInLeft faster">
 		<div class="schedule-title">Próximos Clientes</div>
 		<div class="schedule-list">
@@ -102,7 +102,7 @@
 		╚════██║██║     ██╔══██║██║  ██║          ██║   ██╔══██║██╔══██╗██║     ██╔══╝  
 		███████║╚██████╗██║  ██║██████╔╝██╗       ██║   ██║  ██║██████╔╝███████╗███████╗
 		╚══════╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚═╝       ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝
-		-->
+	-->
 	<div class="schedule-table-container animated slideInRight faster">
 		<div class="schedule-table-header">
 			<p class="schedule-table-title">Serviços</p>
@@ -110,46 +110,28 @@
 				<option value="">Semana</option>
 			</select>
 		</div>
-		<table class="schedule-table yarst-table">
+		<table class="mdc-table animated slideInRight faster">
 			<thead>
-				<th>Id</th>
 				<th>Serviço</th>
 				<th>Horário</th>
 				<th>Preço</th>
 				<th>Disponibilidade</th>
 			</thead>
 			<tbody>
+				{{#each establishment.services}}
 				<tr>
-					<td data-label="ID">1</td>
-					<td data-label="Serviço">Selagem</td>
-					<td data-label="Horário">09:00 - 21:00</td>
-					<td data-label="Preço">R$70 - R$300</td>
-					<td data-label="Disponibilidade">
-						<button class="availability-btn yellow-state-btn">Pouca</button>
+					<td>
+						<span class="row-title">{{this.name}}</span>
+						<button class="toggle-table-row mdc-icon-button">
+							<i class="fas fa-angle-down"></i>
+						</button>
 					</td>
+					<td>{{this.start_time}} - {{this.end_time}}</td>
+					<td>{{this.price}}</td>
+					<td>Disponibilidade</td>
 				</tr>
-				<tr>
-					<td data-label="ID">2</td>
-					<td data-label="Serviço">Manicure</td>
-					<td data-label="Horário">09:00 - 21:00</td>
-					<td data-label="Preço">R$60</td>
-					<td data-label="Disponibilidade">
-						<button class="availability-btn green-state-btn">Muita</button>
-					</td>
-				</tr>
-				<tr>
-					<td data-label="ID">3</td>
-					<td data-label="Serviço">Depilação</td>
-					<td data-label="Horário">14:00 - 21:00</td>
-					<td data-label="Preço">R$70 - R$240</td>
-					<td data-label="Disponibilidade">
-						<button class="availability-btn red-state-btn">Nenhuma</button>
-					</td>
-				</tr>
+				{{/each}}
 			</tbody>
 		</table>
 	</div>
 </div>
-</body>
-
-</html>

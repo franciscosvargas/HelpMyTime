@@ -1,10 +1,11 @@
 <script>
 	{{#if msg}}
-		showSnackBar("{{msg}}");
+		//showSnackBar("{{msg}}");
+        swal("Sucesso", "{{msg}}", "success");
 	{{/if}}
 
     {{#if error}}
-        showSnackBar("{{error}}");
+        swal("Opsss...", "{{error}}", "error");
     {{/if}}
 
 </script>

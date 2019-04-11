@@ -3,6 +3,7 @@ previousTab = "";
 actualTab = "";
 
 function openLoginContainer() {
+	$("#phone-number").mask("(00) 90000-0000");
 	$("body").css("overflow", "hidden");
 	$("#login-container").addClass("animated fadeIn faster").show().one("animationend", function() {
 		$(this).removeClass("animated fadeIn faster");
@@ -144,3 +145,18 @@ $(document).on("click", ".create-account-btn", (e) => { openPanel("#register-pan
 $(document).on("click", ".reset-password-btn", (e) => { openPanel("#reset-password-panel") });
 $(document).on("input focus blur change", () => { validateRegisterForm() });
 $(document).on("input focus blur", "#reset-password-form input", () => { validateResetPasswordForm() });
+$("#cep").blur(function() {
+	const cep = {};
+	if (cep != ""){
+		cep.digits = $(this).val().replace(/\D/g, '');
+		console.log(cep.digits);
+		$.getJSON("https://viacep.com.br/ws/"+ cep.digits +"/json/?callback=?", function(dados) {
+			if (!("erro" in dados)) {
+				$("#uf").val(dados.uf);
+				$("#city").val(dados.localidade);
+			} else {
+				$("#cep-div").addClass("mdc-text-field--invalid");
+			}
+		});
+	}
+});

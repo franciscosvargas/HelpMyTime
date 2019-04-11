@@ -9,7 +9,7 @@
 <!-- Categories bar -->
 <div class="navigation-menu">
 	{{#each categories}}
-	<a class="carousel-cell" href="categorias/{{slug}}">{{name}}</a>
+	<a class="carousel-cell" href="categorias/view/{{slug}}">{{name}}</a>
 	{{else}}
 	<script>
 		document.querySelectorAll(".navigation-menu").style.display = "none";
@@ -112,21 +112,30 @@
 					<label class="mdc-floating-label">Email</label>
 					<div class="mdc-line-ripple"></div>
 				</div>
-				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-					<input type="text" name="city" class="mdc-text-field__input" required>
-					<label class="mdc-floating-label">Cidade</label>
+				<div class="mdc-text-field" id="cep-div" data-mdc-auto-init="MDCTextField">
+					<input type="number" minlength=8 maxlength=8 name="cep" id="cep" class="mdc-text-field__input" required>
+					<label class="mdc-floating-label">CEP (somente dígitos)</label>
 					<div class="mdc-line-ripple"></div>
 				</div>
+				<input type="hidden" name="city" id="city" class="mdc-text-field__input" required>
+				<input type="hidden" name="uf" id="uf" class="mdc-text-field__input" required>
 				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-					<input type="number" max="99999999999" name="phone" class="mdc-text-field__input" required>
-					<label class="mdc-floating-label">Telefone</label>
+					<input type="phone" id="phone-number" name="phone" class="mdc-text-field__input" pattern="\([0-9]{2}\)[\s][0-9]{4,5}-[0-9]{4}" required>
+					<label class="mdc-floating-label">Celular</label>
 					<div class="mdc-line-ripple"></div>
 				</div>
-				<!--<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-					<input type="number" name="cpf" class="mdc-text-field__input" required>
-					<label class="mdc-floating-label">CPF</label>
+				{{!-- EI BROTHER --}}
+				{{!-- o que quer que seja aquele arquivo script --}}
+				{{!-- n tá funcionando --}}
+				{{!-- tem msm ctz que é necessário incluir scripts num template externo do handlebars? --}}
+				{{!-- sla, se n tiver nenhuma necessidade ou algo que venha realmente trazer algum --}}
+				{{!-- beneficio de performance ou legibilidade pro código, seria óti --}}
+				{{!-- onde cara? --}}
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="number" name="cpf"  class="mdc-text-field__input" required>
+					<label class="mdc-floating-label">CPF (somente digitos)</label>
 					<div class="mdc-line-ripple"></div>
-				</div>-->
+				</div>
 				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
 					<input type="password" minlength=8 name="password" class="mdc-text-field__input" required>
 					<label class="mdc-floating-label">Senha</label>
@@ -186,8 +195,6 @@
 <button class="open-login-panel open-login-panel-fab mdc-fab" aria-label="Entrar/Cadastrar" data-mdc-auto-init="MDCRipple">
 	<span class="mdc-fab__icon material-icons">account_circle</span>
 </button>
-
-{{> snackbar }}
 
 {{> scripts }}
 

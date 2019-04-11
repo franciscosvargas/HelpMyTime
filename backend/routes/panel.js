@@ -15,8 +15,7 @@ const storage = multer.diskStorage({
 		cb(null, `${file.fieldname}-${Date.now()}.${path.extname(file.originalname)}`);
 	}
 });
-const upload = multer({storage});
-
+const upload = multer({ storage });
 
 // Middleware 
 router.use((req, res, next) => {
@@ -24,10 +23,11 @@ router.use((req, res, next) => {
 		if (req.isAuthenticated && req.user.confirmated) {
 			next();
 		} else if (req.isAuthenticated && !req.user.confirmated) {
-			res.redirect(307, '/conta/confirm/'+req.body.email);
+			res.redirect(307, '/conta/confirm/' + req.body.email);
 		}
+
 	} catch (err) {
-		req.flash('alert_message', 'Faça login ou cadastre-se primeiro.');
+		req.flash('error', 'Faça login ou cadastre-se primeiro.');
 		res.redirect('/');
 	}
 });
@@ -38,35 +38,50 @@ router.get('/', (req, res) => {
 });
 
 
-// Routes for establishment 
+// Routes for establishment
 router.get('/visao-geral', async (req, res) => {
 	try {
-		restrict(req.establishment);
+		//await restrict(req.user.establishment);
 		const establishment = await db_Est.getEst(req.user.establishment);
-		res.render('e_overview', {user: req.user,
+		res.render('e_overview', {
+			user: req.user,
 			establishment: establishment,
 			layout: 'panel'
 		});
 	} catch (err) {
-		res.send("Você n tem um plano");
+		req.flash('error', 'Página somente para assinantes');
+		res.redirect('/dashboard');
 	}
 });
 
 router.get('/meus-servicos', async (req, res) => {
-	const establishment = await db_Est.getEst(req.user.establishment);
-	res.render('cadastrar-servico', {user: req.user,
-		establishment: establishment,
-		layout: 'panel'
-	});
+	try {
+		await restrict(req.user.establishment);
+		const establishment = await db_Est.getEst(req.user.establishment);
+		res.render('cadastrar-servico', {
+			user: req.user,
+			establishment: establishment,
+			layout: 'panel'
+		});
+	} catch (e) {
+		req.flash('error', 'Página somente para assinantes');
+		res.redirect('/dashboard');
+	}
+	
 });
 
 router.post('/cadastrar-servico', (req, res) => {
-	db_Est.createService(req.body, req.user.establishment);
-	res.send(req.body);
+	try {
+		db_Est.createService(req.body, req.user.establishment);
+		res.redirect('/dashboard/meus-servicos');
+	} catch (e) {
+		res.send(err);
+	}
+
 });
 
 router.get('/cadastrar-estabelecimento', (req, res) => {
-	res.render('cadastrar-estabelecimento', {user: req.user, layout: 'panel'});
+	res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
 });
 
 router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res) => {
@@ -78,23 +93,28 @@ router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res
 			.rotate()
 			.resize(500)
 			.toBuffer()
-			.then(buffer => {data.logo = buffer});
+			.then(buffer => { data.logo = buffer });
 
 		// Save establishment on database
 		await db_Est.createEst(data);
 		fs.unlink(req.file.path);
-		res.redirect("http://pag.ae/7UMFDwyr1");
+		//res.redirect("http://pag.ae/7UMFDwyr1");
+		res.redirect("/dashboard/meus-servicos")
 	} catch (e) {
 		res.send(e);
-	}	
+	}
 });
 
 
 async function restrict(establishment) {
 	try {
-		if (true) resolve(true);
-	}  catch (e) {
-		reject(false);
+		if (establishment) {
+			return Promise.resolve(true);
+		} else {
+			return Promise.reject(false);
+		}
+	} catch (e) {
+		return Promise.reject();
 	}
 }
 

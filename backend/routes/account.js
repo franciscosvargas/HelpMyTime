@@ -79,4 +79,6 @@ router.post('/novasenha/send', (req, res) => {
 	});
 });
 
+
+
 module.exports = router;

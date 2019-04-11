@@ -1,44 +1,64 @@
-sidebarOpen = false;
-function openSidebar() {
-	var sidebarWidth = $("#sidebar-panel").width();
-	$("#toggle-sidebar-btn").css("transform", "rotate(180deg)");
-	$("#toggle-sidebar-btn i").removeClass("fa-bars").addClass("fa-times");
-	if ($(window).width() > 800) {
-		$("#main-container").css("margin-left", sidebarWidth);
-	} else if ($(window).width() < 800) {
-		$("body").css("overflow", "hidden");
-		$("#sidebar-overlay").addClass("animated fadeIn faster").show().one("animationend", function() {
-			$(this).removeClass("animated fadeIn faster");
+function openMenu() {
+	// Disables body overflow
+	$("body").css("overflow", "hidden");
+
+	// Animates both the fab button and the menu button
+	$("#menu-btn ,#open-menu-fab .mdc-fab__icon").css("transform", "rotate(180deg)");
+	// Switch the classes of both the fab button and the menu button
+	$("#menu-btn i, #open-menu-fab i").removeClass("fa-bars").addClass("fa-times");
+
+	// Animates the menu panel
+	if ($(window).width() <= 480) {
+		$("#menu-container").addClass("animated slideInUp fast").css("display", "flex").one("animationend", function () {
+			$(this).removeClass("animated slideInUp fast");
+		});
+	} else if ($(window).width() > 480) {
+		$("#menu-container").addClass("animated slideInLeft fast").css("display", "flex").one("animationend", function () {
+			$(this).removeClass("animated slideInLeft fast");
 		});
 	}
-	$("#sidebar-panel").css("left", "0");
-	sidebarOpen = true;
 }
 
-function closeSidebar() {
-	var sidebarMaxWidth = $("#sidebar-panel").css("max-width");
-	$("#toggle-sidebar-btn").css("transform", "rotate(-180deg)");
-	$("#toggle-sidebar-btn i").removeClass("fa-times").addClass("fa-bars");
-	if ($(window).width() > 800) {
-		$("#main-container").css("margin-left", "0");
-	} else if ($(window).width() < 800) {
-		$("#sidebar-overlay").addClass("animated fadeOut faster").one("animationend", function() {
-			$(this).removeClass("animated fadeOut faster");
+function closeMenu() {
+	// Enables body overflow
+	$("body").css("overflow", "visible");
+
+	// Animates both the fab button and the menu button
+	$("#menu-btn, #open-menu-fab .mdc-fab__icon").css("transform", "rotate(-180deg)");
+	// Switch the classes of both the fab button and the menu button
+	$("#menu-btn i, #open-menu-fab i").removeClass("fa-times").addClass("fa-bars");
+
+	// Animates the menu panel
+	if ($(window).width() <= 480) {
+		$("#menu-container").addClass("animated slideOutDown fast").one("animationend", function () {
+			$(this).removeClass("animated slideOutDown fast");
 			$(this).hide();
 		});
-		$("body").css("overflow", "visible");
+	} else if ($(window).width() > 480) {
+		$("#menu-container").addClass("animated slideOutLeft fast").one("animationend", function () {
+			$(this).removeClass("animated slideOutLeft fast");
+			$(this).hide();
+		});
 	}
-	$("#sidebar-panel").css("left", "-306px");
-	sidebarOpen = false;
 }
 
-$(document).on("click", "#toggle-sidebar-btn", () => {
-	if (sidebarOpen == false) {
-		openSidebar();
-	} else if (sidebarOpen == true) {
-		closeSidebar();
+function toggleMenu() {
+	if ($("#menu-container").css("display") == "none") {
+		openMenu();
+	} else if ($("#menu-container").css("display") == "flex") {
+		closeMenu();
 	}
+}
+$(function () {
+	$(document).on("click", "#menu-btn", () => { toggleMenu() });
+	$(document).on("click", "#open-menu-fab", () => { toggleMenu() });
+	$(document).on("click", "#menu-container", function (e) {
+		if ($(e.target).attr("id") == "menu-container") { 
+			closeMenu();
+		}
+	});
+	// Adjust the dashboard header title to the actual screen width
+	$(window).on("resize", function () {
+		$(".dashboard-header .dashboard-header-title").css("max-width", "100%");
+	});
 });
-
-$(document).on("click", ".close-sidebar-btn", () => { closeSidebar() });
-$(document).on("click", "#sidebar-overlay", () => { closeSidebar() });
