@@ -42,8 +42,20 @@ router.get('/visao-geral', async (req, res) => {
 	try {
 		//await restrict(req.user.establishment);
 		const establishment = await db_Est.getEst(req.user.establishment);
-		const horary = await db_Est.getHoraryInfo(req.user.establishment);
-		const clients = await db_Est.getNextClients(req.user.establishment);
+		let horary = {};
+		let clients = {};
+
+		if (establishment.services){
+			horary = await db_Est.getHoraryInfo(req.user.establishment);
+			clients = await db_Est.getNextClients(req.user.establishment);
+			available = await db_Est.setAvailabilityOfTheServices(req.user.establishment);
+			
+			for (let i = 0; i < establishment.services.length; i++){
+				establishment.services[i].text = available[i].text;
+				establishment.services[i].class = available[i].class;
+			}
+		}
+
 		res.render('e_overview', {
 			user: req.user,
 			establishment: establishment,
@@ -53,8 +65,9 @@ router.get('/visao-geral', async (req, res) => {
 		});
 	} catch (err) {
 		console.log(err);
-		/* req.flash('error', 'Página somente para assinantes');
-		res.redirect('/dashboard'); */
+		req.flash('error', 'Página somente para assinantes');
+		res.redirect('/logout');
+
 	}
 });
 
@@ -72,11 +85,25 @@ router.get('/meus-servicos', async (req, res) => {
 		/* req.flash('error', 'Página somente para assinantes');
 		res.redirect('/dashboard'); */
 	}
-	
+
+});
+
+router.get('/meus-horarios', async (req, res) => {
+	try {
+		res.render('horarios', {
+			user: req.user,
+			layout: 'panel'
+		});
+	} catch (e) {
+		console.log(e);
+		/* req.flash('error', 'Página somente para assinantes');
+		res.redirect('/dashboard'); */
+	}
+
 });
 
 router.get('/getservico/:id', async (req, res) => {
-	const service =  await db_Est.getService(req.params.id);
+	const service = await db_Est.getService(req.params.id);
 	res.send(service);
 });
 
@@ -88,7 +115,7 @@ router.post('/atualizar-servico', async (req, res) => {
 		req.flash('error', 'Todo mundo falha, dessa vez fomos nós. \nNos dê uma segunda chance, tente novamente. ');
 		res.redirect('/dashboard/meus-servicos');
 	}
-	
+
 });
 
 router.post('/cadastrar-servico', (req, res) => {

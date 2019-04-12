@@ -37,13 +37,33 @@
 				}
 
 				// Sets the availability table element color
-				&.available {
+				&.high {
 					color: green;
 
 					&::before {
 						color: dimgrey;
 					}
 				}
+
+				&.medium {
+					color: orange;
+
+					&::before {
+						color: dimgrey;
+					}
+				}
+
+				&.low {
+					color: red;
+
+					&::before {
+						color: dimgrey;
+					}
+				}
+
+				
+
+
 			}
 
 			.toggle-table-row {
@@ -51,8 +71,6 @@
 				transition: all 0.5s ease;
 
 				&.toggled-table-row {
-					margin-left: auto;
-					margin-right: 0;
 					transform: rotate(180deg);
 				}
 			}
@@ -60,7 +78,7 @@
 	}
 }
 
-@media screen and (min-width: 838px) {
+@media screen and (min-width: 838px) and (max-width: 704px) {
 	.toggle-table-row {
 		display: block;
 		margin: 0 8px 0 auto;

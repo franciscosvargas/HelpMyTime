@@ -3,8 +3,9 @@
 
 <head>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="/img/favicon.ico" />
 	<meta name="description" content="Encontre e agende os melhores serviços perto de você">
-	<meta name="keywords" content="HelpMyTime, helpmytime, hmt">
+	<meta name="keywords" content="HelpMyTime, helpmytime, hmt, Agendar Serviços">
 	<meta name="author" content="Yotta">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -76,11 +77,11 @@
 						<span class="mdc-list-item__text">Configurações</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 					</a>
-					<a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					{{!-- <a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-sign-out-alt" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Sair</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-					</a>
+					</a> --}}
 				</ul>
 			</div>
 			<div class="menu-panel">
@@ -90,6 +91,11 @@
 					<a class="mdc-list-item" href="/dashboard/visao-geral" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-eye" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Visão Geral</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a class="mdc-list-item" href="/dashboard/meus-horarios" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-clock" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Horários</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 					</a>
 					<a class="mdc-list-item" href="/dashboard/meus-servicos" data-mdc-auto-init="MDCRipple">
@@ -126,14 +132,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.1.1/ElementQueries.min.js"></script>
-	<script src="/js/jquery.mask.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/eqcss/1.9.1/EQCSS.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="/js/panel.js"></script>
 	<script src="/js/tabs/e-cad.js"></script>
 	<script src="/js/tabs/e-cad-service.js"></script>
 	<script>window.mdc.autoInit(document, () => { })</script>
-	{{> show_snackbar}}
 </body>
 
 </html>

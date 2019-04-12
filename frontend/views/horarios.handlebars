@@ -1,0 +1,38 @@
+<table id="show-services" class="mdc-table">
+	<thead>
+		<th>Horário</th>
+		<th>Cliente</th>
+		<th>Duração da sessão</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<span class="row-title">10:00</span>
+				<button class="toggle-table-row mdc-icon-button">
+					<i class="fas fa-angle-down"></i>
+				</button>
+			</td>
+			<td>José da Silva</td>
+			<td>60min</td>
+			<td>{{this.category}}</td>
+			<td class="available">Alta</td>
+			<td id="{{this._id}}">
+				<button class="mdc-icon-button">
+					<i class="fas fa-pencil-alt"></i>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+{{!-- <button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+	<span class="mdc-button__label">Adicionar mais serviços</span>
+</button>
+<div class="services-not-found">
+	<img class="not-found-icon" src="/img/search.svg">
+	<p>Nenhum serviço encontrado!</p>
+	<button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+		<span class="mdc-button__label">Adicionar serviços</span>
+	</button>
+</div> --}}

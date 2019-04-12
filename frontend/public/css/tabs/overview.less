@@ -55,12 +55,15 @@
 	}
 }
 
+
+// Page content
 #dashboard-panels {
 	display: flex;
 	align-items: flex-start;
 	flex-wrap: wrap;
 	padding: 0 10px 10px 10px;
 
+	// Schedule container
 	.schedule-container {
 		flex-grow: 1;
 		margin: 6px;
@@ -79,31 +82,35 @@
 		.schedule-list {
 			font-family: "Poppins";
 			margin: 32px 12px;
-		}
 
-		.schedule-list-item {
-			display: flex;
-			flex-direction: row;
-		}
+			.schedule-list-item {
+				display: flex;
+				flex-direction: row;
 
-		.schedule-item-time {
-			color: grey;
-		}
+				.schedule-item-time {
+					color: grey;
+					flex-basis: 45px;
+				}
 
-		.schedule-card-joint {
-			margin: 0 16px;
-		}
+				.schedule-card-joint {
+					margin: 0 16px;
+				}
 
-		.schedule-task-name {
-			margin-top: 0;
-		}
+				.schedule-task {
+					.schedule-task-name {
+						margin-top: 0;
+					}
 
-		.schedule-task-description {
-			margin: 0;
-			color: grey;
+					.schedule-task-description {
+						margin: 0;
+						color: grey;
+					}
+				}
+			}
 		}
 	}
 
+	// Schedule table container
 	.schedule-table-container {
 		display: flex;
 		flex-direction: column;
@@ -134,26 +141,4 @@
 			border-radius: 5px;
 		}
 	}
-}
-
-.availability-btn {
-	width: 100%;
-	border: none;
-	padding: 12px;
-	border-radius: 25px;
-	color: white;
-	font-size: 1.15em;
-	outline: none;
-}
-
-.green-state-btn {
-	background-color: limegreen;
-}
-
-.yellow-state-btn {
-	background-color: gold;
-}
-
-.red-state-btn {
-	background-color: red;
 }
