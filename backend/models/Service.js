@@ -29,7 +29,7 @@ const Service = mongoose.Schema ({
 		type: String,
 		require: true
 	},
-	horary: []
+	horary: [{type: mongoose.Schema.Types.ObjectId, ref: 'schedules'}]
 
 })
 

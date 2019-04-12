@@ -51,6 +51,7 @@ function toggleMenu() {
 		closeMenu();
 	}
 }
+
 $(function () {
 	$(document).on("click", "#menu-btn", () => { toggleMenu() });
 	$(document).on("click", "#open-menu-fab", () => { toggleMenu() });

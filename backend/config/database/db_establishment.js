@@ -5,10 +5,12 @@ const hmh = require('hmh');
 const Est = require('../../models/Establishment');
 const User = require('../../models/User');
 const Service = require('../../models/Service');
+const Schedule = require('../../models/Schedule');
 
 const EstRef = mongoose.model('establishments', Est);
 const ServiceRef = mongoose.model('services', Service);
 const UserRef = mongoose.model('users', User);
+const ScheduleRef = mongoose.model('schedules', Schedule);
 
 function notExists(business_id) {
 	return new Promise((resolve, reject) => {
@@ -38,14 +40,13 @@ async function createEst(data) {
 	}
 }
 
+
 async function getEst(id) {
 	try {
-		const Est = await EstRef.findById(id).populate({
-			path: 'services'
-		});
+		const Est = await EstRef.findById(id).populate('services');
 		return Est;
 	} catch (e) {
-		return false;
+		return (error)
 	}
 
 }
@@ -61,7 +62,11 @@ async function createService(data, id) {
 }
 
 async function getService(id) {
-	const Service = await ServiceRef.findById(id);
+
+	const Service = await ServiceRef.findById(id).populate({
+		path: 'horary'
+	});
+
 	return Service;
 }
 
@@ -77,8 +82,41 @@ async function updateService(data) {
 }
 
 // Statistics functions
+async function getStatistics(id) {
+	try {
+		const back = {
+			establishment: [],
+			horary: [],
+			nextClients: []
+		}
+		const Est = await getEst(id);
 
-async function getHoraryInfo(id) {
+		for (let i = 0; i < Est.services.length; i++) {
+			const service = await getService(Est.services[i]._id);
+			Est.services[i].horary = service.horary;
+		}
+
+		if (Est.services) {
+			const availability = getAvailabilityOfTheServices(Est.services);
+			back.horary = getHoraryInfo(Est.services);
+			back.nextClients = getNextClients(Est.services);
+
+			for (let i = 0; i < Est.services.length; i++) {
+				Est.services[i].text = availability[i].text;
+				Est.services[i].class = availability[i].class;
+			}
+		}
+
+		back.establishment = Est;
+		return Promise.resolve(back);
+
+	} catch (error) {
+		console.log("Error: " + error);
+
+	}
+}
+
+function getHoraryInfo(services) {
 	try {
 		const data = {
 			today_open: 0,
@@ -86,60 +124,58 @@ async function getHoraryInfo(id) {
 			week_open: 0,
 			week_closed: 0
 		}
-		// Get Establishment Reference
-		const est = await EstRef.findById(id);
+
 		const date = new Date();
 
 		//Get array of services
-		for (let i = 0; i < est.services.length; i++) {
+		for (let i = 0; i < services.length; i++) {
 			//Get one service to extract data
-			const service = await ServiceRef.findById(est.services[i]._id);
-
-			//Get array of schedules
+			const service = services[i];
+			//Get array of schedules	
 			for (let i = 0; i < service.horary.length; i++) {
 				//Extract and verify data from especific horary
-				if (service.horary[i].haveclient && service.horary[i].day == date.getDay())
+
+				if (service.horary[i].haveClient && service.horary[i].day == date.getDay() && !service.horary[i].finished)
 					data.today_open++;
 				if (service.horary[i].finished && service.horary[i].day == date.getDay())
 					data.today_closed++;
-				if (service.horary[i].haveclient && service.horary[i].day > date.getDay())
+				if (service.horary[i].haveClient && service.horary[i].day > date.getDay() && !service.horary[i].finished)
 					data.week_open++;
 				if (service.horary[i].finished && service.horary[i].day < date.getDay())
 					data.week_closed++;
 			}
 		}
 
+		console.log(data);
 		data.week_open = data.week_open + data.today_open;
 		data.week_closed = data.week_closed + data.today_closed;
-		return Promise.resolve(data);
+		return data;
 	} catch (error) {
 		return Promise.reject(error);
 	}
 }
 
-async function getNextClients(id) {
-	let clients = [];
-
+function getNextClients(services) {
+		let clients = [];
 	try {
 		//Get especific establishment
-		const est = await EstRef.findById(id);
 		const date = new Date();
 
 		//Get and scroll a array of services from especfic establishment
-		for (let i = 0; i < est.services.length; i++) {
+		for (let i = 0; i < services.length; i++) {
 			//Get especific service to extract data
-			const service = await ServiceRef.findById(est.services[i]._id);
+			const service = services[i];
 			//Get and scroll a array from schedules
 			for (let i = 0; i < service.horary.length; i++) {
 				let client = {};
 				//Verify if there is a customer for today and your care did not happen
-				if (service.horary[i].haveclient && service.horary[i].day == date.getDay() && !service.finished) {
+				if (service.horary[i].haveClient && service.horary[i].day == date.getDay() && !service.horary[i].finished) {
 					//Divide time in two parts, hours and minuts
 					let time = service.horary[i].time.split(':');
 					client.service = service.name;
 					client.min = time[1];
 					client.hour = time[0];
-					client.name = service.horary[i].clientName;
+					client.name = "Maria";
 					// Push current modified schedule to new local array
 					clients.push(client);
 				}
@@ -159,21 +195,20 @@ async function getNextClients(id) {
 		}
 
 		// Send only 4 clients 
-		return Promise.resolve(clients.slice(0, 3));
+		return clients.slice(0, 1);
 	} catch (e) {
 		return Promise.reject(e);
 	}
 }
 
-async function setAvailabilityOfTheServices(id) {
+function getAvailabilityOfTheServices(services) {
 	//Get reference from especific establishment
-	const est = await EstRef.findById(id);
 	const date = new Date();
 
 	const schedules = [];
 
-	for (let i = 0; i < est.services.length; i++) {
-		const service = await ServiceRef.findById(est.services[i]._id);
+	for (let i = 0; i < services.length; i++) {
+		const service = services[i];
 		const objSchedules = {
 			all: 0,
 			haveclient: 0,
@@ -189,42 +224,50 @@ async function setAvailabilityOfTheServices(id) {
 		schedules.push(objSchedules);
 	}
 
-	
-	for (let i = 0; i < schedules.length; i++){
+
+	for (let i = 0; i < schedules.length; i++) {
 		if ((schedules[i].all / 2) == schedules[i].haveclient) {
 			schedules[i].class = "medium";
 			schedules[i].text = "Média";
-		} else if ((schedules[i].all / 2) < schedules[i].haveclient){
+		} else if ((schedules[i].all / 2) < schedules[i].haveclient) {
 			schedules[i].class = "low";
 			schedules[i].text = "Baixa";
-		} else if ((schedules[i].all / 2) > schedules[i].haveclient){
+		} else if ((schedules[i].all / 2) > schedules[i].haveclient) {
 			schedules[i].class = "high";
 			schedules[i].text = "Alta";
 		}
 	}
-	
-	return Promise.resolve(schedules);
 
+	return schedules;
 
 }
-// Beta functions
-async function scheduleService(id) {
+
+async function createSchedule(data) {
 	try {
-		const horary = {
-			time: "10:30",
-			haveclient: false
+		const est = await getEst(data.id);
+
+		if (data.services.length > est.services.length) {
+			data.services = [data.services];
 		}
 
-		const service = await ServiceRef.findById(id);
+		for (let i = 0; i < data.services.length; i++) {
+			const service = await getService(data.services[i]);
 
-		service.horary.push(horary);
-		await service.save();
-		return Promise.resolve(true);
-	} catch (e) {
-		return Promise.reject(e);
+			for (let i = 0; i < data.days.length; i++) {
+				const schedule = await ScheduleRef.create({ time: data.time, day: data.days[i] });
+
+				service.horary.push(schedule);
+				await service.save();
+			}
+
+		}
+
+		return Promise.resolve();
+	} catch (error) {
+		return Promise.reject();
+
 	}
-}
-
+} 
 
 module.exports = {
 	notExists: notExists,
@@ -233,8 +276,6 @@ module.exports = {
 	getEst: getEst,
 	updateService: updateService,
 	getService: getService,
-	scheduleService: scheduleService,
-	getHoraryInfo: getHoraryInfo,
-	getNextClients: getNextClients,
-	setAvailabilityOfTheServices: setAvailabilityOfTheServices
+	createSchedule: createSchedule,
+	getStatistics: getStatistics
 }

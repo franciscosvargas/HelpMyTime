@@ -1,18 +1,18 @@
 <div class="dashboard-header">
-	<h1 class="dashboard-header-title animated slideInLeft">{{ establishment.name }}</h1>
+	<h1 class="dashboard-header-title animated slideInLeft">{{ statistics.establishment.name }}</h1>
 </div>
 <div class="card-container">
 	<div class="card gradient-orange">
 		<img src="/img/tabs/time-left.svg" class="card-icon">
 		<div class="card-text">
-			<h2 class="card-title">{{horary.today_open}}</h2>
+			<h2 class="card-title">{{statistics.horary.today_open}}</h2>
 			<h5 class="card-subtitle">Agendamentos para hoje</h5>
 		</div>
 	</div>
 	<div class="card gradient-green">
 		<img src="/img/tabs/tick.svg" class="card-icon">
 		<div class="card-text">
-			<h2 class="card-title">{{horary.today_closed}}</h2>
+			<h2 class="card-title">{{statistics.horary.today_closed}}</h2>
 			<h5 class="card-subtitle">Atendimentos feitos hoje</h5>
 		</div>
 	</div>
@@ -20,7 +20,7 @@
 	<div class="card gradient-purple">
 		<img src="/img/tabs/weekly-calendar.svg" class="card-icon">
 		<div class="card-text">
-			<h2 class="card-title">{{horary.week_open}}</h2>
+			<h2 class="card-title">{{statistics.horary.week_open}}</h2>
 			<h5 class="card-subtitle">Agendamentos para essa semana</h5>
 		</div>
 	</div>
@@ -28,7 +28,7 @@
 	<div class="card gradient-pink">
 		<img src="/img/tabs/day.svg" class="card-icon">
 		<div class="card-text">
-			<h2 class="card-title">{{horary.week_closed}}</h2>
+			<h2 class="card-title">{{statistics.horary.week_closed}}</h2>
 			<h5 class="card-subtitle">Atendimentos feitos essa semana</h5>
 		</div>
 	</div>
@@ -37,8 +37,8 @@
 	<div class="schedule-container animated slideInLeft faster">
 		<div class="schedule-title">Próximos Clientes</div>
 		<div class="schedule-list">
-			{{#if clients}}
-			{{#each clients}}
+			{{#if statistics.nextClients}}
+			{{#each statistics.nextClients}}
 			<div class="schedule-list-item">
 				<div class="schedule-item-time">{{this.hour}}:{{this.min}}</div>
 				<img class="schedule-card-joint" src="/img/tabs/schedule-card-joint.svg">
@@ -63,7 +63,7 @@
 			</select>
 		</div>
 		<table class="mdc-table animated slideInRight faster">
-			{{#if establishment.services}}
+			{{#if statistics.establishment.services}}
 			<thead>
 				<th>Serviço</th>
 				<th>Horário</th>
@@ -71,7 +71,7 @@
 				<th>Disponibilidade</th>
 			</thead>
 			<tbody>
-				{{#each establishment.services}}
+				{{#each statistics.establishment.services}}
 				<tr>
 					<td>
 						<span class="row-title">{{this.name}}</span>

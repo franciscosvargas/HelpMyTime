@@ -132,13 +132,24 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/eqcss/1.9.1/EQCSS.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="/js/panel.js"></script>
 	<script src="/js/tabs/e-cad.js"></script>
 	<script src="/js/tabs/e-cad-service.js"></script>
+	<script src="/js/tabs/horarios.js"></script>
 	<script>window.mdc.autoInit(document, () => { })</script>
+
+	<script>
+		{{#if msg}}
+			swal("Sucesso", "{{msg}}", "success");
+		{{/if}}
+
+		{{#if error}}
+			swal("Opsss...", "{{error}}", "error");
+		{{/if}}
+	</script>
+
 </body>
 
 </html>

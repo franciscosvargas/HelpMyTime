@@ -40,33 +40,17 @@ router.get('/', (req, res) => {
 // Routes for establishment
 router.get('/visao-geral', async (req, res) => {
 	try {
-		//await restrict(req.user.establishment);
-		const establishment = await db_Est.getEst(req.user.establishment);
-		let horary = {};
-		let clients = {};
-
-		if (establishment.services){
-			horary = await db_Est.getHoraryInfo(req.user.establishment);
-			clients = await db_Est.getNextClients(req.user.establishment);
-			available = await db_Est.setAvailabilityOfTheServices(req.user.establishment);
-			
-			for (let i = 0; i < establishment.services.length; i++){
-				establishment.services[i].text = available[i].text;
-				establishment.services[i].class = available[i].class;
-			}
-		}
-
+		await restrict(req.user.establishment);
+		const statistics = await db_Est.getStatistics(req.user.establishment);
 		res.render('e_overview', {
 			user: req.user,
-			establishment: establishment,
-			horary: horary,
-			clients: clients,
+			statistics: statistics,  
 			layout: 'panel'
 		});
 	} catch (err) {
 		console.log(err);
 		req.flash('error', 'Página somente para assinantes');
-		res.redirect('/logout');
+		res.redirect('/conta/logout');
 
 	}
 });
@@ -74,18 +58,17 @@ router.get('/visao-geral', async (req, res) => {
 router.get('/meus-servicos', async (req, res) => {
 	try {
 		await restrict(req.user.establishment);
-		const establishment = await db_Est.getEst(req.user.establishment);
+		const statistics = await db_Est.getStatistics(req.user.establishment);
 		res.render('cadastrar-servico', {
 			user: req.user,
-			establishment: establishment,
+			statistics: statistics,
 			layout: 'panel'
 		});
 	} catch (e) {
 		console.log(e);
-		/* req.flash('error', 'Página somente para assinantes');
-		res.redirect('/dashboard'); */
+		req.flash('error', 'Página somente para assinantes');
+		res.redirect('/dashboard');
 	}
-
 });
 
 router.get('/meus-horarios', async (req, res) => {
@@ -102,11 +85,21 @@ router.get('/meus-horarios', async (req, res) => {
 
 });
 
+router.get('/cadastrar-estabelecimento', (req, res) => {
+	res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
+});
+
 router.get('/getservico/:id', async (req, res) => {
 	const service = await db_Est.getService(req.params.id);
 	res.send(service);
 });
 
+router.get('/getlistaservicos', async (req, res) => {
+	const est = await db_Est.getEst(req.user.establishment);
+	res.json(est.services);
+});
+
+// Routes Post
 router.post('/atualizar-servico', async (req, res) => {
 	try {
 		await db_Est.updateService(req.body);
@@ -128,9 +121,18 @@ router.post('/cadastrar-servico', (req, res) => {
 
 });
 
-router.get('/cadastrar-estabelecimento', (req, res) => {
-	res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
+router.post('/cadastrar-horario', (req, res) => {
+	try {
+		req.body.id = req.user.establishment._id;
+		db_Est.scheduleService(req.body);
+		res.redirect('/dashboard/meus-servicos'); 
+	} catch (e) {
+		res.send(err);
+	}
+
 });
+
+
 
 router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res) => {
 	try {

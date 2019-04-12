@@ -1,30 +1,93 @@
+<div class="dashboard-header">
+	<h1 class="dashboard-header-title animated slideInLeft">Horários de Yotta</h1>
+</div>
+
+<div id="schedule-carousel">
+	<div class="carousel-cell">Hello World!</div>
+	<div class="carousel-cell">Hello World!</div>
+	<div class="carousel-cell">Hello World!</div>
+</div>
+
 <table id="show-services" class="mdc-table">
 	<thead>
-		<th>Horário</th>
-		<th>Cliente</th>
-		<th>Duração da sessão</th>
+		<th>Segunda</th>
+		<th>Terça</th>
+		<th>Quarta</th>
+		<th>Quinta</th>
+		<th>Sexta</th>
+		<th>Sábado</th>
 	</thead>
 	<tbody>
 		<tr>
+			{{!-- SEGUNDA --}}
 			<td>
-				<span class="row-title">10:00</span>
-				<button class="toggle-table-row mdc-icon-button">
-					<i class="fas fa-angle-down"></i>
-				</button>
+				<div class="schedule available">
+					<span>Horário: 10:30</span>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="schedule not-available">
+					<span>Horário: 10:30</span>
+					<span>Desenvolvimento Web</span>
+					<span>Francisco Alisson</span>
+				</div>
 			</td>
-			<td>José da Silva</td>
-			<td>60min</td>
-			<td>{{this.category}}</td>
-			<td class="available">Alta</td>
-			<td id="{{this._id}}">
-				<button class="mdc-icon-button">
-					<i class="fas fa-pencil-alt"></i>
-				</button>
+
+			{{!-- TERÇA --}}
+			<td>
+				<div class="schedule available">
+					<span>Horário: 10:30</span>
+					<span></span>
+					<span></span>
+				</div>
+			</td>
+
+			{{!-- QUARTA --}}
+			<td>
+				<div class="schedule available">
+					<span>Horário: 10:30</span>
+					<span></span>
+					<span></span>
+				</div>
+			</td>
+			{{!-- QUINTA --}}
+			<td>
+				<div class="schedule available">
+					<span>Horário: 10:30</span>
+					<span></span>
+					<span></span>
+				</div>
+			</td>
+			{{!-- SEXTA --}}
+			<td>
+				<div class="schedule available">
+					<span>Horário: 10:30</span>
+					<span></span>
+					<span></span>
+				</div>
+			</td>
+			{{!-- SÁBADO --}}
+			<td>
+				<div class="schedule available">
+					<span>Horário: 10:30</span>
+					<span></span>
+					<span></span>
+				</div>
 			</td>
 		</tr>
 	</tbody>
 </table>
 
+<div id="demos">
+	<div class="demo available">Horário Disponível</div>
+	<div class="demo not-available">Horário Indisponível</div>
+</div>
+
+<button id="add-schedule" class="mdc-fab" aria-label="Abrir menu" data-mdc-auto-init="MDCRipple">
+	<span class="mdc-fab__icon">
+		<i class="fas fa-bars"></i>
+	</span>
+</button>
 
 {{!-- <button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
 	<span class="mdc-button__label">Adicionar mais serviços</span>

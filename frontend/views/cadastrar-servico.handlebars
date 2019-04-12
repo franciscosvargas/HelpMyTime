@@ -1,9 +1,9 @@
 <div class="dashboard-header">
-	<h1 class="dashboard-header-title animated slideInLeft">Serviços de {{ establishment.name }}</h1>
+	<h1 class="dashboard-header-title animated slideInLeft">Serviços de {{ statistics.establishment.name }}</h1>
 </div>
 <!-- Service management panel -->
 <div class="manage-services-panel">
-	{{#if establishment.services}}
+	{{#if statistics.establishment.services}}
 	<!-- Services table -->
 	<table id="show-services" class="mdc-table">
 		<thead>
@@ -15,7 +15,7 @@
 			<th>Editar</th>
 		</thead>
 		<tbody>
-			{{#each establishment.services}}
+			{{#each statistics.establishment.services}}
 			<tr >
 				<td>
 					<span class="row-title">{{this.name}}</span>
@@ -26,7 +26,7 @@
 				<td>R${{this.price}}</td>
 				<td>{{this.duration}}min</td>
 				<td>{{this.category}}</td>
-				<td class="available">Alta</td>
+				<td class="{{this.class}}">{{this.text}}</td>
 				<td id="{{this._id}}">
 					<button class="mdc-icon-button">
 						<i class="fas fa-pencil-alt"></i>
