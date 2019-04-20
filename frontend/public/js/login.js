@@ -101,7 +101,6 @@ function validateCPF(cpf) {
 
 function validateRegisterForm() {
 	if ($(".register-form").find("input").parent().hasClass("mdc-text-field--invalid") == true || $(".register-form").find("input").val().trim() == "") {
-		console.log("Verifique se todos os campos estão devidamente preenchidos!");
 		$(".register-btn").attr("disabled", "true");
 		return false;
 	}

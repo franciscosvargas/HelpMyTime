@@ -20,10 +20,11 @@
 		var html = document.querySelector("html");
 		html.classList.add("fouc-hidden");
 		window.onload = function () {
-			html.classList.remove("fouc-hidden");
+			html.classList.remove("fouc-hidden")
 		}
 	</script>
 	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -33,30 +34,31 @@
 <body>
 	{{!-- Vertical navigation --}}
 	<div id="vertical-nav" class="animated slideInLeft fast">
-		<button id="menu-btn" class="mdc-icon-button">
+		<a id="menu-btn" class="mdc-icon-button">
 			<i class="fas fa-bars"></i>
-		</button>
-		<button class="mdc-icon-button">
+		</a>
+		<a class="mdc-icon-button">
 			<i class="fas fa-briefcase"></i>
-		</button>
-		<button class="mdc-icon-button">
+		</a>
+		<a class="mdc-icon-button">
 			<i class="fas fa-clock"></i>
-		</button>
-		<button class="mdc-icon-button">
+		</a>
+		<a href="/dashboard/config" class="mdc-icon-button">
 			<i class="fas fa-cogs"></i>
-		</button>
-		<button onclick="window.location.replace('/conta/logout');" class="logout-btn mdc-icon-button">
+		</a>
+		<a href="/conta/logout" class="logout-btn mdc-icon-button">
 			<i class="fas fa-sign-out-alt"></i>
-		</button>
-		<button class="notification-btn mdc-icon-button">
+		</a>
+		<a class="notification-btn mdc-icon-button">
 			<i class="fas fa-bell"></i>
-		</button>
+		</a>
 	</div>
 
 	{{!-- Toggleable menu --}}
 	<div id="menu-container">
 		<a href="/dashboard">
-			<img class="hmt-logo" src="https://htm.yottadev.com.br/img/helpMyTime-logo.png" alt="HelpMyTime - Agendamento de Serviços">
+			<img class="hmt-logo" src="https://htm.yottadev.com.br/img/helpMyTime-logo.png"
+				alt="HelpMyTime - Agendamento de Serviços">
 		</a>
 		<div class="menu-content">
 			<div class="menu-panel">
@@ -67,21 +69,21 @@
 						<span class="mdc-list-item__text">Buscar Serviços</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 					</a>
-					<a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					<a href="/dashboard/meus-horarios" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-clock" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Agendamentos</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 					</a>
-					<a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					<a href="/dashboard/config" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-cogs" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Configurações</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
 					</a>
-					{{!-- <a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					<a href="/conta/logout" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-sign-out-alt" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Sair</span>
 						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
-					</a> --}}
+					</a>
 				</ul>
 			</div>
 			<div class="menu-panel">
@@ -121,8 +123,10 @@
 
 	</div>
 
+	{{!-- Page content --}}
 	<div id="page-content">{{{ body }}}</div>
 
+	{{!-- Open menu FAB --}}
 	<button id="open-menu-fab" class="mdc-fab" aria-label="Abrir menu" data-mdc-auto-init="MDCRipple">
 		<span class="mdc-fab__icon">
 			<i class="fas fa-bars"></i>
@@ -132,22 +136,26 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="/js/panel.js"></script>
 	<script src="/js/tabs/e-cad.js"></script>
 	<script src="/js/tabs/e-cad-service.js"></script>
 	<script src="/js/tabs/horarios.js"></script>
+	<script src="/js/tabs/config.js"></script>
 	<script>window.mdc.autoInit(document, () => { })</script>
 
 	<script>
-		{{#if msg}}
-			swal("Sucesso", "{{msg}}", "success");
-		{{/if}}
+		{ { #if msg} }
+		swal("Sucesso", "{{msg}}", "success");
+		{
+			{
+				/if}}
 
-		{{#if error}}
-			swal("Opsss...", "{{error}}", "error");
-		{{/if}}
+				{ { #if error} }
+				swal("Opsss...", "{{error}}", "error");
+				{ { /if}}
 	</script>
 
 </body>

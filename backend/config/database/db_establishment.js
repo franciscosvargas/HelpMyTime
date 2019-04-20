@@ -26,7 +26,6 @@ function notExists(business_id) {
 	});
 }
 
-
 // Establishment Functions
 async function createEst(data) {
 	try {
@@ -68,6 +67,16 @@ async function getService(id) {
 	});
 
 	return Service;
+}
+
+async function getServiceBySchedule(id) {
+	try {
+		const Service = await ServiceRef.findOne({horary: id});
+		return Service;
+	} catch (e) {
+		return "error";
+	}
+	
 }
 
 async function updateService(data) {
@@ -156,7 +165,7 @@ function getHoraryInfo(services) {
 }
 
 function getNextClients(services) {
-		let clients = [];
+	let clients = [];
 	try {
 		//Get especific establishment
 		const date = new Date();
@@ -242,6 +251,7 @@ function getAvailabilityOfTheServices(services) {
 
 }
 
+// Schedules Functions
 async function createSchedule(data) {
 	try {
 		const est = await getEst(data.id);
@@ -250,24 +260,110 @@ async function createSchedule(data) {
 			data.services = [data.services];
 		}
 
-		for (let i = 0; i < data.services.length; i++) {
-			const service = await getService(data.services[i]);
-
-			for (let i = 0; i < data.days.length; i++) {
-				const schedule = await ScheduleRef.create({ time: data.time, day: data.days[i] });
-
+		for (let i = 0; i < data.days.length; i++) {
+			const schedule = await ScheduleRef.create({ time: data.time, day: data.days[i] });
+			for (let i = 0; i < data.services.length; i++) {
+				const service = await getService(data.services[i]);
 				service.horary.push(schedule);
 				await service.save();
 			}
-
 		}
-
 		return Promise.resolve();
 	} catch (error) {
 		return Promise.reject();
-
 	}
-} 
+}
+
+async function getSchedules(estid) {
+	//Get establishment information 
+	const days = { sunday: [], monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [] };
+	/* try { */
+	const Est = await getEst(estid);
+	const schedules = { all: [], unique: [] }
+	let i = 0;
+
+	Est.services.forEach(service => {
+		service.horary.forEach(horary => {
+			schedules.all.push(`${horary}`);
+		});
+	});
+	// Remove the duplicates schedules 
+	schedules.unique = schedules.all.filter(onlyUnique);
+
+	// Get complete information from schedules
+	schedules.all = [];
+	
+	
+	await Promise.all(schedules.unique.map(async (schedule) => {
+		const final = await ScheduleRef.findById(schedule).populate('client');
+		switch (final.day) {
+			case 0:
+				days.sunday.push(final);
+				break;
+			case 1:
+				days.monday.push(final);
+				break;
+			case 2:
+				days.tuesday.push(final);
+				break;
+			case 3:
+				days.wednesday.push(final);
+				break;
+			case 4:
+				days.thursday.push(final);
+				break;
+			case 5:
+				days.friday.push(final);
+				break;
+			case 6:
+				days.saturday.push(final);
+				break;
+		}
+	}));
+
+	if (days.monday.length > 0)
+		days.monday = sortSchedulesByTime(days.monday);
+	if (days.tuesday.length > 0)
+		days.tuesday = sortSchedulesByTime(days.tuesday);
+	if (days.wednesday.length > 0)
+		days.wednesday = sortSchedulesByTime(days.wednesday);
+	if (days.thursday.length > 0)
+		days.thursday = sortSchedulesByTime(days.thursday);
+	if (days.friday.length > 0)
+		days.friday = sortSchedulesByTime(days.friday);
+	if (days.saturday.length > 0)
+		days.saturday = sortSchedulesByTime(days.saturday);
+	if (days.sunday.length > 0)
+		days.sunday = sortSchedulesByTime(days.sunday);
+
+	return days;
+	/* } catch (e) {
+		return days;
+	} */
+
+
+
+}
+
+function sortSchedulesByTime(array) {
+	const date = new Date();
+	for (let i = 0; i < array.length; i++) {
+		const hour = array[i].time.split(':');
+		//Convert the time to remaining time to service
+		var time = hmh.diff(`${hour[0]}h ${hour[1]}m`, `06h 00m`, `minutes`).m;
+		array[i].remaining = time;
+		//Arrange the array from the lowest to the highest time
+		array.sort(function (a, b) {
+			return (a.remaining > b.remaining) ? 1 : ((b.remaining > a.remaining) ? -1 : 0);
+		});
+	}
+
+	return array;
+}
+
+function onlyUnique(value, index, self) {
+	return self.indexOf(value) === index;
+}
 
 module.exports = {
 	notExists: notExists,
@@ -277,5 +373,7 @@ module.exports = {
 	updateService: updateService,
 	getService: getService,
 	createSchedule: createSchedule,
-	getStatistics: getStatistics
+	getStatistics: getStatistics,
+	getSchedules: getSchedules,
+	getServiceBySchedule: getServiceBySchedule
 }

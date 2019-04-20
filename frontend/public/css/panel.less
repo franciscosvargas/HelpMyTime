@@ -3,6 +3,7 @@
 @import "tabs/e-cad-service";
 @import "tabs/e-cad-service-table";
 @import "tabs/horarios";
+@import "tabs/settings";
 
 // Mixins
 .custom-scrollbar() {
@@ -23,12 +24,13 @@
 }
 
 :root {
-    --mdc-theme-primary: rgba(9, 9, 121, 1);
+    --mdc-theme-primary: #3a47d5;
     --mdc-theme-secondary: #3a47d5;
 }
 
 * {
 	box-sizing: border-box;
+	.custom-scrollbar();
 
 	:not(.fas) {
 		font-family: "Poppins";
@@ -37,18 +39,17 @@
 
 html,
 body {
+	min-height: 100%;
 	height: 100%;
 }
 
 body {
 	display: flex;
+	margin: 0;
 	background: linear-gradient(to bottom left, #e3ffe7 0%, #d9e7ff 100%);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
-	margin: 0;
-
-	.custom-scrollbar();
 
 	#vertical-nav {
 		position: fixed;
@@ -64,6 +65,9 @@ body {
 			margin: 4px;
 			color: #707070;
 			font-size: 18px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			
 			&#menu-btn {
 				transition: transform 1s ease;
@@ -91,8 +95,6 @@ body {
 		background-image: linear-gradient(to bottom right, rgba(0, 65, 139, 0.7) 0%, rgba(58, 58, 176, 0.7) 62%, rgba(8, 122, 158, 0.7) 100%);
 		color: white;
 		overflow-y: scroll;
-
-		.custom-scrollbar();
 		
 		.hmt-logo {
 			width: 123.75px;
@@ -125,6 +127,7 @@ body {
 	#page-content {
 		margin-left: 65px;
 		flex-grow: 1;
+		min-height: 100%;
 
 		// These styles are shared between different tabs
 		.dashboard-header {

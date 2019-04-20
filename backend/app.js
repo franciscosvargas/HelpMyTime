@@ -12,6 +12,7 @@ require('./config/auth/auth')(passport);
 // Database 
 const connectDatabase = require('./config/database/db_config');
 const dbCategories = require('./config/database/db_categories');
+const dbEst = require('./config/database/db_establishment');
 
 // Importing Routes
 const panelRouter = require('./routes/panel');

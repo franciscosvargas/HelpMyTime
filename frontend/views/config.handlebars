@@ -1,0 +1,64 @@
+<div class="dashboard-header">
+	<h1 class="dashboard-header-title animated slideInLeft">Configurações</h1>
+</div>
+<div id="settings-container">
+	<ul class="mdc-list mdc-list--two-line">
+		<h6 class="mdc-list-group__subheader">Informações pessoais</h6>
+		<li class="mdc-list-item" tabindex="0" data-mdc-auto-init="MDCRipple">
+			<span class="mdc-list-item__text">
+				<span class="mdc-list-item__primary-text">Nome</span>
+				<span class="mdc-list-item__secondary-text">John Doe</span>
+			</span>
+			<span class="edit-name-btn mdc-list-item__meta" aria-hidden="true">
+				<i class="fas fa-edit fa-lg"></i>
+			</span>
+		</li>
+		<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+			<span class="mdc-list-item__text">
+				<span class="mdc-list-item__primary-text">Email</span>
+				<span class="mdc-list-item__secondary-text">johndoe@gmail.com</span>
+			</span>
+			<span class="edit-email-btn mdc-list-item__meta" aria-hidden="true">
+				<i class="fas fa-edit fa-lg"></i>
+			</span>
+		</li>
+		<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+			<span class="mdc-list-item__text">
+				<span class="mdc-list-item__primary-text">Senha</span>
+				<span class="mdc-list-item__secondary-text">**********</span>
+			</span>
+			<span class="edit-password-btn mdc-list-item__meta" aria-hidden="true">
+				<i class="fas fa-edit fa-lg"></i>
+			</span>
+		</li>
+		<hr class="mdc-list-divider">
+		<h6 class="mdc-list-group__subheader">Informações do estabelecimento</h6>
+	</ul>
+</div>
+
+<div id="edit-name-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
+	<div class="mdc-dialog__container">
+		<div class="mdc-dialog__surface">
+			<h2 class="mdc-dialog__title">Editar nome</h2>
+			<div class="mdc-dialog__content">
+				<form id="add-service-form" action="/dashboard/atualizar-servico" method="post">
+					<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+						<input type="text" name="name" value="${service.name}" class="mdc-text-field__input" required>
+						<label class="mdc-floating-label">Seu nome</label>
+						<div class="mdc-line-ripple"></div>
+					</div>
+				</form>
+			</div>
+			<footer class="mdc-dialog__actions">
+				<button type="reset" form="add-service-forme" class="mdc-button mdc-dialog__button"
+					data-mdc-dialog-action="no">
+					<span class="mdc-button__label">Cancelar</span>
+				</button>
+				<button type="submit" form="add-service-form" class="mdc-button mdc-dialog__button">
+					<span class="mdc-button__label">Confirmar</span>
+				</button>
+			</footer>
+		</div>
+	</div>
+	<div class="mdc-dialog__scrim"></div>
+</div>

@@ -8,14 +8,6 @@ placeholderText = [
 	"HelpMyTime agenda pra você!"
 ];
 
-// Initialize category slider
-$(".navigation-menu").flickity({
-	cellAlign: "center",
-	groupCells: true,
-	contain: true,
-	pageDots: false
-});
-
 // Typewriter effect
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
 async function typewriter(array) {

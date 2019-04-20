@@ -3,20 +3,15 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="description" content="Encontre e agende os melhores serviços perto de você">
+	<meta name="keywords" content="HelpMyTime, helpmytime, hmt, Agendar Serviços">
+	<meta name="author" content="Yotta">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="shortcut icon" href="/img/favicon.ico" />
 	<meta name="description" content="Encontre e agende os melhores serviços perto de você.">
 	<meta name="keywords" content="HelpMyTime, helpmytime, hmt">
 	<meta name="author" content="Yotta">
-	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-	<link rel="stylesheet" href="/css/index.css">
-	<link rel="stylesheet" href="/css/login.css">
 	<title>HelpMyTime</title>
 	<!-- Prevent FOUC (flash of unstyled content) -->
 	<style>
@@ -29,31 +24,50 @@
 		html.classList.add("fouc-hidden");
 		window.onload = function () {
 			html.classList.remove("fouc-hidden");
-			$(".navigation-menu").flickity("resize");
+			// Initialize category slider when less is done loading stylesheets
+			less.pageLoadFinished.then(() => {
+				// Initialize category slider
+				$(".navigation-menu").flickity({
+					cellAlign: "center",
+					groupCells: true,
+					contain: true,
+					pageDots: false
+				});
+				$(".navigation-menu").flickity("resize");
+			});
 		}
 	</script>
+	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+	<link rel="stylesheet/less" href="/css/index.less">
+	<link rel="stylesheet/less" href="/css/login.less">
 </head>
 
 <body>
 	{{{body}}}
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/eqcss/1.9.1/EQCSS.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 	<script src="/js/login.js"></script>
 	<script src="/js/index.js"></script>
-	
-	<script>
-		{{#if msg}}
-			swal("Sucesso", "{{msg}}", "success");
-		{{/if}}
 
-		{{#if error}}
-			swal("Opsss...", "{{error}}", "error");
-		{{/if}}
+	<script>
+		{ { #if msg} }
+		swal("Sucesso", "{{msg}}", "success");
+		{
+			{
+				/if}}
+
+				{ { #if error} }
+				swal("Opsss...", "{{error}}", "error");
+				{ { /if}}
 	</script>
 
 </body>

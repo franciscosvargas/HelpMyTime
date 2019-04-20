@@ -142,3 +142,64 @@
 		}
 	}
 }
+
+@media screen and (max-width: 750px) {
+	#schedule-table {
+		box-shadow: none;
+
+		.toggle-table-row {
+			display: block;
+			margin: 0 8px 0 auto;
+		}
+
+		thead {
+			display: none;
+		}
+
+		tr {
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+			border-bottom: 3px solid #ddd;
+			display: block;
+			margin-bottom: 8px;
+			border-radius: 4px;
+
+			td {
+				display: flex;
+				align-items: center;
+				padding: 16px;
+				border-right: none !important;
+				border-bottom: 1px solid #ddd;
+				text-align: right;
+
+				.row-title {
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					max-width: 200px;
+				}
+
+				&:not(:first-child) {
+					display: none;
+
+					&::before {
+						content: attr(data-label);
+						margin-right: auto;
+						font-weight: bold;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						max-width: 120px;
+					}
+				}
+
+				&:first-child {
+					padding: 4px 0 4px 12px;
+				}
+
+				&:last-child {
+					border: none;
+				}
+			}
+		}
+	}
+}

@@ -25,7 +25,6 @@ router.use((req, res, next) => {
 		} else if (req.isAuthenticated && !req.user.confirmated) {
 			res.redirect(307, '/conta/confirm/' + req.body.email);
 		}
-
 	} catch (err) {
 		req.flash('error', 'Faça login ou cadastre-se primeiro.');
 		res.redirect('/');
@@ -44,20 +43,28 @@ router.get('/visao-geral', async (req, res) => {
 		const statistics = await db_Est.getStatistics(req.user.establishment);
 		res.render('e_overview', {
 			user: req.user,
-			statistics: statistics,  
+			 statistics: statistics,
 			layout: 'panel'
 		});
 	} catch (err) {
-		console.log(err);
+		console.log("erro");
 		req.flash('error', 'Página somente para assinantes');
 		res.redirect('/conta/logout');
 
 	}
 });
 
+router.get('/config', async (req, res) => {
+	res.render('config', {
+
+		layout: 'panel'
+	});
+});
+
 router.get('/meus-servicos', async (req, res) => {
 	try {
 		await restrict(req.user.establishment);
+		
 		const statistics = await db_Est.getStatistics(req.user.establishment);
 		res.render('cadastrar-servico', {
 			user: req.user,
@@ -73,14 +80,16 @@ router.get('/meus-servicos', async (req, res) => {
 
 router.get('/meus-horarios', async (req, res) => {
 	try {
+		const schedules = await db_Est.getSchedules(req.user.establishment);
 		res.render('horarios', {
 			user: req.user,
+			schedules: schedules,
 			layout: 'panel'
 		});
 	} catch (e) {
 		console.log(e);
-		/* req.flash('error', 'Página somente para assinantes');
-		res.redirect('/dashboard'); */
+		req.flash('error', 'Página somente para assinantes');
+		res.redirect('/conta/logout');
 	}
 
 });
@@ -91,6 +100,11 @@ router.get('/cadastrar-estabelecimento', (req, res) => {
 
 router.get('/getservico/:id', async (req, res) => {
 	const service = await db_Est.getService(req.params.id);
+	res.send(service);
+});
+
+router.get('/getservicohorario/:id', async (req, res) => {
+	const service = await db_Est.getServiceBySchedule(req.params.id);
 	res.send(service);
 });
 
@@ -124,15 +138,13 @@ router.post('/cadastrar-servico', (req, res) => {
 router.post('/cadastrar-horario', (req, res) => {
 	try {
 		req.body.id = req.user.establishment._id;
-		db_Est.scheduleService(req.body);
-		res.redirect('/dashboard/meus-servicos'); 
+		db_Est.createSchedule(req.body);
+		res.redirect('/dashboard/meus-horarios'); 
 	} catch (e) {
-		res.send(err);
+		res.send(e);
 	}
 
 });
-
-
 
 router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res) => {
 	try {
