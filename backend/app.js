@@ -31,6 +31,8 @@ const accountRouter = require('./routes/account');
 
 		app.use(flash());
 
+		
+
 	// Middleware
 
 		app.use((req, res, next) => {
@@ -52,6 +54,8 @@ const accountRouter = require('./routes/account');
 
 	// Start Database Connection
 		connectDatabase();
+		//dbCategories.createCategoryFromFile();
+		
 		
 	// Public
 		app.use(express.static(path.join(__dirname, "../frontend/public")));
@@ -61,9 +65,11 @@ const accountRouter = require('./routes/account');
 	app.use('/conta', accountRouter);
 	app.use('/dashboard', panelRouter);
 
+	
 	app.get('/', (req, res) => {
 		if (req.isAuthenticated()) {
 			res.redirect('/dashboard');
+			
 		} else {
 			dbCategories.getCategoryHomeList((categories) => {
 				res.render('home', {categories: categories});

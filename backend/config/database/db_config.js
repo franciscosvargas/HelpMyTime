@@ -11,7 +11,7 @@ var database_name = "htm";
 mongoose.Promise = global.Promise;
 
 function connect() {
-	mongoose.connect("mongodb://localhost/" + database_name, {useNewUrlParser: true})
+	mongoose.connect("mongodb+srv://admin:yottaadmin@cluster0-qqall.mongodb.net/htm?retryWrites=true", {useNewUrlParser: true})
 		.then(() => { console.log("Conectado ao database: " + database_name) })
 		.catch(err => {console.log("Erro ao se conectar ao database: " + database_name + " - " + erro) });
 		

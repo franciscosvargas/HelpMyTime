@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Category = require('../../models/Category');
 const CategoryRef = mongoose.model('categories', Category);
+const lineReader = require('line-reader');
+const fs = require('fs')
 
 function createCategory(name, slug) {
 	new CategoryRef({
@@ -14,9 +16,9 @@ function createCategory(name, slug) {
 	});
 }
 
-function createCategoryFromFile(){
-	var lineReader = require('line-reader');
-	lineReader.eachLine('./public/database_start/categorys.txt', function(line, last) {
+function createCategoryFromFile() {
+	lineReader.eachLine('./frontend/public/database_start/categorys.txt', function(line, last) {
+		console.log("teste");
 		var name = line;
 		var slug = line;
 		// Formating name to slug
@@ -31,11 +33,9 @@ function createCategoryFromFile(){
 		} else {
 			createCategory(name, slug);
 		}
-	});
-}
+	}); 
 
-/* já tentei, será que n é na settings do live share */
-/* vou ver aq*/
+}
 
 async function getCategoryList(){
 	const categories = CategoryRef.find();

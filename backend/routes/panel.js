@@ -33,8 +33,14 @@ router.use((req, res, next) => {
 
 // Routes
 router.get('/', (req, res) => {
-	res.redirect('/dashboard/visao-geral');
+	res.redirect('/dashboard/buscar-servicos');
 });
+
+router.get('/buscar-servicos', (req, res) => {
+	res.render('buscar-servicos', {
+		layout: 'panel'
+	});
+})
 
 // Routes for establishment
 router.get('/visao-geral', async (req, res) => {
@@ -56,7 +62,6 @@ router.get('/visao-geral', async (req, res) => {
 
 router.get('/config', async (req, res) => {
 	res.render('config', {
-
 		layout: 'panel'
 	});
 });
