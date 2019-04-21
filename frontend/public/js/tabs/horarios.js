@@ -147,9 +147,9 @@ function openDialogViewSchedule(id, time, client, phone) {
 				<h2 class="mdc-dialog__title">Agendamento</h2>
 					<div class="mdc-dialog__content">
 						<div><strong>Horário:</strong> ${time}</div>
-						<div><strong>Cliente:</strong>  ${client}</div>
-						<div><strong>Telefone do Cliente:</strong>  ${phone}</div>
-						<div><strong>Serviço:</strong>  ${resultado.name}</div>
+						<div><strong>Cliente:</strong> ${client}</div>
+						<div><strong>Telefone do Cliente:</strong> ${phone}</div>
+						<div><strong>Serviço:</strong> ${resultado.name}</div>
 					</div>
 					<footer class="mdc-dialog__actions">
 						<button type="reset" form="add-service-forme" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">

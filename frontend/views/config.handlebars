@@ -41,9 +41,9 @@
 		<div class="mdc-dialog__surface">
 			<h2 class="mdc-dialog__title">Editar nome</h2>
 			<div class="mdc-dialog__content">
-				<form id="add-service-form" action="/dashboard/atualizar-servico" method="post">
+				<form id="edit-name-form" method="post">
 					<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-						<input type="text" name="name" value="${service.name}" class="mdc-text-field__input" required>
+						<input type="text" name="name" class="mdc-text-field__input" required>
 						<label class="mdc-floating-label">Seu nome</label>
 						<div class="mdc-line-ripple"></div>
 					</div>
@@ -52,6 +52,68 @@
 			<footer class="mdc-dialog__actions">
 				<button type="reset" form="add-service-forme" class="mdc-button mdc-dialog__button"
 					data-mdc-dialog-action="no">
+					<span class="mdc-button__label">Cancelar</span>
+				</button>
+				<button type="submit" form="add-service-form" class="mdc-button mdc-dialog__button">
+					<span class="mdc-button__label">Confirmar</span>
+				</button>
+			</footer>
+		</div>
+	</div>
+	<div class="mdc-dialog__scrim"></div>
+</div>
+
+<div id="edit-email-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
+	<div class="mdc-dialog__container">
+		<div class="mdc-dialog__surface">
+			<h2 class="mdc-dialog__title">Editar email</h2>
+			<div class="mdc-dialog__content">
+				<form id="edit-email-form" method="post">
+					<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+						<input type="email" name="email" class="mdc-text-field__input" required>
+						<label class="mdc-floating-label">Seu email</label>
+						<div class="mdc-line-ripple"></div>
+					</div>
+				</form>
+			</div>
+			<footer class="mdc-dialog__actions">
+				<button type="reset" form="add-service-forme" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
+					<span class="mdc-button__label">Cancelar</span>
+				</button>
+				<button type="submit" form="add-service-form" class="mdc-button mdc-dialog__button">
+					<span class="mdc-button__label">Confirmar</span>
+				</button>
+			</footer>
+		</div>
+	</div>
+	<div class="mdc-dialog__scrim"></div>
+</div>
+
+<div id="edit-password-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
+	<div class="mdc-dialog__container">
+		<div class="mdc-dialog__surface">
+			<h2 class="mdc-dialog__title">Editar senha</h2>
+			<div class="mdc-dialog__content">
+				<form id="edit-password-form" method="post">
+					<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+						<input type="password" name="password" class="mdc-text-field__input" required>
+						<label class="mdc-floating-label">Sua senha atual</label>
+						<div class="mdc-line-ripple"></div>
+					</div>
+					<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+						<input type="password" name="new-password" class="mdc-text-field__input" required>
+						<label class="mdc-floating-label">Sua nova senha</label>
+						<div class="mdc-line-ripple"></div>
+					</div>
+					<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+						<input type="password" name="repeat-new-password" class="mdc-text-field__input" required>
+						<label class="mdc-floating-label">Repita sua nova senha</label>
+						<div class="mdc-line-ripple"></div>
+					</div>
+				</form>
+			</div>
+			<footer class="mdc-dialog__actions">
+				<button type="reset" form="add-service-forme" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
 					<span class="mdc-button__label">Cancelar</span>
 				</button>
 				<button type="submit" form="add-service-form" class="mdc-button mdc-dialog__button">
