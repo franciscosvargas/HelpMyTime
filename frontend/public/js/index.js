@@ -1,3 +1,11 @@
+$("#nearby-services-container").one("animationend", function () {
+	$(this).css("z-index", "1");
+});
+
+$(window).on("resize", function () {
+	$("#nearby-services-carousel").flickity("resize");
+});
+
 placeholderText = [
 	"Que serviço você precisa hoje?",
 	"Dentista?",

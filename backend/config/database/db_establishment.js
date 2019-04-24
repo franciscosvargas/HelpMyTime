@@ -75,7 +75,6 @@ async function searchService(term) {
 	const service = await ServiceRef.find(criteria);
 	let res = [];
 	for(let i=0; i < service.length; i++) {
-		let service = 
 		const owner = await EstRef.findById(service[i].owner);
 		
 	}

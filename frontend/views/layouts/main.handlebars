@@ -24,7 +24,7 @@
 		html.classList.add("fouc-hidden");
 		window.onload = function () {
 			html.classList.remove("fouc-hidden");
-			// Initialize category slider when less is done loading stylesheets
+			// Initialize category slider when LESS is done loading stylesheets
 			less.pageLoadFinished.then(() => {
 				// Initialize category slider
 				$(".navigation-menu").flickity({
@@ -34,7 +34,16 @@
 					contain: true,
 					pageDots: false
 				});
+				$("#nearby-services-carousel").flickity({
+					cellAlign: "center",
+					draggable: true,
+					groupCells: true,
+					contain: true,
+					prevNextButtons: false,
+					pageDots: true
+				});
 				$(".navigation-menu").flickity("resize");
+				$("#nearby-services-carousel").flickity("resize");
 			});
 		}
 	</script>
