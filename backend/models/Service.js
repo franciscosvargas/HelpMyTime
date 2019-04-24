@@ -21,15 +21,11 @@ const Service = mongoose.Schema ({
 		require: true,
 		default: 30
 	},
-	start_time: {
-		type: String,
-		require: true
-	},
-	end_time: {
-		type: String,
-		require: true
+	owner: {
+		type: mongoose.Schema.Types.ObjectId, ref: 'establishments'
 	},
 	horary: [{type: mongoose.Schema.Types.ObjectId, ref: 'schedules'}]
+	
 
 })
 

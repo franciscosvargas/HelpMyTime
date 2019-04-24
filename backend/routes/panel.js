@@ -36,9 +36,10 @@ router.get('/', (req, res) => {
 	res.redirect('/dashboard/buscar-servicos');
 });
 
-router.get('/buscar-servicos', (req, res) => {
+router.get('/buscar-servicos', async (req, res) => {
 	res.render('buscar-servicos', {
-		layout: 'panel'
+		layout: 'panel',
+		/* services: await db_Est.searchService("manicure") */
 	});
 })
 
@@ -116,6 +117,11 @@ router.get('/getservicohorario/:id', async (req, res) => {
 router.get('/getlistaservicos', async (req, res) => {
 	const est = await db_Est.getEst(req.user.establishment);
 	res.json(est.services);
+});
+
+router.get('/getlistapesquisa/:keyword', async (req, res) => {
+	const service = await db_Est.searchService(req.params.keyword);
+	res.json(service);
 });
 
 // Routes Post

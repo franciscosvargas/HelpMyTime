@@ -53,6 +53,7 @@ async function getEst(id) {
 //Service functions
 async function createService(data, id) {
 	const Est = await EstRef.findById(id);
+	data.owner = Est;
 	const Service = await ServiceRef.create(data);
 
 	Est.services.push(Service);
@@ -61,7 +62,6 @@ async function createService(data, id) {
 }
 
 async function getService(id) {
-
 	const Service = await ServiceRef.findById(id).populate({
 		path: 'horary'
 	});
@@ -69,6 +69,22 @@ async function getService(id) {
 	return Service;
 }
 
+async function searchService(term) {
+	var regex = new RegExp(term, 'i');
+	var criteria = {$or: [ {name: regex}, {category: regex}, {description: regex} ]}
+	const service = await ServiceRef.find(criteria);
+	let res = [];
+	for(let i=0; i < service.length; i++) {
+		let service = 
+		const owner = await EstRef.findById(service[i].owner);
+		
+	}
+
+
+	
+	return service;
+
+}
 async function getServiceBySchedule(id) {
 	try {
 		const Service = await ServiceRef.findOne({horary: id});
@@ -375,5 +391,6 @@ module.exports = {
 	createSchedule: createSchedule,
 	getStatistics: getStatistics,
 	getSchedules: getSchedules,
-	getServiceBySchedule: getServiceBySchedule
+	getServiceBySchedule: getServiceBySchedule,
+	searchService: searchService
 }

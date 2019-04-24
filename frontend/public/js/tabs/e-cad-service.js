@@ -1,5 +1,3 @@
-window.mdc.autoInit(document, () => { });
-
 $(function () {
 	var categorias = [];
 	$.get("/categorias/lista-categorias", function (resultado) {

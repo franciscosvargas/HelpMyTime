@@ -4,24 +4,26 @@
 <div class="search-services-container">
 	<div class="input-group">
 		<i class="input-group-icon-left fas fa-search"></i>
-		<input class="input-group-input" type="search" placeholder="Pesquisar por serviços">
+		<input class="input-group-input" id="search" type="search" placeholder="Pesquisar por serviços">
 		<button class="input-group-icon-right mdc-icon-button">
 			<i class="fas fa-filter"></i>
 		</button>
 	</div>
 </div>
 <div class="services-container">
+	{{#each services}}
 	<div class="mdc-card">
 		<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 			<div class="mdc-card-content">
-				<h2 class="card-content-headline mdc-typography--headline6">Serviço 1</h2>
-				<div class="card-content-price">R$179,98</div>
-				<h3 class="card-content-author mdc-typography--subtitle2">por John Doe</h3>
+				
+				<h2 class="card-content-headline mdc-typography--headline6">{{this.name}}</h2>
+				<div class="card-content-price">R${{this.price}}</div>
+				<h3 class="card-content-author mdc-typography--subtitle2">Por {{this.owner}}</h3>
 				<p class="card-content-description mdc-typography-body2">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget felis faucibus eros efficitur laoreet.
+					{{this.description}}
 				</p>
 				<div class="mdc-chip">
-					<div class="mdc-chip__text">Categoria 1</div>
+					<div class="mdc-chip__text">{{this.category}}</div>
 				</div>
 			</div>
 		</div>
@@ -38,58 +40,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="mdc-card">
-		<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
-			<div class="mdc-card-content">
-				<h2 class="card-content-headline mdc-typography--headline6">Serviço 1</h2>
-				<div class="card-content-price">R$179,98</div>
-				<h3 class="card-content-author mdc-typography--subtitle2">por John Doe</h3>
-				<p class="card-content-description mdc-typography-body2">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget felis faucibus eros efficitur laoreet.
-				</p>
-				<div class="mdc-chip">
-					<div class="mdc-chip__text">Categoria 1</div>
-				</div>
-			</div>
-		</div>
-		<div class="mdc-card__actions">
-			<div class="mdc-card__action-buttons">
-				<button class="mdc-button mdc-card__action mdc-card__action--button">
-					<span class="mdc-button__label">Visualizar</span>
-				</button>
-			</div>
-			<div class="mdc-card__action-icons">
-				<button class="mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-					<i class="fas fa-share-alt"></i>
-				</button>
-			</div>
-		</div>
-	</div>
-	<div class="mdc-card">
-		<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
-			<div class="mdc-card-content">
-				<h2 class="card-content-headline mdc-typography--headline6">Serviço 1</h2>
-				<div class="card-content-price">R$179,98</div>
-				<h3 class="card-content-author mdc-typography--subtitle2">por John Doe</h3>
-				<p class="card-content-description mdc-typography-body2">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget felis faucibus eros efficitur laoreet.
-				</p>
-				<div class="mdc-chip">
-					<div class="mdc-chip__text">Categoria 1</div>
-				</div>
-			</div>
-		</div>
-		<div class="mdc-card__actions">
-			<div class="mdc-card__action-buttons">
-				<button class="mdc-button mdc-card__action mdc-card__action--button">
-					<span class="mdc-button__label">Visualizar</span>
-				</button>
-			</div>
-			<div class="mdc-card__action-icons">
-				<button class="mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-					<i class="fas fa-share-alt"></i>
-				</button>
-			</div>
-		</div>
-	</div>
+	{{/each}}
 </div>

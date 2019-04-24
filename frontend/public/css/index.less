@@ -90,7 +90,10 @@ body {
 	text-decoration: none;
 	white-space: nowrap;
 	text-transform: uppercase;
-	border-right: 1px solid grey;
+
+	&:not(:last-child) {
+		border-right: 1px solid grey;
+	}
 }
 
 /* Flickity Carousel */
