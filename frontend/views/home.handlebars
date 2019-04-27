@@ -9,7 +9,7 @@
 <!-- Categories bar -->
 <div class="navigation-menu">
 	{{#each categories}}
-	<a class="carousel-cell" href="categorias/view/{{slug}}">{{name}}</a>
+	<a href="categorias/view/{{slug}}">{{name}}</a>
 	{{else}}
 	<script>
 		document.querySelectorAll(".navigation-menu").style.display = "none";
@@ -22,7 +22,7 @@
 	<h2 class="content-headline">Serviços próximos</h2>
 	<h4 class="content-subtitle">Estabelecimentos na sua região</h4>
 	<div id="nearby-services-carousel">
-		<div class="mdc-card carousel-cell">
+		<div class="mdc-card">
 			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 				<div class="card-content">
 					<div class="price-tag">R$399,00</div>
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mdc-card carousel-cell">
+		<div class="mdc-card">
 			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 				<div class="card-content">
 					<div class="price-tag">R$399,00</div>
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mdc-card carousel-cell">
+		<div class="mdc-card">
 			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 				<div class="card-content">
 					<div class="price-tag">R$399,00</div>
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mdc-card carousel-cell">
+		<div class="mdc-card">
 			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 				<div class="card-content">
 					<div class="price-tag">R$399,00</div>
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mdc-card carousel-cell">
+		<div class="mdc-card">
 			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 				<div class="card-content">
 					<div class="price-tag">R$399,00</div>
@@ -116,14 +116,20 @@
 </div>
 <div id="features-container-mobile">
 	<div class="container-header">
-		<div class="header-tab active">Pra você</div>
-		<div class="header-tab">Para o seu negócio</div>
+		<button data-tab="user" class="header-tab active">Pra você</button>
+		<button data-tab="establishment" class="header-tab">Para o seu negócio</button>
 	</div>
-	<div class="container-body">
+	<div id="user-tab" class="container-body">
 		<div class="body-counter">1</div>
 		<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet excepturi, voluptatem a animi deleniti odio debitis ipsum aperiam aspernatur? Temporibus fuga repellat sed esse, voluptate maxime asperiores officia nihil totam!</p>
 		<div class="body-counter">2</div>
 		<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet excepturi, voluptatem a animi deleniti odio debitis ipsum aperiam aspernatur? Temporibus fuga repellat sed esse, voluptate maxime asperiores officia nihil totam!</p>
+	</div>
+	<div id="establishment-tab" class="container-body">
+		<div class="body-counter">1</div>
+		<p>Hello World!</p>
+		<div class="body-counter">2</div>
+		<p>foobar</p>
 	</div>
 </div>
 <div id="features-container">

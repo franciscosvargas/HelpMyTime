@@ -1,9 +1,12 @@
 .search-services-container {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	padding: 15px;
+	height: calc(100% - 98px);
 
-	.input-group {
+	.search-input-group {
 		display: none;
 		width: 100%;
 		max-width: 320px;
@@ -12,6 +15,7 @@
 		border-radius: 25px;
 		overflow: hidden;
 		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+		transition: margin-top 0.5s;
 
 		.input-group-icon-left {
 			margin: auto 0 auto 16px;
