@@ -19,13 +19,11 @@ async function getServices(keyword) {
                         
                         <h2 class="card-content-headline mdc-typography--headline6">${service.name}</h2>
                         <div class="card-content-price">R$${service.price}</div>
-                        <h3 class="card-content-author mdc-typography--subtitle2">${service.owner}</h3>
+                        <h3 class="card-content-author mdc-typography--subtitle2">Por ${service.owner_name}</h3>
                         <p class="card-content-description mdc-typography-body2">
                             ${service.description}
                         </p>
-                        <div class="mdc-chip">
-                            <div class="mdc-chip__text">${service.category}</div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="mdc-card__actions">

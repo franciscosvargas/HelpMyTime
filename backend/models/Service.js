@@ -24,6 +24,9 @@ const Service = mongoose.Schema ({
 	owner: {
 		type: mongoose.Schema.Types.ObjectId, ref: 'establishments'
 	},
+	owner_name: {
+		type: String
+	},
 	horary: [{type: mongoose.Schema.Types.ObjectId, ref: 'schedules'}]
 	
 

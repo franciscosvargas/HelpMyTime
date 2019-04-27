@@ -38,8 +38,7 @@ router.get('/', (req, res) => {
 
 router.get('/buscar-servicos', async (req, res) => {
 	res.render('buscar-servicos', {
-		layout: 'panel',
-		/* services: await db_Est.searchService("manicure") */
+		layout: 'panel'
 	});
 })
 

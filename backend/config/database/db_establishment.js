@@ -54,6 +54,7 @@ async function getEst(id) {
 async function createService(data, id) {
 	const Est = await EstRef.findById(id);
 	data.owner = Est;
+	data.owner_name = Est.name;
 	const Service = await ServiceRef.create(data);
 
 	Est.services.push(Service);
@@ -75,11 +76,9 @@ async function searchService(term) {
 	const service = await ServiceRef.find(criteria);
 	let res = [];
 	for(let i=0; i < service.length; i++) {
-		const owner = await EstRef.findById(service[i].owner);
+		
 		
 	}
-
-
 	
 	return service;
 
