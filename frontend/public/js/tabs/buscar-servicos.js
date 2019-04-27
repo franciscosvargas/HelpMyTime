@@ -1,18 +1,33 @@
-$("#search").keypress(function() {
-    getServices($(this).val());
-  });
-    
+$(function () {
+	less.pageLoadFinished.then(() => {
+		searchContainerHeight = ($(".search-services-container").height() / 2) - 48;
+		$(".search-input-group").css("margin", `${searchContainerHeight}px auto auto`);
+	});
+	$(document).on("input", "input.input-group-input", function () {
+		searchContainerHeight = ($(".search-services-container").height() / 2) - 48;
+		if ($("input.input-group-input").val().length > 0) {
+			$(".search-input-group").css("margin", "0 auto auto").one("transitionend", function () {
+				// The search code goes here...
+			});
+		} else {
+			$(".search-input-group").css("margin", `${searchContainerHeight}px auto auto`);
+		}
+	});
+});
 
+/* $("#search").keypress(function () {
+	getServices($(this).val());
+});
 
 async function getServices(keyword) {
-    let services = [];
-    await $.get(`/dashboard/getlistapesquisa/${keyword}`, function (resultado) {
-        services = resultado;
-    });
+	let services = [];
+	await $.get(`/dashboard/getlistapesquisa/${keyword}`, function (resultado) {
+		services = resultado;
+	});
 
-    $('.services-container').empty();
-    services.forEach(function (service) {
-        $('.services-container').append(`
+	$(".services-container").empty();
+	services.forEach(function (service) {
+		$(".services-container").append(`
             <div class="mdc-card">
                 <div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
                     <div class="mdc-card-content">
@@ -40,5 +55,5 @@ async function getServices(keyword) {
                 </div>
             </div>
         `)
-    });
-}
+	});
+} */

@@ -1,3 +1,4 @@
+window.mdc.autoInit();
 $(document).ready(function () {
 	$("#phone-number").mask("(00) 0000-00009");
 	// Preview the uploaded logo
@@ -29,6 +30,7 @@ $(document).ready(function () {
 
 	// Goes a step further
 	function formNextStep() {
+		$("body").css("overflow", "hidden");
 		// Animates the actual panel with slideOutLeft
 		$(`.register-form-step[data-step-number='${actualDataStep}']`).addClass("animated slideOutLeft faster").one("animationend", function () {
 			// Removes the animation classes from the panel and then hide
@@ -44,13 +46,15 @@ $(document).ready(function () {
 
 			// Animates the new panel with slideInRight
 			$(`.register-form-step[data-step-number='${actualDataStep}']`).show().addClass("animated slideInRight faster").one("animationend", function () {
-				$(this).removeClass("animated slideInRight faster")
+				$(this).removeClass("animated slideInRight faster");
+				$("body").css("overflow", "visible");
 			});
 		});
 	}
 
 	// Goes a step back
 	function formPreviousStep() {
+		$("body").css("overflow", "hidden");
 		// Animates the current panel with slideOutRight
 		$(`.register-form-step[data-step-number='${actualDataStep}']`).addClass("animated slideOutRight faster").one("animationend", function () {
 			// Removes the animation classes from the panel and then hide
@@ -67,6 +71,7 @@ $(document).ready(function () {
 			// Animates the new panel with slideInLeft
 			$(`.register-form-step[data-step-number='${actualDataStep}']`).show().addClass("animated slideInLeft faster").one("animationend", function () {
 				$(this).removeClass("animated slideInRight faster");
+				$("body").css("overflow", "visible");
 			});
 		});
 	}

@@ -2,20 +2,17 @@
 	<h1 class="dashboard-header-title animated slideInLeft">Buscar serviços</h1>
 </div>
 <div class="search-services-container">
-	<div class="input-group">
+	<div class="search-input-group">
 		<i class="input-group-icon-left fas fa-search"></i>
 		<input class="input-group-input" id="search" type="search" placeholder="Pesquisar por serviços">
 		<button class="input-group-icon-right mdc-icon-button">
 			<i class="fas fa-filter"></i>
 		</button>
 	</div>
-</div>
-<div class="services-container">
 	{{#each services}}
 	<div class="mdc-card">
 		<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 			<div class="mdc-card-content">
-				
 				<h2 class="card-content-headline mdc-typography--headline6">{{this.name}}</h2>
 				<div class="card-content-price">R${{this.price}}</div>
 				
@@ -41,4 +38,23 @@
 		</div>
 	</div>
 	{{/each}}
+</div>
+<div id="filter-search-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
+	<div class="mdc-dialog__container">
+		<div class="mdc-dialog__surface">
+			<h2 class="mdc-dialog__title" id="my-dialog-title">Filtrar busca</h2>
+			<div class="mdc-dialog__content" id="my-dialog-content">
+				Dialog body text goes here.
+			</div>
+			<footer class="mdc-dialog__actions">
+				<button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
+					<span class="mdc-button__label">No</span>
+				</button>
+				<button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">
+					<span class="mdc-button__label">Yes</span>
+				</button>
+			</footer>
+		</div>
+	</div>
+	<div class="mdc-dialog__scrim"></div>
 </div>

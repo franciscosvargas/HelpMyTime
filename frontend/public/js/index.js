@@ -2,8 +2,17 @@ $("#nearby-services-container").one("animationend", function () {
 	$(this).css("z-index", "1");
 });
 
-$(window).on("resize", function () {
-	$("#nearby-services-carousel").flickity("resize");
+$(document).on("click", ".header-tab", function () {
+	var tab = $(this).data("tab");
+	// Avoid clicking on the same tab twice
+	if ($(this).hasClass("active")) {
+		return false;
+	} else {
+		$(".header-tab").removeClass("active");
+		$(this).addClass("active");
+		$(".container-body").hide();
+		$(`#${tab}-tab`).css("display", "flex");
+	}
 });
 
 placeholderText = [
@@ -34,5 +43,4 @@ async function typewriter(array) {
 	await sleep(3000);
 	typewriter(placeholderText);
 }
-
 typewriter(placeholderText);
