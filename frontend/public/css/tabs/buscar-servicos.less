@@ -4,7 +4,7 @@
 	justify-content: center;
 	align-items: center;
 	padding: 15px;
-	height: calc(100% - 98px);
+	min-height: calc(100% - 98px);
 
 	.search-input-group {
 		display: none;
@@ -45,14 +45,17 @@
 	}
 }
 
-.services-container {
+.services-body {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: flex-start;
 	padding: 16px;
 
 	.mdc-card {
-		margin: 0 8px 8px;
-		max-width: 400px;
+		margin: 8px;
+		user-select: none;
+		min-width: 280px;
+		max-width: 280px;
 
 		.mdc-card-content {
 			padding: 16px;
@@ -66,10 +69,11 @@
 				top: 0;
 				right: 0;
 				padding: 12px 16px;
-				background: linear-gradient(45deg, limegreen 0%, #008552 100%);
 				color: white;
 				font-weight: bold;
 				border-bottom-left-radius: 18px;
+				box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+				background: linear-gradient(90deg, #9ebd13 0%, #008552 100%);
 			}
 
 			.card-content-author {

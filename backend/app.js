@@ -79,7 +79,7 @@ const accountRouter = require('./routes/account');
 
 	app.get('*', function(req, res){
 		res.send('SORRY, DEU ERRO, MAS VAMOS POR UMA PÁGINA AQUI', 404);
-	  });
+	});
 
 app.listen(3001, () => {
 	console.log("Servidor iniciado na porta 3001");
