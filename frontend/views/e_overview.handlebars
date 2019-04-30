@@ -1,0 +1,94 @@
+<div class="dashboard-header">
+	<h1 class="dashboard-header-title animated slideInLeft">{{ statistics.establishment.name }}</h1>
+</div>
+<div class="card-container">
+	<div class="card gradient-orange">
+		<img src="/img/tabs/time-left.svg" class="card-icon">
+		<div class="card-text">
+			<h2 class="card-title">{{statistics.horary.today_open}}</h2>
+			<h5 class="card-subtitle">Agendamentos para hoje</h5>
+		</div>
+	</div>
+	<div class="card gradient-green">
+		<img src="/img/tabs/tick.svg" class="card-icon">
+		<div class="card-text">
+			<h2 class="card-title">{{statistics.horary.today_closed}}</h2>
+			<h5 class="card-subtitle">Atendimentos feitos hoje</h5>
+		</div>
+	</div>
+
+	<div class="card gradient-purple">
+		<img src="/img/tabs/weekly-calendar.svg" class="card-icon">
+		<div class="card-text">
+			<h2 class="card-title">{{statistics.horary.week_open}}</h2>
+			<h5 class="card-subtitle">Agendamentos para essa semana</h5>
+		</div>
+	</div>
+
+	<div class="card gradient-pink">
+		<img src="/img/tabs/day.svg" class="card-icon">
+		<div class="card-text">
+			<h2 class="card-title">{{statistics.horary.week_closed}}</h2>
+			<h5 class="card-subtitle">Atendimentos feitos essa semana</h5>
+		</div>
+	</div>
+</div>
+<div id="dashboard-panels">
+	<div class="schedule-container animated slideInLeft faster">
+		<div class="schedule-title">Próximos Clientes</div>
+		<div class="schedule-list">
+			{{#if statistics.nextClients}}
+			{{#each statistics.nextClients}}
+			<div class="schedule-list-item">
+				<div class="schedule-item-time">{{this.hour}}:{{this.min}}</div>
+				<img class="schedule-card-joint" src="/img/tabs/schedule-card-joint.svg">
+				<div class="schedule-task">
+					<p class="schedule-task-name">{{this.name}}</p>
+					<p class="schedule-task-description">{{this.service}}</p>
+				</div>
+			</div>
+			{{/each}}
+			{{else}}
+			<p>Não há nenhum agendamento até o momento.</p>
+			{{/if}}
+
+		</div>
+	</div>
+	<div class="schedule-table-container animated slideInRight faster">
+		<div class="schedule-table-header">
+			<p class="schedule-table-title">Serviços</p>
+			<select class="schedule-time-select">
+				<option selected value="dia">Dia</option>
+				<option value="week">Semana</option>
+			</select>
+		</div>
+		<table id="schedule-table" class="mdc-table animated slideInRight faster">
+			{{#if statistics.establishment.services}}
+			<thead>
+				<th>Serviço</th>
+				<th>Horário</th>
+				<th>Preço</th>
+				<th>Disponibilidade</th>
+			</thead>
+			<tbody>
+				{{#each statistics.establishment.services}}
+				<tr>
+					<td>
+						<span class="row-title">{{this.name}}</span>
+						<button class="toggle-table-row mdc-icon-button">
+							<i class="fas fa-angle-down"></i>
+						</button>
+					</td>
+					<td>{{this.start_time}} - {{this.end_time}}</td>
+					<td>{{this.price}}</td>
+
+					<td class="{{this.class}}">{{this.text}}</td>
+				</tr>
+				{{/each}}
+			</tbody>
+			{{else}}
+			{{!-- ADICIONAR AQUI PARTE VISUAL --}}
+			{{/if}}
+		</table>
+	</div>
+</div>

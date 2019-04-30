@@ -1,0 +1,199 @@
+<div class="dashboard-header">
+	<h1 class="dashboard-header-title animated slideInLeft">Horários de Yotta</h1>
+</div>
+
+<div id="schedule-navbar">
+	<button id="add-to-schedule" class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+		<span class="mdc-button__label">Adicionar horário</span>
+	</button>
+</div>
+
+<div id="schedule-carousel">
+	<div class="carousel-cell">
+		<h4 class="schedule-cell-title">Segunda</h4>
+		<div class="cell-divider"></div>
+		{{#if schedules.monday}}
+			{{#each schedules.monday}}
+				{{#if this.haveClient}}
+					<div id="{{this._id}}" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')" class="schedule-cell unavailable-cell">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Agendado</p>
+						<div class="schedule-cell-divider"></div>
+						<p class="schedule-cell-client">{{this.client.name}}</p>
+					</div>	
+				{{else}}
+					<div class="schedule-cell available-cell">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Horário disponível</p>
+					</div>
+				{{/if}}
+			{{/each}}
+		{{else}}
+			<div class="schedule-cell empty-cell">
+				<p class="schedule-cell-name">Não há horários</p>
+			</div>
+		{{/if}}
+
+	</div>
+	<div class="carousel-cell">
+		<h4 class="schedule-cell-title">Terça</h4>
+		<div class="cell-divider"></div>
+		{{#if schedules.tuesday}}
+			{{#each schedules.tuesday}}
+				{{#if this.haveClient}}
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')" >
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Agendado</p>
+						<div class="schedule-cell-divider"></div>
+						<p class="schedule-cell-client">{{this.client.name}}</p>
+					</div>	
+				{{else}}
+					<div class="schedule-cell available-cell">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Horário disponível</p>
+					</div>
+				{{/if}}
+			{{/each}}
+		{{else}}
+			<div class="schedule-cell empty-cell">
+				<p class="schedule-cell-name">Não há horários</p>
+			</div>
+		{{/if}}
+	</div>
+	<div class="carousel-cell">
+		<h4 class="schedule-cell-title">Quarta</h4>
+		<div class="cell-divider"></div>
+		{{#if schedules.wednesday}}
+			{{#each schedules.wednesday}}
+				{{#if this.haveClient}}
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Agendado</p>
+						<div class="schedule-cell-divider"></div>
+						<p class="schedule-cell-client">{{this.client.name}}</p>
+					</div>	
+				{{else}}
+					<div class="schedule-cell available-cell">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Horário disponível</p>
+					</div>
+				{{/if}}
+			{{/each}}
+		{{else}}
+			<div class="schedule-cell empty-cell">
+				<p class="schedule-cell-name">Não há horários</p>
+			</div>
+		{{/if}}
+	</div>
+	<div class="carousel-cell">
+		<h4 class="schedule-cell-title">Quinta</h4>
+		<div class="cell-divider"></div>
+		{{#if schedules.thursday}}
+			{{#each schedules.thursday}}
+				{{#if this.haveClient}}
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Agendado</p>
+						<div class="schedule-cell-divider"></div>
+						<p class="schedule-cell-client">{{this.client.name}}</p>
+					</div>	
+				{{else}}
+					<div class="schedule-cell available-cell">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Horário disponível</p>
+					</div>
+				{{/if}}
+			{{/each}}
+		{{else}}
+			<div class="schedule-cell empty-cell">
+				<p class="schedule-cell-name">Não há horários</p>
+			</div>
+		{{/if}}
+	</div>
+	<div class="carousel-cell">
+		<h4 class="schedule-cell-title">Sexta</h4>
+		<div class="cell-divider"></div>
+		{{#if schedules.friday}}
+			{{#each schedules.friday}}
+				{{#if this.haveClient}}
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Agendado</p>
+						<div class="schedule-cell-divider"></div>
+						<p class="schedule-cell-client">{{this.client.name}}</p>
+					</div>	
+				{{else}}
+					<div class="schedule-cell available-cell">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Horário disponível</p>
+					</div>
+				{{/if}}
+			{{/each}}
+		{{else}}
+			<div class="schedule-cell empty-cell">
+				<p class="schedule-cell-name">Não há horários</p>
+			</div>
+		{{/if}}
+	</div>
+	<div class="carousel-cell">
+		<h4 class="schedule-cell-title">Sábado</h4>
+		<div class="cell-divider"></div>
+		{{#if schedules.saturday}}
+			{{#each schedules.saturday}}
+				{{#if this.haveClient}}
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Agendado</p>
+						<div class="schedule-cell-divider"></div>
+						<p class="schedule-cell-client">{{this.client.name}}</p>
+					</div>	
+				{{else}}
+					<div class="schedule-cell available-cell">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Horário disponível</p>
+					</div>
+				{{/if}}
+			{{/each}}
+		{{else}}
+			<div class="schedule-cell empty-cell">
+				<p class="schedule-cell-name">Não há horários</p>
+			</div>
+		{{/if}}
+	</div>
+	<div class="carousel-cell">
+		<h4 class="schedule-cell-title">Domingo</h4>
+		<div class="cell-divider"></div>
+		{{#if schedules.sunday}}
+			{{#each schedules.sunday}}
+				{{#if this.haveClient}}
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Agendado</p>
+						<div class="schedule-cell-divider"></div>
+						<p class="schedule-cell-client">{{this.client.name}}</p>
+					</div>	
+				{{else}}
+					<div class="schedule-cell available-cell">
+						<p class="schedule-cell-time">{{this.time}}</p>
+						<p class="schedule-cell-name">Horário disponível</p>
+					</div>
+				{{/if}}
+			{{/each}}
+		{{else}}
+			<div class="schedule-cell empty-cell">
+				<p class="schedule-cell-name">Não há horários</p>
+			</div>
+		{{/if}}
+	</div>
+</div>
+
+{{!-- <button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+	<span class="mdc-button__label">Adicionar mais serviços</span>
+</button>
+<div class="services-not-found">
+	<img class="not-found-icon" src="/img/search.svg">
+	<p>Nenhum serviço encontrado!</p>
+	<button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+		<span class="mdc-button__label">Adicionar serviços</span>
+	</button>
+</div> --}}

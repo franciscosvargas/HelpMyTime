@@ -1,0 +1,189 @@
+@import "tabs/overview";
+@import "tabs/e-cad";
+@import "tabs/e-cad-service";
+@import "tabs/e-cad-service-table";
+@import "tabs/horarios";
+@import "tabs/config";
+@import "tabs/buscar-servicos";
+
+// Mixins
+.custom-scrollbar() {
+	&::-webkit-scrollbar {
+		width: 12px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-clip: padding-box;
+		border: 4px solid transparent;
+		background-color: rgba(0, 0, 0, 0.3);
+		border-radius: 8px;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background-color: transparent;
+	}
+}
+
+:root {
+    --mdc-theme-primary: #3a47d5;
+    --mdc-theme-secondary: #3a47d5;
+}
+
+* {
+	box-sizing: border-box;
+	.custom-scrollbar();
+
+	:not(.fas) {
+		font-family: "Open Sans";
+	}
+}
+
+html,
+body {
+	min-height: 100%;
+	height: 100%;
+}
+
+body {
+	display: flex;
+	margin: 0;
+	background: linear-gradient(to bottom left, #e3ffe7 0%, #d9e7ff 100%);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+
+	#vertical-nav {
+		position: fixed;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		background-color: white;
+		padding: 4px;
+		z-index: 2;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+		.mdc-icon-button {
+			margin: 4px;
+			color: #707070;
+			font-size: 18px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			
+			&#menu-btn {
+				transition: transform 1s ease;
+				transform-origin: center center;
+			}
+			
+			&.logout-btn {
+				margin-top: auto;
+			}
+		}
+	}
+
+	#menu-container {
+		position: fixed;
+		user-select: none;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		height: 100%;
+		width: 100%;
+		margin-left: 65px;
+		display: none;
+		padding: 16px 81px 16px 16px;
+		z-index: 1;
+		background-image: linear-gradient(to bottom right, rgba(0, 65, 139, 0.7) 0%, rgba(58, 58, 176, 0.7) 62%, rgba(8, 122, 158, 0.7) 100%);
+		color: white;
+		overflow-y: scroll;
+		
+		.hmt-logo {
+			width: 123.75px;
+			height: 73.8px;
+		}
+		
+		.menu-content {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin-top: 16px;
+			
+			.menu-panel {
+				width: 100%;
+				background: white;
+				color: black;
+				margin: 8px;
+				border-radius: 6px;
+				box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+				
+				.panel-title {
+					font-weight: bold;
+    				text-transform: uppercase;
+    				color: #12559a;
+				}
+			}
+		}
+	}
+
+	#page-content {
+		margin-left: 65px;
+		flex-grow: 1;
+		min-height: 100%;
+
+		// These styles are shared between different tabs
+		.dashboard-header {
+			padding: 20px 16px;
+			background: linear-gradient(90deg, #3a47d5 0%, #00d2ff 100%);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			transform: skewY(-2deg);
+			/* The margin-bottom is a natural number equivalent to (deg * 3) */
+			margin-bottom: 15px;
+			color: white;
+		}
+
+		.dashboard-header-title {
+			margin: 0;
+			user-select: none;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			max-width: calc(100vw - 32px);
+		}
+	}
+
+	#open-menu-fab {
+		position: fixed;
+		bottom: 16px;
+		right: 16px;
+		display: none;
+		z-index: 3;
+		
+		.mdc-fab__icon {
+			transition: transform 1s;
+			transform-origin: center center;
+			
+			.fas {
+				font-size: 18px;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 620px) {
+	body #vertical-nav {
+		display: none;
+	}
+
+	body #page-content,
+	body #menu-container {
+		margin-left: 0;
+	}
+	
+	body #menu-container {
+		padding: 16px;
+	}
+	
+	body #open-menu-fab {
+		display: block;
+	} 
+}

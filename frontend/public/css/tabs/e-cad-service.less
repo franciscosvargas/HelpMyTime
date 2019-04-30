@@ -1,0 +1,143 @@
+html,
+body {
+	animation: fadeIn 0.5s;
+}
+
+.manage-services-panel {
+	display: flex;
+	flex-direction: column;
+	color: black;
+	padding: 20px 24px 32px 24px;
+	min-height: calc(100% - 107px);
+	justify-content: center;
+	align-items: center;
+
+	.services-not-found {
+		text-align: center;
+		color: grey;
+		margin: auto;
+
+		.not-found-icon {
+			width: 128px;
+		}
+
+		.add-service-btn {
+			background-image: linear-gradient(to left,
+				rgba(2, 0, 100, 1) 0%,
+				rgba(9, 9, 121, 1) 50%,
+				rgba(0, 212, 255, 1) 100%);
+		}
+	}
+
+	.panel-body {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.add-service-btn {
+	margin-top: 16px;
+	background: var(--mdc-theme-secondary);
+}
+
+#add-service-form {
+	.mdc-text-field,
+	.mdc-select {
+		width: 100%;
+
+		.mdc-floating-label--float-above {
+			color: var(--mdc-theme-primary);
+		}
+
+		&:not(:last-child) {
+			margin-bottom: 16px;
+		}
+	}
+
+	.mdc-text-field-helper-line {
+		margin-bottom: 16px;
+	}
+
+	input::-webkit-outer-spin-button,
+	.register-form input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+	}
+
+	textarea {
+		resize: none;
+	}
+
+	.form-section-title {
+		margin: 10px 0 10px;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	#add-service-dialog .mdc-dialog-body {
+		margin-top: 56px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	#show-services {
+		box-shadow: none;
+		width: 100%;
+
+		.toggle-table-row {
+			display: block;
+			margin: 0 8px 0 auto;
+		}
+
+		thead {
+			display: none;
+		}
+
+		tr {
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+			border-bottom: 3px solid #ddd;
+			display: block;
+			margin-bottom: 8px;
+			border-radius: 4px;
+
+			td {
+				display: flex;
+				align-items: center;
+				padding: 16px;
+				border-right: none !important;
+				border-bottom: 1px solid #ddd;
+				text-align: right;
+
+				.row-title {
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					max-width: 200px;
+				}
+
+				&:not(:first-child) {
+					display: none;
+
+					&::before {
+						content: attr(data-label);
+						margin-right: auto;
+						font-weight: bold;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						max-width: 120px;
+					}
+				}
+
+				&:first-child {
+					padding: 4px 0 4px 12px;
+				}
+
+				&:last-child {
+					border: none;
+				}
+			}
+		}
+	}
+}

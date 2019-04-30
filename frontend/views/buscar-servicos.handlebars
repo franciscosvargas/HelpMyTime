@@ -1,0 +1,90 @@
+<div class="dashboard-header">
+	<h1 class="dashboard-header-title animated slideInLeft">Buscar serviços</h1>
+</div>
+<div class="search-services-container">
+	<div class="services-header">
+		<div class="search-input-group">
+			<i class="input-group-icon-left fas fa-search"></i>
+			<input class="input-group-input" id="search" type="search" placeholder="Pesquisar por serviços" autocomplete="off">
+			<button class="filter-search-btn input-group-icon-right mdc-icon-button">
+				<i class="fas fa-filter"></i>
+			</button>
+		</div>
+	</div>
+	<div class="services-body">
+		{{#each services}}
+		<div class="mdc-card">
+			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
+				<div class="mdc-card-content">
+					<h2 class="card-content-headline mdc-typography--headline6">{{this.name}}</h2>
+					<div class="card-content-price">R${{this.price}}</div>
+
+					<p class="card-content-description mdc-typography-body2">
+						{{this.description}}
+					</p>
+					<div class="mdc-chip">
+						<div class="mdc-chip__text">{{this.category}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="mdc-card__actions">
+				<div class="mdc-card__action-buttons">
+					<button class="mdc-button mdc-card__action mdc-card__action--button">
+						<span class="mdc-button__label">Visualizar</span>
+					</button>
+				</div>
+				<div class="mdc-card__action-icons">
+					<button class="mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
+						<i class="fas fa-share-alt"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		{{/each}}
+	</div>
+</div>
+<div id="filter-search-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
+	<div class="mdc-dialog__container">
+		<div class="mdc-dialog__surface">
+			<h2 class="mdc-dialog__title" id="my-dialog-title">Filtrar busca</h2>
+			<div class="mdc-dialog__content" id="my-dialog-content">
+				<div class="mdc-form-field">
+					<div class="mdc-radio">
+						<input class="mdc-radio__native-control" type="radio" name="price-order" checked>
+						<div class="mdc-radio__background">
+							<div class="mdc-radio__outer-circle"></div>
+							<div class="mdc-radio__inner-circle"></div>
+						</div>
+					</div>
+					<label>Preços menores primeiro</label>
+				</div><br>
+				<div class="mdc-form-field">
+					<div class="mdc-radio">
+						<input class="mdc-radio__native-control" type="radio" name="price-order">
+						<div class="mdc-radio__background">
+							<div class="mdc-radio__outer-circle"></div>
+							<div class="mdc-radio__inner-circle"></div>
+						</div>
+					</div>
+					<label>Preços maiores primeiro</label>
+				</div><br>
+				<div class="mdc-form-field">
+					<div class="mdc-radio">
+						<input class="mdc-radio__native-control" type="radio" name="price-order">
+						<div class="mdc-radio__background">
+							<div class="mdc-radio__outer-circle"></div>
+							<div class="mdc-radio__inner-circle"></div>
+						</div>
+					</div>
+					<label>Facilidades</label>
+				</div>
+			</div>
+			<footer class="mdc-dialog__actions">
+				<button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">
+					<span class="mdc-button__label">OK</span>
+				</button>
+			</footer>
+		</div>
+	</div>
+	<div class="mdc-dialog__scrim"></div>
+</div>

@@ -1,0 +1,89 @@
+#schedule-navbar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding: 8px 8px 0;
+
+	#add-to-schedule, .mdc-select {
+		margin: 8px;
+	}
+}
+
+#schedule-carousel {
+	height: calc(100% - 187px);
+    padding: 16px;
+    
+	.carousel-cell {
+		display: flex;
+		flex-direction: column;
+		background-color: white;
+		padding: 0 18px 8px;
+		margin: 8px;
+		border-radius: 8px;
+		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+
+		.schedule-cell-title {
+			align-self: center;
+			text-transform: uppercase;
+			margin-bottom: 8px;
+			color: dimgrey;
+		}
+
+		.cell-divider {
+			width: 100%;
+			background-color: rgba(0, 0, 0, 0.12);
+			height: 1px;
+			margin: 0 0 12px;
+			border: none;
+		}
+
+		.schedule-cell {
+			border-radius: 8px;
+			padding: 16px;
+			transition: opacity 0.5s;
+			margin-bottom: 12px;
+			color: white;
+
+			.schedule-cell-time {
+				font-size: 24px;
+				font-weight: bold;
+				margin: 0;
+			}
+
+			.schedule-cell-name {
+				white-space: nowrap;
+				font-weight: bold;
+				margin: 0;
+			}
+
+			.schedule-cell-divider {
+				width: 50%;
+				background-color: rgb(255, 255, 255);
+				height: 2px;
+				margin: 4px 0 8px;
+				border: none;
+            }
+            
+			.schedule-cell-client {
+				margin: 0;
+			}
+
+			&.available-cell {
+				background: linear-gradient(to right, #00CDAC, #02AAB0);
+			}
+
+			&.unavailable-cell {
+				background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
+			}
+
+			&.empty-cell {
+				background-image: linear-gradient(315deg, #9dc5c3 0%, #5e5c5c 74%);
+			}
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="/img/favicon.ico" />
+	<meta name="description" content="Encontre e agende os melhores serviços perto de você">
+	<meta name="keywords" content="HelpMyTime, helpmytime, hmt, Agendar Serviços">
+	<meta name="author" content="Yotta">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Painel</title>
+	<!-- Prevent FOUC (flash of unstyled content) -->
+	<style>
+		.fouc-hidden {
+			display: none
+		}
+	</style>
+	<script>
+		var html = document.querySelector("html");
+		html.classList.add("fouc-hidden");
+		window.onload = function () {
+			html.classList.remove("fouc-hidden");
+		}
+	</script>
+	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+	<link rel="stylesheet/less" href="/css/panel.less">
+</head>
+
+<body>
+	{{!-- Vertical navigation --}}
+	<div id="vertical-nav" class="animated slideInLeft fast">
+		<a id="menu-btn" class="mdc-icon-button">
+			<i class="fas fa-bars"></i>
+		</a>
+		<a href="/dashboard/buscar-servicos" class="mdc-icon-button">
+			<i class="fas fa-briefcase"></i>
+		</a>
+		<a href="/dashboard/meus-horarios" class="mdc-icon-button">
+			<i class="fas fa-clock"></i>
+		</a>
+		<a href="/dashboard/config" class="mdc-icon-button">
+			<i class="fas fa-cogs"></i>
+		</a>
+		<a href="/conta/logout" class="logout-btn mdc-icon-button">
+			<i class="fas fa-sign-out-alt"></i>
+		</a>
+		<a class="notification-btn mdc-icon-button">
+			<i class="fas fa-bell"></i>
+		</a>
+	</div>
+
+	{{!-- Toggleable menu --}}
+	<div id="menu-container">
+		<a href="/dashboard">
+			<img class="hmt-logo" src="https://htm.yottadev.com.br/img/helpMyTime-logo.png"
+				alt="HelpMyTime - Agendamento de Serviços">
+		</a>
+		<div class="menu-content">
+			<div class="menu-panel">
+				<h3 class="panel-title mdc-list-group__subheader">Para Você</h3>
+				<ul class="mdc-list">
+					<a href="/dashboard/buscar-servicos" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-briefcase" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Buscar Serviços</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a href="/dashboard/meus-horarios" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-clock" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Agendamentos</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a href="/dashboard/config" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-cogs" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Configurações</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a href="/conta/logout" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-sign-out-alt" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Sair</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+				</ul>
+			</div>
+			<div class="menu-panel">
+				<h3 class="panel-title mdc-list-group__subheader">Para o seu negócio</h3>
+				<ul class="mdc-list">
+					{{#if user.establishment}}
+					<a class="mdc-list-item" href="/dashboard/visao-geral" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-eye" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Visão Geral</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a class="mdc-list-item" href="/dashboard/meus-horarios" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-clock" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Horários</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a class="mdc-list-item" href="/dashboard/meus-servicos" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-wrench" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Serviços</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					<a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+						<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Estabelecimento</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					{{else}}
+					<a class="mdc-list-item" href="/dashboard/cadastrar-estabelecimento">
+						<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
+						<span class="mdc-list-item__text">Cadastrar negócio</span>
+						<span class="mdc-list-item__meta fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+					{{/if}}
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	{{!-- Page content --}}
+	<div id="page-content">{{{ body }}}</div>
+
+	{{!-- Open menu FAB --}}
+	<button id="open-menu-fab" class="mdc-fab" aria-label="Abrir menu" data-mdc-auto-init="MDCRipple">
+		<span class="mdc-fab__icon">
+			<i class="fas fa-bars"></i>
+		</span>
+	</button>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="/js/panel.js"></script>
+	<script src="/js/tabs/e-cad.js"></script>
+	<script src="/js/tabs/e-cad-service.js"></script>
+	<script src="/js/tabs/horarios.js"></script>
+	<script src="/js/tabs/config.js"></script>
+	<script src="/js/tabs/buscar-servicos.js"></script>
+</body>
+
+</html>

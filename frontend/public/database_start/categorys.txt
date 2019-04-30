@@ -1,0 +1,63 @@
+Alfaiate
+Adestrador de animais
+Animador de festas
+Assessor jurídico
+Barbeiro
+Borracheiro
+Cabeleireiro/a
+Carreteiro/Fretista
+Cerimonial
+Chaveiro
+Instalador de cortinas
+Instalador de papel de parede
+Confeiteiro
+Corretor de imóveis
+Corretor de planos de saúde
+Corretor de previdência privada
+Corretor de seguros
+Costureiro/a
+Cozinheiro/a
+Decorador
+Dedetizador
+Dentista
+Design de Sobrancelhas
+Podologia
+Depilador/a
+Desenhista
+Desenhista técnico
+Detetive
+Digitador
+Dublador/a
+Editor/a
+Esteticista
+Fotógrafo
+Instalador de TV
+Intérprete
+Jardineiro
+Lava-Rápido
+Leiloeiro
+Limpador de Vidros Residencias
+Limpador de Vidros Industriais
+Locutor/a
+Manicure
+Pedicure
+Piscineiro
+Massagista
+Mecânico de veículos
+Médico
+Motorista
+Músico
+Limpador de Piscina
+Paisagista
+Passadora de roupas
+Pedagogo
+Pintor/a
+Professor Particular
+Promotor de eventos
+Publicitário
+Relações públicas
+Relojoeiro
+Salva-vidas
+Sapateiro
+Tradutor/a
+FIM

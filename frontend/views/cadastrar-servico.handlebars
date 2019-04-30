@@ -1,0 +1,52 @@
+<div class="dashboard-header">
+	<h1 class="dashboard-header-title animated slideInLeft">Serviços</h1>
+</div>
+<!-- Service management panel -->
+<div class="manage-services-panel">
+	{{#if statistics.establishment.services}}
+	<!-- Services table -->
+	<table id="show-services" class="mdc-table">
+		<thead>
+			<th>Serviço</th>
+			<th>Preço</th>
+			<th>Duração da sessão</th>
+			<th>Categoria</th>
+			<th>Disponibilidade</th>
+			<th>Editar</th>
+		</thead>
+		<tbody>
+			{{#each statistics.establishment.services}}
+			<tr >
+				<td>
+					<span class="row-title">{{this.name}}</span>
+					<button class="toggle-table-row mdc-icon-button">
+						<i class="fas fa-angle-down"></i>
+					</button>
+				</td>
+				<td>R${{this.price}}</td>
+				<td>{{this.duration}}min</td>
+				<td>{{this.category}}</td>
+				<td class="{{this.class}}">{{this.text}}</td>
+				<td id="{{this._id}}">
+					<button class="mdc-icon-button">
+						<i class="fas fa-pencil-alt"></i>
+					</button>
+				</td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
+	<button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+		<span class="mdc-button__label">Adicionar mais serviços</span>
+	</button>
+	{{else}}
+	<div class="services-not-found">
+		<img class="not-found-icon" src="/img/search.svg">
+		<p>Nenhum serviço encontrado!</p>
+		<button class="add-service-btn add-service mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+			<span class="mdc-button__label">Adicionar serviços</span>
+		</button>
+	</div>
+
+	{{/if}}
+</div>

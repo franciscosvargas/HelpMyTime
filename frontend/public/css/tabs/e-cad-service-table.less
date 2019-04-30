@@ -1,0 +1,75 @@
+.toggle-table-row {
+	display: none;
+}
+
+.mdc-table {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+	border-collapse: collapse;
+	border-radius: 4px;
+	table-layout: fixed;
+
+	tr {
+		background-color: white;
+		border-bottom: 1px solid #ddd;
+
+		td,
+		th {
+			padding: 6px 14px;
+			font-size: 0.813em;
+			
+			word-wrap: break-word;
+			text-align: center;
+			color: #333;
+
+			&:last-child {
+				padding: 16px;
+			}
+		}
+
+		td {
+			font-size: 0.844em;
+			font-weight: bold;
+			color: dimgrey;
+
+			&:last-child {
+				.mdc-icon-button {
+					font-size: 18px;
+				}
+			}
+
+			// Sets the availability table element color
+			&.high {
+				color: green;
+
+				&::before {
+					color: dimgrey;
+				}
+			}
+
+			&.medium {
+				color: orange;
+
+				&::before {
+					color: dimgrey;
+				}
+			}
+
+			&.low {
+				color: red;
+
+				&::before {
+					color: dimgrey;
+				}
+			}
+
+			.toggle-table-row {
+				font-size: 18px;
+				transition: all 0.5s ease;
+
+				&.toggled-table-row {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
+}

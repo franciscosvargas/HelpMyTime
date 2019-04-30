@@ -1,0 +1,262 @@
+<header id="page-header">
+	<img src="/img/helpMyTime-logo.svg" width="192" alt="helpMyTime-logo">
+	<h2 class="header-headline">Encontre e agende os melhores serviços perto de você</h2>
+	<div class="input-group">
+		<i class="input-group-icon fas fa-search"></i>
+		<input class="input-group-input" type="search" placeholder="O HelpMyTime agenda pra você!">
+	</div>
+</header>
+<!-- Categories bar -->
+<div class="navigation-menu">
+	{{#each categories}}
+	<a href="categorias/view/{{slug}}">{{name}}</a>
+	{{else}}
+	<script>
+		document.querySelectorAll(".navigation-menu").style.display = "none";
+		$(".navigation-menu").hide();
+	</script>
+	{{/each}}
+</div>
+
+<div id="nearby-services-container">
+	<h2 class="content-headline">Serviços próximos</h2>
+	<h4 class="content-subtitle">Estabelecimentos na sua região</h4>
+	<div id="nearby-services-carousel">
+		<div class="mdc-card">
+			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
+				<div class="card-content">
+					<div class="price-tag">R$399,00</div>
+					<h2 class="mdc-typography--headline6">Tradução Inglês</h2>
+					<h3 class="mdc-typography--subtitle2">por LNG Traduções</h3>
+					<p class="mdc-typography--body2">Traduções simultâneas presenciais da Língua Inglesa.</p>
+				</div>
+			</div>
+			<div class="mdc-card__actions">
+				<div class="mdc-card__action-buttons">
+					<button class="mdc-button mdc-card__action mdc-card__action--button"><span class="mdc-button__label">Visualizar</span></button>
+				</div>
+				<div class="mdc-card__action-icons">
+					<button class="mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar"><i class="fas fa-share-alt"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="mdc-card">
+			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
+				<div class="card-content">
+					<div class="price-tag">R$179,90</div>
+					<h2 class="mdc-typography--headline6">Maquiagem</h2>
+					<h3 class="mdc-typography--subtitle2">by Lady & Lord</h3>
+					<p class="mdc-typography--body2">Maquiagem premium masculina e feminina para eventos.</p>
+				</div>
+			</div>
+			<div class="mdc-card__actions">
+				<div class="mdc-card__action-buttons">
+					<button class="mdc-button mdc-card__action mdc-card__action--button"><span class="mdc-button__label">Visualizar</span></button>
+				</div>
+				<div class="mdc-card__action-icons">
+					<button class="mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar"><i class="fas fa-share-alt"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="mdc-card">
+			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
+				<div class="card-content">
+					<div class="price-tag">R$399,00</div>
+					<h2 class="mdc-typography--headline6">Hello World!</h2>
+					<h3 class="mdc-typography--subtitle2">by John Doe</h3>
+					<p class="mdc-typography--body2">Lorem ipsum dolor sit amet consectetur</p>
+				</div>
+			</div>
+			<div class="mdc-card__actions">
+				<div class="mdc-card__action-buttons">
+					<button class="mdc-button mdc-card__action mdc-card__action--button"><span class="mdc-button__label">Visualizar</span></button>
+				</div>
+				<div class="mdc-card__action-icons">
+					<button class="mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar"><i class="fas fa-share-alt"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="mdc-card">
+			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
+				<div class="card-content">
+					<div class="price-tag">R$399,00</div>
+					<h2 class="mdc-typography--headline6">Hello World!</h2>
+					<h3 class="mdc-typography--subtitle2">by John Doe</h3>
+					<p class="mdc-typography--body2">Lorem ipsum dolor sit amet consectetur</p>
+				</div>
+			</div>
+			<div class="mdc-card__actions">
+				<div class="mdc-card__action-buttons">
+					<button class="mdc-button mdc-card__action mdc-card__action--button"><span class="mdc-button__label">Visualizar</span></button>
+				</div>
+				<div class="mdc-card__action-icons">
+					<button class="mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar"><i class="fas fa-share-alt"></i></button>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<div id="features-container-mobile">
+	<div class="container-header">
+		<button data-tab="user" class="header-tab active">Pra você</button>
+		<button data-tab="establishment" class="header-tab">Para o seu negócio</button>
+	</div>
+	<div id="user-tab" class="container-body">
+		<div class="body-counter">1</div>
+		<p>Que serviço você precisa hoje? Agora você pode encontrar os melhores serviços  perto de você. <br> <br>Seja uma mudança no visual ou a manutenção do seu carro, encontraremos as melhores opções para sua necessidade.</p>
+		<div class="body-counter">2</div>
+		<p>Decidiu que vai mudar o visual? Hora de agendar o serviço no seu salão favorito ou descobrir outras opções de parceiros que atendam perfeitamente as suas necessidades.</p>
+	</div>
+	<div id="establishment-tab" class="container-body">
+		<div class="body-counter">1</div>
+		<p>Como sua empresa se conecta aos clientes? Crie uma página para seu estabelecimento e abra as portas para que novos clientes conheçam seu negócio, os faça retornar com um sistema prático e confiável trabalhando ao seu favor.</p>
+		<div class="body-counter">2</div>
+		<p>Tem vaga na sua agenda? Adicione os serviços que seu negócio oferece e indique os horários em que pode trabalhar, diga olá para uma agenda digital organizada e com poucos espaços em branco.	</p>
+	</div>
+</div>
+<div id="features-container">
+	<div class="feature-content">
+		<div class="header-panel">Para você</div>
+		<div class="body-panel">Que serviço você precisa hoje? Agora você pode encontrar os melhores serviços e profissionais perto de você. Seja uma mudança no visual ou a manutenção do seu carro, encontraremos as melhores opções para sua necessidade.</div>
+		<div class="body-panel">Decidiu que vai mudar o visual? Hora de agendar o serviço no seu salão favorito ou descobrir outras opções de parceiros que atendam perfeitamente as suas necessidades.</div>
+	</div>
+	<div class="feature-content">
+		<div class="header-panel">Para o seu negócio</div>
+		<div class="body-panel">Como sua empresa se conecta aos clientes? Crie uma página para seu estabelecimento e abra as portas para que novos clientes conheçam seu negócio, os faça retornar com um sistema prático e confiável trabalhando ao seu favor.</div>
+		<div class="body-panel">Tem vaga na sua agenda? Adicione os serviços que seu negócio oferece e indique os horários em que pode trabalhar, diga olá para uma agenda digital organizada e com poucos espaços em branco.	
+		</div>
+	</div>
+</div>
+
+<!--  Authentication methods -->
+<div id="login-container">
+	{{!-- LOGIN --}}
+	<div id="login-panel" class="panel">
+		<div class="panel-header">
+			<button class="close-panel-btn mdc-icon-button">
+				<i class="fas fa-times"></i>
+			</button>
+			<h2 class="panel-headline">Entrar</h2>
+		</div>
+		<div class="panel-body">
+			<p class="panel-subtitle">Faça login na sua conta para aproveitar o melhor do HelpMyTime</p>
+			<form action="/conta/login" method="POST" id="login-form">
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="text" name="email" class="mdc-text-field__input">
+					<label class="mdc-floating-label">Email</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="password" name="password" class="mdc-text-field__input">
+					<label class="mdc-floating-label">Senha</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+			</form>
+			<div id="login-form-buttons">
+				<button id="login-btn" type="submit" form="login-form" name="submit" class="submit-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Entrar</span>
+				</button>
+				<button class="create-account-btn mdc-button" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Criar uma conta</span>
+				</button>
+				<button class="reset-password-btn mdc-button" data-mdc-auto-init="MDCRipple">
+					<span class="mdc-button__label">Esqueceu sua senha?</span>
+				</button>
+			</div>
+		</div>
+	</div>
+	{{!--  REGISTER --}}
+	<div id="register-panel" class="panel">
+		<div class="panel-header">
+			<button class="back-btn mdc-icon-button">
+				<i class="fas fa-arrow-left"></i>
+			</button>
+			<h2 class="panel-headline">Criar uma conta</h2>
+			<button class="close-panel-btn mdc-icon-button">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+		<div class="panel-body">
+			<p class="panel-subtitle">Preencha o formulário abaixo para criar sua conta do HelpMyTime</p>
+			<form action="/conta/cadastro" method="POST" class="register-form">
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="text" name="name" class="mdc-text-field__input" required>
+					<label class="mdc-floating-label">Nome</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="email" name="email" class="mdc-text-field__input" required>
+					<label class="mdc-floating-label">Email</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<div class="mdc-text-field" id="cep-div" data-mdc-auto-init="MDCTextField">
+					<input type="number" minlength=8 maxlength=8 name="cep" id="cep" class="mdc-text-field__input" required>
+					<label class="mdc-floating-label">CEP (somente dígitos)</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<input type="hidden" name="city" id="city" class="mdc-text-field__input" required>
+				<input type="hidden" name="uf" id="uf" class="mdc-text-field__input" required>
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="phone" id="phone-number" name="phone" class="mdc-text-field__input" pattern="\([0-9]{2}\)[\s][0-9]{4,5}-[0-9]{4}" required>
+					<label class="mdc-floating-label">Celular</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="number" name="cpf" class="mdc-text-field__input" required>
+					<label class="mdc-floating-label">CPF (somente digitos)</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="password" minlength=8 name="password" class="mdc-text-field__input" required>
+					<label class="mdc-floating-label">Senha</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="password" minlength=8 name="repeatpassword" class="mdc-text-field__input" required>
+					<label class="mdc-floating-label">Repita a senha</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<p>
+					Ao clicar no botão abaixo, você estará concordando com os nossos Termos de Uso e Condições de
+					Serviço
+				</p>
+				<button type="submit" name="submit" class="register-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" disabled>
+					<span class="mdc-button__label">Criar conta</span>
+				</button>
+			</form>
+		</div>
+	</div>
+	{{!-- RESET PASSWORD --}}
+	<div id="reset-password-panel" class="panel">
+		<div class="panel-header">
+			<button class="back-btn mdc-icon-button">
+				<i class="fas fa-arrow-left"></i>
+			</button>
+			<h2 class="panel-headline">Recuperar senha</h2>
+			<button class="close-panel-btn mdc-icon-button">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+		<div class="panel-body">
+			<p class="panel-subtitle">Informe o seu endereço de email abaixo, para que possamos enviar um email com um
+				link para alterar sua senha</p>
+			<form action="/conta/redefinir-senha" method="POST" id="reset-password-form">
+				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+					<input type="email" name="email" class="mdc-text-field__input">
+					<label class="mdc-floating-label">Seu email</label>
+					<div class="mdc-line-ripple"></div>
+				</div>
+				<button type="submit" class="confirm-password-reset-btn mdc-button mdc-button--raised" disabled>
+					<span class="mdc-button--label">Confirmar</span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<button class="open-login-panel open-login-panel-fab mdc-fab" aria-label="Entrar/Cadastrar" data-mdc-auto-init="MDCRipple">
+	<span class="mdc-fab__icon">
+		<i class="fas fa-user"></i>
+	</span>
+</button>
