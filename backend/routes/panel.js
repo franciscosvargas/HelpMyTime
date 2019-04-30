@@ -100,6 +100,13 @@ router.get('/meus-horarios', async (req, res) => {
 
 });
 
+router.get('/meus-agendamentos', async (req, res) => {
+	const schedules = await db_Est.getSchedulesFromClient(req.user._id);
+	res.render('horarios', {
+		schedules: schedules,
+		layout: 'panel'
+	});
+});
 router.get('/cadastrar-estabelecimento', (req, res) => {
 	res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
 });
