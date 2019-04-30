@@ -431,7 +431,7 @@ const confirmation = (action, email) => {
 													</div>
 													<div align="left" class="button-container"
 														style="padding-top:5px;padding-right:10px;padding-bottom:35px;padding-left:10px;">
-														<form id="form-id" action="http://`+action+`" method="POST">
+														<form id="form-id" action="https://`+action+`" method="POST">
 														<input type="hidden" name="email" value="`+ email +`"/>
 														<button style="text-decoration:none;display:inline-block;color:#132F40;background-color:#FFD500;border-radius:50px;-webkit-border-radius:50px;-moz-border-radius:50px;width:auto; width:auto;;border-top:1px solid #FFD500;border-right:1px solid #FFD500;border-bottom:1px solid #FFD500;border-left:1px solid #FFD500;padding-top:5px;padding-bottom:5px;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span
 																style="padding-left:20px;padding-right:20px;font-size:15px;display:inline-block;">
