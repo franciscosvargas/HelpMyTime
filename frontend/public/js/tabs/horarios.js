@@ -1,3 +1,4 @@
+$(document).on("click", "#add-to-schedule", () => { openDialogAddSchedule() });
 var services = [];
 
 $.get("/dashboard/getlistaservicos", function (resultado) {
@@ -5,10 +6,29 @@ $.get("/dashboard/getlistaservicos", function (resultado) {
 	console.log(resultado);
 });
 
+$(function () {
+	// Initialize category slider when less is done loading stylesheets
+	less.pageLoadFinished.then(() => {
+		$("#schedule-carousel").flickity({
+			cellAlign: "center",
+			draggable: true,
+			freeScroll: true,
+			contain: true,
+			pageDots: false
+		});
+		$("#schedule-carousel").flickity("resize");
+	});
+	// Resizes flickity container whenever the page is resized
+	$(window).on("resize", function () {
+		$("#schedule-carousel").flickity("resize");
+	});
 
-function openDialogSchedule() {
+	$("#view-schedule-dialog").on("MDCDialog:closed", () => { $("#view-schedule-dialog").html("") });
+});
+
+function openDialogAddSchedule() {
 	$("body").append(`
-		<div id="add-service-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
+		<div id="add-schedule-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
 		<div class="mdc-dialog__container">
 			<div class="mdc-dialog__surface">
 				<h2 class="mdc-dialog__title">Adicionar horário</h2>
@@ -135,72 +155,10 @@ function openDialogSchedule() {
 			<div class="mdc-dialog__scrim"></div>
 		</div>
 	`);
-	dialogSupport();
-}
 
-function openDialogViewSchedule(id, time, client, phone) {
-	$.get("/dashboard/getservicohorario/" + id, function (resultado) {
-		$("body").append(`
-		<div id="add-service-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
-		<div class="mdc-dialog__container">
-			<div class="mdc-dialog__surface">
-				<h2 class="mdc-dialog__title">Agendamento</h2>
-					<div class="mdc-dialog__content">
-						<div><strong>Horário:</strong> ${time}</div>
-						<div><strong>Cliente:</strong> ${client}</div>
-						<div><strong>Telefone do Cliente:</strong> ${phone}</div>
-						<div><strong>Serviço:</strong> ${resultado.name}</div>
-					</div>
-					<footer class="mdc-dialog__actions">
-						<button type="reset" form="add-service-forme" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-							<span class="mdc-button__label">Cancelar</span>
-						</button>
-						<button type="submit" form="add-service-form" class="mdc-button mdc-dialog__button">
-							<span class="mdc-button__label">Confirmar</span>
-						</button>
-					</footer>
-				</div>
-			</div>
-			<div class="mdc-dialog__scrim"></div>
-		</div>
-	`);
-	dialogSupport();
-	});
-}
-
-function openDialogViewSchedule(id, time, client, phone) {
-	$.get("/dashboard/getservicohorario/" + id, function (resultado) {
-		$("body").append(`
-		<div id="add-service-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
-		<div class="mdc-dialog__container">
-			<div class="mdc-dialog__surface">
-				<h2 class="mdc-dialog__title">Agendamento</h2>
-					<div class="mdc-dialog__content">
-						<div><strong>Horário:</strong> ${time}</div>
-						<div><strong>Cliente:</strong>  ${client}</div>
-						<div><strong>Telefone do Cliente:</strong>  ${phone}</div>
-						<div><strong>Serviço:</strong>  ${resultado.name}</div>
-					</div>
-					<footer class="mdc-dialog__actions">
-						<button type="reset" form="add-service-forme" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-							<span class="mdc-button__label">Cancelar</span>
-						</button>
-						<button type="submit" form="add-service-form" class="mdc-button mdc-dialog__button">
-							<span class="mdc-button__label">Confirmar</span>
-						</button>
-					</footer>
-				</div>
-			</div>
-			<div class="mdc-dialog__scrim"></div>
-		</div>
-	`);
-	dialogSupport();
-	});
-}
-function dialogSupport() {
 	window.mdc.autoInit(document, () => { });
-	addServiceDialog = mdc.dialog.MDCDialog.attachTo(document.querySelector("#add-service-dialog"));
-	addServiceDialog.open();
+	addScheduleDialog = mdc.dialog.MDCDialog.attachTo(document.querySelector("#add-schedule-dialog"));
+	addScheduleDialog.open();
 	services.forEach(function (item) {
 		$("#services").append(`
 			<div class="mdc-form-field">
@@ -220,25 +178,61 @@ function dialogSupport() {
 		`);
 	});
 
-	$("#add-service-dialog").on("MDCDialog:closed", () => { $(this).remove() });
+	$("#add-schedule-dialog").on("MDCDialog:closed", () => { $(this).remove() });
 }
 
-$(document).on("click", "#add-to-schedule", () => { openDialogSchedule() });
 
-$(function () {
-	// Initialize category slider when less is done loading stylesheets
-	less.pageLoadFinished.then(() => {
-		$("#schedule-carousel").flickity({
-			cellAlign: "center",
-			draggable: true,
-			freeScroll: true,
-			contain: true,
-			pageDots: false
-		});
-		$("#schedule-carousel").flickity("resize");
+function openDialogViewSchedule(id, time, client, phone) {
+	$("#view-schedule-dialog").remove();
+	$.get("/dashboard/getservicohorario/" + id, function (resultado) {
+		$("body").append(`
+		<div id="view-schedule-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
+		<div class="mdc-dialog__container">
+			<div class="mdc-dialog__surface">
+				<h2 class="mdc-dialog__title">Agendamento</h2>
+					<div class="mdc-dialog__content">
+						<div><strong>Horário:</strong> ${time}</div>
+						<div><strong>Cliente:</strong> ${client}</div>
+						<div><strong>Telefone do Cliente:</strong> ${phone}</div>
+						<div><strong>Serviço:</strong> ${resultado.name}</div>
+						<br>
+						<div>*Caso precise desmarcar o horário, solicite reagendamento.</div>
+					</div>
+					<footer class="mdc-dialog__actions">
+						<button onclick="reagendarHorario('${id}')" class="mdc-button mdc-dialog__button" >
+							<span class="mdc-button__label">Solicitar Reagendamento</span>
+						</button>
+						<button id="btnfechar" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="closed">
+							<span class="mdc-button__label">fechar</span>
+						</button>
+					</footer>
+				</div>
+			</div>
+			<div class="mdc-dialog__scrim"></div>
+		</div>
+	`);
+
+
+		window.mdc.autoInit(document, () => { });
+		viewScheduleDialog = mdc.dialog.MDCDialog.attachTo(document.querySelector("#view-schedule-dialog"));
+		viewScheduleDialog.open();
+		$('#btnfechar').focus();
+
 	});
-	// Resizes flickity container whenever the page is resized
-	$(window).on("resize", function () {
-		$("#schedule-carousel").flickity("resize");
-	});
-});
+
+}
+
+function reagendarHorario(id) {
+
+	console.log('Reagendar serviço:' + id);
+
+	$.post("/dashboard/reagendar", {
+		id: id
+	}, function (msg) {
+		let apagar = `#${id}`;
+		$(apagar).remove();
+		viewScheduleDialog.close();
+		swal("Sucesso!", "Horário desmarcado e excluído com sucesso.\nO cliente foi informado via e-mail.", "success");
+	})
+
+}

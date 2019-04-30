@@ -5,6 +5,7 @@ const path = require('path');
 const sharp = require('sharp');
 const fs = require('fs');
 const db_Est = require("../config/database/db_establishment");
+const sendEmail = require('../config/email/send');
 
 // Configuration to receive files 
 const storage = multer.diskStorage({
@@ -103,6 +104,7 @@ router.get('/cadastrar-estabelecimento', (req, res) => {
 	res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
 });
 
+// GET DATA FROM SERVER
 router.get('/getservico/:id', async (req, res) => {
 	const service = await db_Est.getService(req.params.id);
 	res.send(service);
@@ -121,6 +123,13 @@ router.get('/getlistaservicos', async (req, res) => {
 router.get('/getlistapesquisa/:keyword', async (req, res) => {
 	const service = await db_Est.searchService(req.params.keyword);
 	res.json(service);
+});
+
+router.post('/reagendar', async (req, res) => {
+	const data = await db_Est.reschedule(req.body.id);
+
+	await sendEmail(data);
+	res.send(data);
 });
 
 // Routes Post

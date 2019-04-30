@@ -72,14 +72,9 @@ async function getService(id) {
 
 async function searchService(term) {
 	var regex = new RegExp(term, 'i');
-	var criteria = {$or: [ {name: regex}, {category: regex}, {description: regex} ]}
+	var criteria = {$or: [ {name: regex}, {category: regex}, {description: regex}, {owner_name: regex} ]}
 	const service = await ServiceRef.find(criteria);
-	let res = [];
-	for(let i=0; i < service.length; i++) {
-		
-		
-	}
-	
+
 	return service;
 
 }
@@ -379,6 +374,25 @@ function onlyUnique(value, index, self) {
 	return self.indexOf(value) === index;
 }
 
+async function reschedule(id) {
+	const service = await ServiceRef.findOne({horary: id});
+	const schedule = await ScheduleRef.findById(id).populate('client');
+	const data = {
+		usuario: schedule.client.name,
+		estabelecimento: service.owner_name,
+		horario: schedule.time,
+		servico: service.name,
+		email: schedule.client.email,
+		title: `${service.name} foi desmarcado.`,
+		type: 'rescheduling'
+	};
+
+	await ServiceRef.updateMany({horary: id}, { $pullAll: {'horary': [id] } } );
+	await ScheduleRef.findByIdAndRemove(id);
+	
+	return data;
+}
+
 module.exports = {
 	notExists: notExists,
 	createEst: createEst,
@@ -390,5 +404,6 @@ module.exports = {
 	getStatistics: getStatistics,
 	getSchedules: getSchedules,
 	getServiceBySchedule: getServiceBySchedule,
-	searchService: searchService
+	searchService: searchService, 
+	reschedule: reschedule
 }

@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const assembleData = require('./models/assemble');
 const templateConfirmation = require('./models/confirmation');
 const templatePassword = require('./models/password');
+const templateRescheduling = require('./models/rescheduling');
 
 var href = "http://localhost:3001/conta/confirmation/"
 const transporter = nodemailer.createTransport({
@@ -44,6 +45,8 @@ const loadTemplate = (data) => {
 		return(templateConfirmation(data.action, data.email));
 	} else if (data.type == "password") {
 		return(templatePassword(data.action, data.email));
+	} else if (data.type == "rescheduling") {
+		return(templateRescheduling(data));
 	} else {
 		return(assembleData(data));
 	}

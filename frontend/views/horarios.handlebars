@@ -15,7 +15,7 @@
 		{{#if schedules.monday}}
 			{{#each schedules.monday}}
 				{{#if this.haveClient}}
-					<div onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')" class="schedule-cell unavailable-cell">
+					<div id="{{this._id}}" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')" class="schedule-cell unavailable-cell">
 						<p class="schedule-cell-time">{{this.time}}</p>
 						<p class="schedule-cell-name">Agendado</p>
 						<div class="schedule-cell-divider"></div>
@@ -41,7 +41,7 @@
 		{{#if schedules.tuesday}}
 			{{#each schedules.tuesday}}
 				{{#if this.haveClient}}
-					<div class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')" >
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')" >
 						<p class="schedule-cell-time">{{this.time}}</p>
 						<p class="schedule-cell-name">Agendado</p>
 						<div class="schedule-cell-divider"></div>
@@ -66,7 +66,7 @@
 		{{#if schedules.wednesday}}
 			{{#each schedules.wednesday}}
 				{{#if this.haveClient}}
-					<div class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
 						<p class="schedule-cell-time">{{this.time}}</p>
 						<p class="schedule-cell-name">Agendado</p>
 						<div class="schedule-cell-divider"></div>
@@ -91,7 +91,7 @@
 		{{#if schedules.thursday}}
 			{{#each schedules.thursday}}
 				{{#if this.haveClient}}
-					<div class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
 						<p class="schedule-cell-time">{{this.time}}</p>
 						<p class="schedule-cell-name">Agendado</p>
 						<div class="schedule-cell-divider"></div>
@@ -116,7 +116,7 @@
 		{{#if schedules.friday}}
 			{{#each schedules.friday}}
 				{{#if this.haveClient}}
-					<div class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
 						<p class="schedule-cell-time">{{this.time}}</p>
 						<p class="schedule-cell-name">Agendado</p>
 						<div class="schedule-cell-divider"></div>
@@ -141,7 +141,7 @@
 		{{#if schedules.saturday}}
 			{{#each schedules.saturday}}
 				{{#if this.haveClient}}
-					<div class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
 						<p class="schedule-cell-time">{{this.time}}</p>
 						<p class="schedule-cell-name">Agendado</p>
 						<div class="schedule-cell-divider"></div>
@@ -166,7 +166,7 @@
 		{{#if schedules.sunday}}
 			{{#each schedules.sunday}}
 				{{#if this.haveClient}}
-					<div class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
+					<div id="{{this._id}}" class="schedule-cell unavailable-cell" onclick="openDialogViewSchedule('{{this._id}}','{{this.time}}','{{this.client.name}}', '{{this.client.phone}}')">
 						<p class="schedule-cell-time">{{this.time}}</p>
 						<p class="schedule-cell-name">Agendado</p>
 						<div class="schedule-cell-divider"></div>
