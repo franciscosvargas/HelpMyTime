@@ -350,10 +350,54 @@ async function getSchedules(estid) {
 		return days;
 	} */
 
-
-
 }
+async function getSchedulesFromClient(id){
+	const days = { sunday: [], monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [] };
+	const schedules = await ScheduleRef.find({client: id}).populate('client');
+	schedules.forEach(final => {
+		switch (final.day) {
+			case 0:
+				days.sunday.push(final);
+				break;
+			case 1:
+				days.monday.push(final);
+				break;
+			case 2:
+				days.tuesday.push(final);
+				break;
+			case 3:
+				days.wednesday.push(final);
+				break;
+			case 4:
+				days.thursday.push(final);
+				break;
+			case 5:
+				days.friday.push(final);
+				break;
+			case 6:
+				days.saturday.push(final);
+				break;
+		}
+		
+	});
 
+	if (days.monday.length > 0)
+		days.monday = sortSchedulesByTime(days.monday);
+	if (days.tuesday.length > 0)
+		days.tuesday = sortSchedulesByTime(days.tuesday);
+	if (days.wednesday.length > 0)
+		days.wednesday = sortSchedulesByTime(days.wednesday);
+	if (days.thursday.length > 0)
+		days.thursday = sortSchedulesByTime(days.thursday);
+	if (days.friday.length > 0)
+		days.friday = sortSchedulesByTime(days.friday);
+	if (days.saturday.length > 0)
+		days.saturday = sortSchedulesByTime(days.saturday);
+	if (days.sunday.length > 0)
+		days.sunday = sortSchedulesByTime(days.sunday);
+
+	return days;
+}
 function sortSchedulesByTime(array) {
 	const date = new Date();
 	for (let i = 0; i < array.length; i++) {
@@ -405,5 +449,6 @@ module.exports = {
 	getSchedules: getSchedules,
 	getServiceBySchedule: getServiceBySchedule,
 	searchService: searchService, 
-	reschedule: reschedule
+	reschedule: reschedule,
+	getSchedulesFromClient: getSchedulesFromClient
 }
