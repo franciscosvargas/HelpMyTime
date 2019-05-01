@@ -222,6 +222,46 @@ function openDialogViewSchedule(id, time, client, phone) {
 
 }
 
+function openDialogViewSchedule2(id, time, client, phone) {
+	$("#view-schedule-dialog").remove();
+	$.get("/dashboard/getservicohorario/" + id, function (resultado) {
+		$("body").append(`
+		<div id="view-schedule-dialog" class="mdc-dialog" role="alertdialog" aria-modal="true">
+		<div class="mdc-dialog__container">
+			<div class="mdc-dialog__surface">
+				<h2 class="mdc-dialog__title">Agendamento</h2>
+					<div class="mdc-dialog__content">
+						<div><strong>Horário:</strong> ${time}</div>
+						<div><strong>Cliente:</strong> ${client}</div>
+						<div><strong>Telefone do Cliente:</strong> ${phone}</div>
+						<div><strong>Serviço:</strong> ${resultado.name}</div>
+						<br>
+						<div>*Caso precise desmarcar o horário, solicite reagendamento.</div>
+					</div>
+					<footer class="mdc-dialog__actions">
+						<button onclick="desmarcarHorario('${id}')" class="mdc-button mdc-dialog__button" >
+							<span class="mdc-button__label">Desmarcar</span>
+						</button>
+						<button id="btnfechar" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="closed">
+							<span class="mdc-button__label">fechar</span>
+						</button>
+					</footer>
+				</div>
+			</div>
+			<div class="mdc-dialog__scrim"></div>
+		</div>
+	`);
+
+
+		window.mdc.autoInit(document, () => { });
+		viewScheduleDialog = mdc.dialog.MDCDialog.attachTo(document.querySelector("#view-schedule-dialog"));
+		viewScheduleDialog.open();
+		$('#btnfechar').focus();
+
+	});
+
+}
+
 function reagendarHorario(id) {
 
 	console.log('Reagendar serviço:' + id);
@@ -235,4 +275,19 @@ function reagendarHorario(id) {
 		swal("Sucesso!", "Horário desmarcado e excluído com sucesso.\nO cliente foi informado via e-mail.", "success");
 	})
 
+}
+
+function desmarcarHorario(id) {
+	$.post("/dashboard/desmarcar", {
+		id: id
+	}, function (msg) {
+		let apagar = `#${id}`;
+		$(apagar).remove();
+		viewScheduleDialog.close();
+		
+		swal("Sucesso!", "Horário desmarcado e excluído com sucesso.", "success");
+		location.reload();
+	})
+
+	console.log('Reagendar serviço:' + id);
 }

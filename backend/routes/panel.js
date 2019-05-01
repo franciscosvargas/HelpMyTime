@@ -50,7 +50,7 @@ router.get('/visao-geral', async (req, res) => {
 		const statistics = await db_Est.getStatistics(req.user.establishment);
 		res.render('e_overview', {
 			user: req.user,
-			 statistics: statistics,
+			statistics: statistics,
 			layout: 'panel'
 		});
 	} catch (err) {
@@ -87,10 +87,12 @@ router.get('/meus-servicos', async (req, res) => {
 router.get('/meus-horarios', async (req, res) => {
 	try {
 		const schedules = await db_Est.getSchedules(req.user.establishment);
+		const establishment = await db_Est.getEst(req.user.establishment);
 		res.render('horarios', {
 			user: req.user,
 			schedules: schedules,
-			layout: 'panel'
+			layout: 'panel',
+			establishment: establishment
 		});
 	} catch (e) {
 		console.log(e);
@@ -102,7 +104,7 @@ router.get('/meus-horarios', async (req, res) => {
 
 router.get('/meus-agendamentos', async (req, res) => {
 	const schedules = await db_Est.getSchedulesFromClient(req.user._id);
-	res.render('horarios', {
+	res.render('agendamentos', {
 		schedules: schedules,
 		layout: 'panel'
 	});
@@ -134,6 +136,13 @@ router.get('/getlistapesquisa/:keyword', async (req, res) => {
 
 router.post('/reagendar', async (req, res) => {
 	const data = await db_Est.reschedule(req.body.id);
+
+	await sendEmail(data);
+	res.send(data);
+});
+
+router.post('/desmarcar', async (req, res) => {
+	const data = await db_Est.markoff(req.body.id);
 
 	await sendEmail(data);
 	res.send(data);
