@@ -437,6 +437,14 @@ async function reschedule(id) {
 	return data;
 }
 
+async function markoff(id) {
+	await ServiceRef.updateMany({horary: id}, { $pullAll: {'horary': [id] } } );
+	await ScheduleRef.findByIdAndRemove(id);
+
+	return true;
+
+}
+
 module.exports = {
 	notExists: notExists,
 	createEst: createEst,
@@ -450,5 +458,6 @@ module.exports = {
 	getServiceBySchedule: getServiceBySchedule,
 	searchService: searchService, 
 	reschedule: reschedule,
-	getSchedulesFromClient: getSchedulesFromClient
+	getSchedulesFromClient: getSchedulesFromClient,
+	markoff: markoff
 }
