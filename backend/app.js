@@ -78,7 +78,7 @@ const accountRouter = require('./routes/account');
 	});
 
 	app.get('*', function(req, res){
-		res.send('SORRY, DEU ERRO, MAS VAMOS POR UMA PÁGINA AQUI', 404);
+		res.render('404', {layout: 'general'});
 	});
 
 app.listen(3001, () => {
