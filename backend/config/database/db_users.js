@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const UserRef = mongoose.model('users', User);
 
+const sendEmail = require('../email/send');
+
 async function createUserFromEmail(data) { 
 	const newUser = new UserRef(data);
 	try {
@@ -48,19 +50,55 @@ async function forgotPassword(email) {
 		return Promise.reject("Não encontramos nenhuma conta com o email informado.");
 	} catch (err) {
 		if(err.length == 52) {
-			return Promise.resolve("Um link com a redefinição de senha foi enviada para o seu email.");
+			const user = await UserRef.findOne({email: email});
+			let params = {
+				param1: await encrypt(email),
+				param2: await encrypt(user.name)
+			}
+			
+			params.param1 = params.param1.replace(/[/]+/g, '');
+			params.param2 = params.param2.replace(/[/]+/g, '');
+
+			const url = `http://localhost:3001/conta/novasenha/${params.param1}/sk6g/${params.param1}`;
+			
+			user.temp_url = url;
+			user.save();
+
+			await sendEmail({
+				type: "password",
+				title: "Sua redefinição de senha chegou",
+				action: url,
+				email: email
+			});  
+
+			console.log(url);
+
+			return Promise.resolve(url);
 		}
 	}
 }
 
 async function rewritePassword(data) {
 	try {
-		await encrypt(data.password)
-			.then(password => {data.password = password});
-		await UserRef.findOneAndUpdate({email: data.email}, {$set: {password: data.password}});
-		return "A sua senha foi alterada. Faça login novamente.";
+		data.url = data.url.replace("?","");
+
+		console.log(data);
+		const user = await UserRef.findOne({temp_url: data.url});
+
+		if (data.password != data.cpassword)
+			return Promise.reject("As senhas não combinam, tente novamente");
+	
+		if (data.password.length < 6)
+			return Promise.reject("A senha precisa ser maior que 6 caracteres.");
+	
+		user.password = await encrypt(data.password);
+		user.temp_url = "false";
+		user.save();
+
+		return Promise.resolve("A senha foi alterada, faça login para usar nossos serviços.");
+		
 	} catch (err) {
-		return "Aconteceu algum problema, tente novamente.";
+		return Promise.reject("Este pedido de recuperação de senha está expirado. \nPeça um novo em Esqueci Minha Senha na área de login.");
 	}
 }
 

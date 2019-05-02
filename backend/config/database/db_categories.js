@@ -26,7 +26,7 @@ function createCategoryFromFile() {
 			slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
 			slug = slug.replace(/\s/g, '-');
 			slug = slug.replace("/a","");
-			slug = slug.replace("/","-");
+			slug = slug.replace("/","");
 		// The end of file    
 		if (line == "FIM") {
 			return false; 

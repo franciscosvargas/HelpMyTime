@@ -37,6 +37,9 @@ const User = mongoose.Schema ({
 	}, 
 	establishment: {
 		type: mongoose.Schema.Types.ObjectId, ref: 'establishments'
+	},
+	temp_url: {
+		type: String
 	}
 })
 
