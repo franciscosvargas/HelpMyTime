@@ -56,13 +56,9 @@ router.post('/confirmation', async (req, res) => {
 router.post('/redefinir-senha', async (req, res) => {
 	try {
 		await dbUser.forgotPassword(req.body.email)
-			.then(message => {req.flash("alert_message", message)});
-		sendEmail({
-			type: "password",
-			email: req.body.email,
-			title: "Sua redefinição de senha chegou",
-			action: "htm.yottadev.com.br/conta/novasenha"
+		.then(message => {req.flash("alert_message", "Um link com a redefinição de senha foi enviada para o seu email.")
 		});
+		
 		res.redirect('/');
 	} catch (err) {
 		req.flash("alert_message", err);
@@ -70,18 +66,22 @@ router.post('/redefinir-senha', async (req, res) => {
 	}
 });
 
-router.post('/novasenha', (req, res) => {
-	res.render('change_password', {email: req.body.email});
+router.get('/novasenha/:param1/sk6g/:param2', (req, res) => {
+	res.render('change_password', {layout: 'general'});
 });
 
-router.post('/novasenha/send', (req, res) => {
-	dbUser.rewritePassword({
-		email: req.body.email,
-		password: req.body.password
-	}).then((message) => {
-		req.flash("alert_message", message);
-		res.redirect('/');
-	});
+router.post('/novasenha/send', async  (req, res) => {
+	try {
+		await dbUser.rewritePassword({
+			cpassword: req.body.cpassword,
+			password: req.body.password,
+			url: req.body.url
+		});
+
+		res.send(true);
+	} catch (error) {
+		res.send(error);
+	}
 });
 
 

@@ -1,0 +1,73 @@
+.centered-flex() {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
+	background-image: url("/img/404-wallpaper.jpg"), linear-gradient(to top, #00418b 0%, #3a3ab0 62%, #087a9e 100%);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-blend-mode: overlay;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	.main-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+
+		.headline-container {
+			.centered-flex();
+
+			span {
+				font-size: 72px;
+				font-family: "BioRhyme Expanded";
+				user-select: none;
+				text-shadow: 1px 1px 2px white;
+				animation: neonEffect 3s infinite;
+			}
+		}
+
+		.subtitle-1,
+		.subtitle-2 {
+			font-family: "Open Sans";
+			color: white;
+			text-shadow: 6px 6px 8px black;
+			user-select: none;
+		}
+
+		.subtitle-2 {
+			margin: 0;
+			font-size: 18px;
+			font-weight: bold;
+		}
+	}
+
+	.hmt-logo {
+		margin: 12px;
+		filter: drop-shadow(6px 6px 8px black);
+	}
+}
+
+@keyframes neonEffect {
+	0% {
+		text-shadow: 1px 1px 2px white;
+	}
+
+	50% {
+		text-shadow: 1px 1px 14px white;
+	}
+
+	100% {
+		text-shadow: 1px 1px 2px white;
+	}
+}
