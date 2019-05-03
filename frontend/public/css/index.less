@@ -1,4 +1,8 @@
-*, *:before, *:after {box-sizing: border-box}
+*,
+*:before,
+*:after {
+	box-sizing: border-box
+}
 
 *:not(.fas) {
 	font-family: "Open Sans" !important
@@ -31,12 +35,10 @@ body {
 #page-header {
 	width: 100%;
 	background-image: url("../img/2.jpg"),
-		linear-gradient(
-			90deg, 
-			rgba(0,65,139,1) 0%,
-			rgba(58,58,176,1) 62%,
-			rgba(8,122,158,1) 100%
-		);
+		linear-gradient(90deg,
+		rgba(0, 65, 139, 1) 0%,
+		rgba(58, 58, 176, 1) 62%,
+		rgba(8, 122, 158, 1) 100%);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-blend-mode: overlay;
@@ -56,12 +58,10 @@ body {
 	bottom: 0;
 	right: 0;
 	z-index: 3;
-	background-image: linear-gradient(
-		90deg, 
-		rgba(0,65,139,1) 0%,
-		rgba(58,58,176,1) 62%,
-		rgba(8,122,158,1) 100%
-	);
+	background-image: linear-gradient(90deg,
+		rgba(0, 65, 139, 1) 0%,
+		rgba(58, 58, 176, 1) 62%,
+		rgba(8, 122, 158, 1) 100%);
 }
 
 .open-login-panel-fab .mdc-fab__icon {
@@ -271,7 +271,6 @@ body {
 
 #features-container {
 	display: flex;
-	align-items: center;
 	justify-content: center;
 	padding: 64px 20px;
 	counter-reset: features;
@@ -329,6 +328,68 @@ body {
 	}
 }
 
+#footer-container {
+	display: flex;
+	flex-direction: column;
+	color: white;
+	text-align: center;
+	background: linear-gradient(to bottom, transparent, #222 10%);
+	padding: 48px 20px 20px;
+
+	.footer-row {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+
+		&:not(:last-child) {
+			margin-bottom: 18px;
+		}
+
+		.yotta-logo-grayscale {
+			margin: 12px 18px;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		.badge {
+			display: flex;
+			font-size: 18px;
+			overflow: hidden;
+			align-items: center;
+
+			.left,
+			.right {
+				padding: 12px;
+			}
+
+			.left {
+				transform: skew(-20deg);
+
+				p {
+					transform: skew(20deg);
+				}
+			}
+
+			.badge-divider-vertical {
+				background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
+				height: 82px;
+				width: 3px;
+				transform: skew(-20deg);
+			}
+
+			.badge-divider-horizontal {
+				display: none;
+				background-image: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+				height: 3px;
+				width: 100%;
+			}
+		}
+	}
+}
+
 @keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -347,8 +408,14 @@ body {
 		width: 100%;
 	}
 
-	#page-header {padding: 16px}
-	.navigation-menu, .header-headline {display: none}
+	#page-header {
+		padding: 16px
+	}
+
+	.navigation-menu,
+	.header-headline {
+		display: none
+	}
 
 	#features-container {
 		display: none;
@@ -356,5 +423,25 @@ body {
 
 	#features-container-mobile {
 		display: block;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	body #footer-container .footer-row {
+		.badge {
+			flex-direction: column;
+
+			.badge-divider-vertical {
+				display: none;
+			}
+
+			.badge-divider-horizontal {
+				display: block;
+			}
+
+			.right {
+				padding: 6px;
+			}
+		}
 	}
 }
