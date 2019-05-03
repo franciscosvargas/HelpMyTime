@@ -15,6 +15,18 @@ $(document).on("click", ".header-tab", function () {
 	}
 });
 
+$(document).on("click", ".share-btn", function () {
+	if (navigator.share) {
+		navigator.share({
+				title: "HelpMyTime",
+				text: "Confira esse anúncio no HelpMyTime!",
+				url: "https://example.com",
+			})
+			.then(() => console.log("Compartilhado com sucesso!"))
+			.catch((error) => console.log("Erro ao compartilhar"));
+	}
+})
+
 placeholderText = [
 	"Que serviço você precisa hoje?",
 	"Dentista?",
@@ -26,7 +38,9 @@ placeholderText = [
 ];
 
 // Typewriter effect
-function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms))
+}
 async function typewriter(array) {
 	for (var y = 0; y < array.length; y++) {
 		var placeholder = "";
