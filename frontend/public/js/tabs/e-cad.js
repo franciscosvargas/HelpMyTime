@@ -118,9 +118,9 @@ $(document).ready(function () {
 
 	$(document).on("change", $("[data-step-number='3'] input[type='checkbox']"), function () {
 		if ($(".register-form-step[data-step-number='3'] input[type='checkbox']:checked").length > 0) {
-			$(".register-form-step[data-step-number='3'] .payment-method-footer button[type='submit']").removeAttr("disabled");
+			$(".register-form-step[data-step-number='3'] .payment-method-footer button[name='submit']").removeAttr("disabled");
 		} else {
-			$(".register-form-step[data-step-number='3'] .payment-method-footer button[type='submit']").attr("disabled", "true");
+			$(".register-form-step[data-step-number='3'] .payment-method-footer button[name='submit']").attr("disabled", "true");
 		}
 	});
 

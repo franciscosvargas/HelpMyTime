@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
@@ -29,6 +29,8 @@
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sharp": "^0.22.0"
+    "require": "^2.4.20",
+    "sharp": "^0.22.0",
+    "xml2js": "^0.4.19"
   }
 }

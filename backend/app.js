@@ -13,6 +13,7 @@ require('./config/auth/auth')(passport);
 const connectDatabase = require('./config/database/db_config');
 const dbCategories = require('./config/database/db_categories');
 const dbEst = require('./config/database/db_establishment');
+const payment = require('./config/payment/payment')
 
 // Importing Routes
 const panelRouter = require('./routes/panel');
@@ -79,6 +80,17 @@ const accountRouter = require('./routes/account');
 
 	app.get('*', function(req, res){
 		res.render('404', {layout: 'general'});
+	});
+
+	app.post('/adherence', async (req, res) => {
+		try {
+			console.log(JSON.stringify(req.body))
+			await payment.adherence(JSON.stringify(req.body), "5ccc83862c81b9310c8ecced");
+			res.send("criado").status(200);
+		} catch (e) {
+			console.log(e);
+			res.send(e);
+		}
 	});
 
 app.listen(3001, () => {

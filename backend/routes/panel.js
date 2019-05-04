@@ -6,6 +6,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const db_Est = require("../config/database/db_establishment");
 const sendEmail = require('../config/email/send');
+const paymentController = require('../config/payment/payment');
 
 // Configuration to receive files 
 const storage = multer.diskStorage({
@@ -110,7 +111,12 @@ router.get('/meus-agendamentos', async (req, res) => {
 	});
 });
 router.get('/cadastrar-estabelecimento', (req, res) => {
-	res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
+	if (req.user.plan) {
+		res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
+	} else {
+		res.render('pagamento', { user: req.user, layout: 'panel' });
+	}
+	
 });
 
 // GET DATA FROM SERVER
@@ -132,6 +138,20 @@ router.get('/getlistaservicos', async (req, res) => {
 router.get('/getlistapesquisa/:keyword', async (req, res) => {
 	const service = await db_Est.searchService(req.params.keyword);
 	res.json(service);
+});
+
+router.get('/getsession', async (req, res) => {
+    res.send(await paymentController.createSession());
+});
+
+router.post('/adherence', async (req, res) => {
+	try {
+		await paymentController.adherence(JSON.stringify(req.body), req.user._id);
+		res.end('{"success" : "Updated Successfully", "status" : 200}');
+	} catch (e) {
+		console.log(e);
+		res.send(e).status(500);
+	}
 });
 
 router.post('/reagendar', async (req, res) => {
@@ -195,8 +215,7 @@ router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res
 		// Save establishment on database
 		await db_Est.createEst(data);
 		fs.unlink(req.file.path);
-		//res.redirect("http://pag.ae/7UMFDwyr1");
-		res.redirect("/dashboard/meus-servicos");
+		res.redirect('/dashboard/meus-servicos');
 	} catch (e) {
 		res.send(e);
 	}
