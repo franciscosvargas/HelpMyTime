@@ -1,0 +1,20 @@
+<div id="register-business-container">
+	
+</div>
+
+{{#if user.plan}}
+	<script>window.location = '/dashboard/cadastrar-estabelecimento';</script>
+{{/if}}
+
+{{> fabmenu}}
+
+{{> panelScripts}}
+
+
+
+<script type="text/javascript"
+	src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+<script src="/js/tabs/e-cad.js"></script>
+<script src="/js/tabs/payment.js"></script>
+<script>initializePayment()</script>
+

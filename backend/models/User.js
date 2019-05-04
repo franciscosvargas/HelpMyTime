@@ -40,6 +40,9 @@ const User = mongoose.Schema ({
 	},
 	temp_url: {
 		type: String
+	},
+	plan: {
+		type: String
 	}
 })
 
