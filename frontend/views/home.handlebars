@@ -20,96 +20,20 @@
 
 <div id="nearby-services-container">
 	<h2 class="content-headline">Serviços próximos</h2>
-	<h4 class="content-subtitle">Estabelecimentos na sua região</h4>
+	<h4 id="subtitle" class="content-subtitle">Procurando por serviços na sua região</h4>
+	<div role="progressbar" id="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate">
+		<div class="mdc-linear-progress__buffering-dots"></div>
+		<div class="mdc-linear-progress__buffer"></div>
+		<div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+			<span class="mdc-linear-progress__bar-inner"></span>
+		</div>
+		<div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+			<span class="mdc-linear-progress__bar-inner"></span>
+		</div>
+	</div>
 	<div id="nearby-services-carousel">
-		<div class="mdc-card">
-			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
-				<div class="card-content">
-					<div class="price-tag">R$399,00</div>
-					<h2 class="mdc-typography--headline6">Tradução Inglês</h2>
-					<h3 class="mdc-typography--subtitle2">por LNG Traduções</h3>
-					<p class="mdc-typography--body2">Traduções simultâneas presenciais da Língua Inglesa.</p>
-				</div>
-			</div>
-			<div class="mdc-card__actions">
-				<div class="mdc-card__action-buttons">
-					<button class="mdc-button mdc-card__action mdc-card__action--button">
-						<span class="mdc-button__label">Visualizar</span>
-					</button>
-				</div>
-				<div class="mdc-card__action-icons">
-					<button class="share-btn mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-						<i class="fas fa-share-alt"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="mdc-card">
-			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
-				<div class="card-content">
-					<div class="price-tag">R$179,90</div>
-					<h2 class="mdc-typography--headline6">Maquiagem</h2>
-					<h3 class="mdc-typography--subtitle2">by Lady &amp; Lord</h3>
-					<p class="mdc-typography--body2">Maquiagem premium masculina e feminina para eventos.</p>
-				</div>
-			</div>
-			<div class="mdc-card__actions">
-				<div class="mdc-card__action-buttons">
-					<button class="mdc-button mdc-card__action mdc-card__action--button">
-						<span class="mdc-button__label">Visualizar</span>
-					</button>
-				</div>
-				<div class="mdc-card__action-icons">
-					<button class="share-btn mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-						<i class="fas fa-share-alt"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="mdc-card">
-			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
-				<div class="card-content">
-					<div class="price-tag">R$399,00</div>
-					<h2 class="mdc-typography--headline6">Hello World!</h2>
-					<h3 class="mdc-typography--subtitle2">by John Doe</h3>
-					<p class="mdc-typography--body2">Lorem ipsum dolor sit amet consectetur</p>
-				</div>
-			</div>
-			<div class="mdc-card__actions">
-				<div class="mdc-card__action-buttons">
-					<button class="mdc-button mdc-card__action mdc-card__action--button">
-						<span class="mdc-button__label">Visualizar</span>
-					</button>
-				</div>
-				<div class="mdc-card__action-icons">
-					<button class="share-btn mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-						<i class="fas fa-share-alt"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div class="mdc-card">
-			<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
-				<div class="card-content">
-					<div class="price-tag">R$399,00</div>
-					<h2 class="mdc-typography--headline6">Hello World!</h2>
-					<h3 class="mdc-typography--subtitle2">by John Doe</h3>
-					<p class="mdc-typography--body2">Lorem ipsum dolor sit amet consectetur</p>
-				</div>
-			</div>
-			<div class="mdc-card__actions">
-				<div class="mdc-card__action-buttons">
-					<button class="mdc-button mdc-card__action mdc-card__action--button">
-						<span class="mdc-button__label">Visualizar</span>
-					</button>
-				</div>
-				<div class="mdc-card__action-icons">
-					<button class="share-btn mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-						<i class="fas fa-share-alt"></i>
-					</button>
-				</div>
-			</div>
-		</div>
+
+
 
 	</div>
 </div>
@@ -120,27 +44,39 @@
 	</div>
 	<div id="user-tab" class="container-body">
 		<div class="body-counter">1</div>
-		<p>Que serviço você precisa hoje? Agora você pode encontrar os melhores serviços perto de você. <br> <br>Seja uma mudança no visual ou a manutenção do seu carro, encontraremos as melhores opções para sua necessidade.</p>
+		<p>Que serviço você precisa hoje? Agora você pode encontrar os melhores serviços perto de você. <br> <br>Seja
+			uma mudança no visual ou a manutenção do seu carro, encontraremos as melhores opções para sua necessidade.
+		</p>
 		<div class="body-counter">2</div>
-		<p>Decidiu que vai mudar o visual? Hora de agendar o serviço no seu salão favorito ou descobrir outras opções de parceiros que atendam perfeitamente as suas necessidades.</p>
+		<p>Decidiu que vai mudar o visual? Hora de agendar o serviço no seu salão favorito ou descobrir outras opções de
+			parceiros que atendam perfeitamente as suas necessidades.</p>
 	</div>
 	<div id="establishment-tab" class="container-body">
 		<div class="body-counter">1</div>
-		<p>Como sua empresa se conecta aos clientes? Crie uma página para seu estabelecimento e abra as portas para que novos clientes conheçam seu negócio, os faça retornar com um sistema prático e confiável trabalhando ao seu favor.</p>
+		<p>Como sua empresa se conecta aos clientes? Crie uma página para seu estabelecimento e abra as portas para que
+			novos clientes conheçam seu negócio, os faça retornar com um sistema prático e confiável trabalhando ao seu
+			favor.</p>
 		<div class="body-counter">2</div>
-		<p>Tem vaga na sua agenda? Adicione os serviços que seu negócio oferece e indique os horários em que pode trabalhar, diga olá para uma agenda digital organizada e com poucos espaços em branco. </p>
+		<p>Tem vaga na sua agenda? Adicione os serviços que seu negócio oferece e indique os horários em que pode
+			trabalhar, diga olá para uma agenda digital organizada e com poucos espaços em branco. </p>
 	</div>
 </div>
 <div id="features-container">
 	<div class="feature-content">
 		<div class="header-panel">Para você</div>
-		<div class="body-panel">Que serviço você precisa hoje? Agora você pode encontrar os melhores serviços e profissionais perto de você. Seja uma mudança no visual ou a manutenção do seu carro, encontraremos as melhores opções para sua necessidade.</div>
-		<div class="body-panel">Decidiu que vai mudar o visual? Hora de agendar o serviço no seu salão favorito ou descobrir outras opções de parceiros que atendam perfeitamente as suas necessidades.</div>
+		<div class="body-panel">Que serviço você precisa hoje? Agora você pode encontrar os melhores serviços e
+			profissionais perto de você. Seja uma mudança no visual ou a manutenção do seu carro, encontraremos as
+			melhores opções para sua necessidade.</div>
+		<div class="body-panel">Decidiu que vai mudar o visual? Hora de agendar o serviço no seu salão favorito ou
+			descobrir outras opções de parceiros que atendam perfeitamente as suas necessidades.</div>
 	</div>
 	<div class="feature-content">
 		<div class="header-panel">Para o seu negócio</div>
-		<div class="body-panel">Como sua empresa se conecta aos clientes? Crie uma página para seu estabelecimento e abra as portas para que novos clientes conheçam seu negócio, os faça retornar com um sistema prático e confiável trabalhando ao seu favor.</div>
-		<div class="body-panel">Tem vaga na sua agenda? Adicione os serviços que seu negócio oferece e indique os horários em que pode trabalhar, diga olá para uma agenda digital organizada e com poucos espaços em branco.
+		<div class="body-panel">Como sua empresa se conecta aos clientes? Crie uma página para seu estabelecimento e
+			abra as portas para que novos clientes conheçam seu negócio, os faça retornar com um sistema prático e
+			confiável trabalhando ao seu favor.</div>
+		<div class="body-panel">Tem vaga na sua agenda? Adicione os serviços que seu negócio oferece e indique os
+			horários em que pode trabalhar, diga olá para uma agenda digital organizada e com poucos espaços em branco.
 		</div>
 	</div>
 </div>
@@ -170,7 +106,8 @@
 				</div>
 			</form>
 			<div id="login-form-buttons">
-				<button id="login-btn" type="submit" form="login-form" name="submit" class="submit-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
+				<button id="login-btn" type="submit" form="login-form" name="submit"
+					class="submit-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
 					<span class="mdc-button__label">Entrar</span>
 				</button>
 				<button class="create-account-btn mdc-button" data-mdc-auto-init="MDCRipple">
@@ -207,14 +144,16 @@
 					<div class="mdc-line-ripple"></div>
 				</div>
 				<div class="mdc-text-field" id="cep-div" data-mdc-auto-init="MDCTextField">
-					<input type="number" minlength=8 maxlength=8 name="cep" id="cep" class="mdc-text-field__input" required>
+					<input type="number" minlength=8 maxlength=8 name="cep" id="cep" class="mdc-text-field__input"
+						required>
 					<label class="mdc-floating-label">CEP (somente dígitos)</label>
 					<div class="mdc-line-ripple"></div>
 				</div>
 				<input type="hidden" name="city" id="city" class="mdc-text-field__input" required>
 				<input type="hidden" name="uf" id="uf" class="mdc-text-field__input" required>
 				<div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-					<input type="phone" id="phone-number" name="phone" class="mdc-text-field__input" pattern="\([0-9]{2}\)[\s][0-9]{4,5}-[0-9]{4}" required>
+					<input type="phone" id="phone-number" name="phone" class="mdc-text-field__input"
+						pattern="\([0-9]{2}\)[\s][0-9]{4,5}-[0-9]{4}" required>
 					<label class="mdc-floating-label">Celular</label>
 					<div class="mdc-line-ripple"></div>
 				</div>
@@ -237,7 +176,8 @@
 					Ao clicar no botão abaixo, você estará concordando com os nossos Termos de Uso e Condições de
 					Serviço
 				</p>
-				<button type="submit" name="submit" class="register-btn mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple" disabled>
+				<button type="submit" name="submit" class="register-btn mdc-button mdc-button--raised"
+					data-mdc-auto-init="MDCRipple" disabled>
 					<span class="mdc-button__label">Criar conta</span>
 				</button>
 			</form>
@@ -289,7 +229,8 @@
 	</div>
 </div>
 
-<button class="open-login-panel open-login-panel-fab mdc-fab" aria-label="Entrar/Cadastrar" data-mdc-auto-init="MDCRipple">
+<button class="open-login-panel open-login-panel-fab mdc-fab" aria-label="Entrar/Cadastrar"
+	data-mdc-auto-init="MDCRipple">
 	<span class="mdc-fab__icon">
 		<i class="fas fa-user"></i>
 	</span>

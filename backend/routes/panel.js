@@ -110,6 +110,7 @@ router.get('/meus-agendamentos', async (req, res) => {
 		layout: 'panel'
 	});
 });
+
 router.get('/cadastrar-estabelecimento', (req, res) => {
 	if (req.user.plan) {
 		res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
@@ -119,7 +120,14 @@ router.get('/cadastrar-estabelecimento', (req, res) => {
 	
 });
 
-// GET DATA FROM SERVER
+/* 
+ ██████╗ ███████╗████████╗    ██████╗  █████╗ ████████╗ █████╗ 
+██╔════╝ ██╔════╝╚══██╔══╝    ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
+██║  ███╗█████╗     ██║       ██║  ██║███████║   ██║   ███████║
+██║   ██║██╔══╝     ██║       ██║  ██║██╔══██║   ██║   ██╔══██║
+╚██████╔╝███████╗   ██║       ██████╔╝██║  ██║   ██║   ██║  ██║
+ ╚═════╝ ╚══════╝   ╚═╝       ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝                                                             
+ */
 router.get('/getservico/:id', async (req, res) => {
 	const service = await db_Est.getService(req.params.id);
 	res.send(service);
@@ -135,6 +143,7 @@ router.get('/getlistaservicos', async (req, res) => {
 	res.json(est.services);
 });
 
+
 router.get('/getlistapesquisa/:keyword', async (req, res) => {
 	const service = await db_Est.searchService(req.params.keyword);
 	res.json(service);
@@ -144,6 +153,14 @@ router.get('/getsession', async (req, res) => {
     res.send(await paymentController.createSession());
 });
 
+/*
+██████╗  ██████╗ ███████╗████████╗    ██████╗  █████╗ ████████╗ █████╗ 
+██╔══██╗██╔═══██╗██╔════╝╚══██╔══╝    ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
+██████╔╝██║   ██║███████╗   ██║       ██║  ██║███████║   ██║   ███████║
+██╔═══╝ ██║   ██║╚════██║   ██║       ██║  ██║██╔══██║   ██║   ██╔══██║
+██║     ╚██████╔╝███████║   ██║       ██████╔╝██║  ██║   ██║   ██║  ██║
+╚═╝      ╚═════╝ ╚══════╝   ╚═╝       ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+ */
 router.post('/adherence', async (req, res) => {
 	try {
 		await paymentController.adherence(JSON.stringify(req.body), req.user._id);

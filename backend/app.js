@@ -78,20 +78,16 @@ const accountRouter = require('./routes/account');
 		}
 	});
 
+	app.get('/getservicosbylocation', async (req, res) => {
+		const est = await dbEst.getServicesByLocation(req.query);
+		res.status(200).send(est);
+	});
+
 	app.get('*', function(req, res){
 		res.render('404', {layout: 'general'});
 	});
 
-	app.post('/adherence', async (req, res) => {
-		try {
-			console.log(JSON.stringify(req.body))
-			await payment.adherence(JSON.stringify(req.body), "5ccc83862c81b9310c8ecced");
-			res.send("criado").status(200);
-		} catch (e) {
-			console.log(e);
-			res.send(e);
-		}
-	});
+	
 
 app.listen(3001, () => {
 	console.log("Servidor iniciado na porta 3001");

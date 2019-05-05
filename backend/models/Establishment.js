@@ -33,11 +33,7 @@ const Establishment = mongoose.Schema ({
 	phone: {
 		type: String,
 		require: true
-	}, 
-	uf_city: {
-		type: String,
-		require: true
-	}, 
+	},
 	feature_acessibility: {
 		type: Boolean,
 		require: true,
