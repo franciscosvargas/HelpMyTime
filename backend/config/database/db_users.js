@@ -137,6 +137,20 @@ async function getUserInfo(id) {
 	return 0;
 }
 
+
+async function removePlan(code) {
+	console.log(code)
+	const user = await UserRef.findOne({ plan: code });
+
+	console.log(user);
+	if (user) {
+		user.establishment = "";
+		user.plan = "";
+		await user.save()
+	}
+
+}
+
 module.exports = {
 	encrypt: encrypt,
 	forgotPassword: forgotPassword,
@@ -145,5 +159,6 @@ module.exports = {
 	createUserFromEmail: createUserFromEmail,
 	rewritePassword: rewritePassword,
 	getUserInfo: getUserInfo,
-	successfulBilling: successfulBilling
+	successfulBilling: successfulBilling,
+	removePlan: removePlan
 }

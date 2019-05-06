@@ -48,6 +48,40 @@ class PaymentController {
 				});
 			});
 		})
+	}
+
+	checkNotification(notification) {
+
+		console.log(notification);
+
+		const options = {
+			url: `${credentials.notification_preapprovals}/${notification.notificationCode}?email=${credentials.email}&token=${credentials.token_sandbox}`,
+			method: 'GET',
+			headers: {
+				'Content-Type': credentials.url_endpoint,
+				'Accept': credentials.accept_json
+			}
+		}
+
+		return new Promise((resolve) => {
+			request(options, function (error, response, body) {
+				if (error) throw new Error(error);
+
+					body = JSON.parse(body)
+					const transaction = {
+						code: body.code,
+						status: body.status
+					}
+
+					console.log(transaction);
+
+					if (transaction.status != "ACTIVE" && transaction.status != "PENDING")
+						db_User.removePlan(transaction.code);
+
+				
+			});
+		});
+
 
 	}
 }
