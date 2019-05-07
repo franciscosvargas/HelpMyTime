@@ -48,7 +48,57 @@ class PaymentController {
 				});
 			});
 		})
+	}
 
+	preapprovalNotification(notification) {
+		const options = {
+			url: `${credentials.notification_preapprovals}/${notification.notificationCode}?email=${credentials.email}&token=${credentials.token_sandbox}`,
+			method: 'GET',
+			headers: {
+				'Content-Type': credentials.url_endpoint,
+				'Accept': credentials.accept_json
+			}
+		}
+
+		return new Promise((resolve, reject) => {
+			request(options, function (error, response, body) {
+				if (error) reject(error);
+
+				body = JSON.parse(body)
+
+				resolve({
+					code: body.code,
+					status: body.status
+				});
+
+			});
+		});
+
+
+	}
+
+	transactionNotification(notification) {
+		console.log(notification)
+		const options = {
+			url: `${credentials.notification_transaction}/${notification.notificationCode}?email=${credentials.email}&token=${credentials.token_sandbox}`,
+			method: 'GET',
+			headers: {
+				'Content-Type': credentials.url_endpoint,
+			}
+		}
+
+
+		return new Promise((resolve, reject) => {
+			request(options, function (error, response, body) {
+				if (error) reject(error)
+				parseString(body, async function (err, result) {
+					resolve({
+						code: result.transaction.code[0].replace(/[-]+/g, ''),
+						status: result.transaction.status[0]
+					});
+				});
+			});
+		});
 	}
 }
 

@@ -12,6 +12,7 @@ const ServiceRef = mongoose.model('services', Service);
 const UserRef = mongoose.model('users', User);
 const ScheduleRef = mongoose.model('schedules', Schedule);
 
+const sendEmail = require('../email/send');
 const request = require('request');
 
 class EstablishmentController {
@@ -451,6 +452,31 @@ class EstablishmentController {
 
 		return true;
 
+	}
+
+	async disable(id) {
+		const est = await EstRef.findById(id).populate('services');
+		est.services.forEach(async (item) => {
+			item.horary.forEach(async (horary) => {
+				const horaryRef = await ScheduleRef.findById(horary).populate('client');
+				if (horaryRef.haveClient) {
+					const data = {
+						usuario: horaryRef.client.name,
+						estabelecimento: est.name,
+						horario: horaryRef.time,
+						servico: item.name,
+						email: horaryRef.client.email,
+						type: 'alert',
+						title: "Houve um problema com seu agendamento.",
+						telefone: est.phone
+					}
+
+					await sendEmail(data);
+				}
+				await ScheduleRef.findByIdAndRemove(horary);
+			})
+			await ServiceRef.findByIdAndRemove(item._id); 
+		})
 	}
 
 }

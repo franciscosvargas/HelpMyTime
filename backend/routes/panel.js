@@ -47,7 +47,7 @@ router.get('/buscar-servicos', async (req, res) => {
 // Routes for establishment
 router.get('/visao-geral', async (req, res) => {
 	try {
-		await restrict(req.user.establishment);
+		await restrict(req.user.establishment, req.user.plan);
 		const statistics = await db_Est.getStatistics(req.user.establishment);
 		res.render('e_overview', {
 			user: req.user,
@@ -70,7 +70,7 @@ router.get('/config', async (req, res) => {
 
 router.get('/meus-servicos', async (req, res) => {
 	try {
-		await restrict(req.user.establishment);
+		await restrict(req.user.establishment, req.user.plan);
 		
 		const statistics = await db_Est.getStatistics(req.user.establishment);
 		res.render('cadastrar-servico', {
@@ -112,8 +112,11 @@ router.get('/meus-agendamentos', async (req, res) => {
 });
 
 router.get('/cadastrar-estabelecimento', (req, res) => {
+
 	if (req.user.plan) {
 		res.render('cadastrar-estabelecimento', { user: req.user, layout: 'panel' });
+	} else if (req.user.plan && req.user.establishment) {
+		res.redirect('/dashboard/visao-geral')
 	} else {
 		res.render('pagamento', { user: req.user, layout: 'panel' });
 	}
@@ -238,9 +241,9 @@ router.post('/cadastrar-estabelecimento', upload.single('logo'), async (req, res
 	}
 });
 
-async function restrict(establishment) {
+async function restrict(establishment, plan) {
 	try {
-		if (establishment) {
+		if (establishment && plan) {
 			return Promise.resolve(true);
 		} else {
 			return Promise.reject(false);
