@@ -1,23 +1,19 @@
 getLocation();
 
 function getLocation() {
-
 	navigator.geolocation.getCurrentPosition(getServicesByLocation, showError, {
 		enableHighAccuracy: true,
 		timeout: 5000,
 		maximumAge: 100
 	});
-
 }
 
 async function getServicesByLocation(position) {
-
 	await $.get(`/getservicosbylocation?lat=${position.coords.latitude}&long=${position.coords.longitude}`,
 		function (resultado) {
-			console.log(resultado)
 			if (resultado.length != 0) {
 				resultado.forEach(element => {
-					$("#nearby-services-carousel").append(`
+					$("#nearby-services-carousel").flickity("append", $(`
 						<div class="mdc-card">
 							<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 								<div class="card-content">
@@ -40,15 +36,13 @@ async function getServicesByLocation(position) {
 								</div>
 							</div>
 						</div>
-					`);
+					`));
 				});
-
 				$("#subtitle").html("Serviços encontrados na sua região");
 				$("#progressbar").css("display", "none");
+				$("#nearby-services-carousel").flickity("resize");
 			}
-
 		});
-
 }
 
 function showError(error) {
