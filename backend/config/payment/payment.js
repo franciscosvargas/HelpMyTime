@@ -50,10 +50,7 @@ class PaymentController {
 		})
 	}
 
-	checkNotification(notification) {
-
-		console.log(notification);
-
+	preapprovalNotification(notification) {
 		const options = {
 			url: `${credentials.notification_preapprovals}/${notification.notificationCode}?email=${credentials.email}&token=${credentials.token_sandbox}`,
 			method: 'GET',
@@ -63,26 +60,45 @@ class PaymentController {
 			}
 		}
 
-		return new Promise((resolve) => {
+		return new Promise((resolve, reject) => {
 			request(options, function (error, response, body) {
-				if (error) throw new Error(error);
+				if (error) reject(error);
 
-					body = JSON.parse(body)
-					const transaction = {
-						code: body.code,
-						status: body.status
-					}
+				body = JSON.parse(body)
 
-					console.log(transaction);
+				resolve({
+					code: body.code,
+					status: body.status
+				});
 
-					if (transaction.status != "ACTIVE" && transaction.status != "PENDING")
-						db_User.removePlan(transaction.code);
-
-				
 			});
 		});
 
 
+	}
+
+	transactionNotification(notification) {
+		console.log(notification)
+		const options = {
+			url: `${credentials.notification_transaction}/${notification.notificationCode}?email=${credentials.email}&token=${credentials.token_sandbox}`,
+			method: 'GET',
+			headers: {
+				'Content-Type': credentials.url_endpoint,
+			}
+		}
+
+
+		return new Promise((resolve, reject) => {
+			request(options, function (error, response, body) {
+				if (error) reject(error)
+				parseString(body, async function (err, result) {
+					resolve({
+						code: result.transaction.code[0].replace(/[-]+/g, ''),
+						status: result.transaction.status[0]
+					});
+				});
+			});
+		});
 	}
 }
 

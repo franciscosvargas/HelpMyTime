@@ -13,6 +13,7 @@ require('./config/auth/auth')(passport);
 const connectDatabase = require('./config/database/db_config');
 const dbCategories = require('./config/database/db_categories');
 const dbEst = require('./config/database/db_establishment');
+const dbUser = require('./config/database/db_users');
 const payment = require('./config/payment/payment')
 
 // Importing Routes
@@ -88,8 +89,13 @@ app.post('/notification', async (req, res) => {
 	console.log(req.body);
 	res.setHeader('Access-Control-Allow-Origin', 'https://sandbox.pagseguro.uol.com.br');
 	try {
-		console.log(await payment.checkNotification(req.body));
 		res.status(200);
+		if (req.body.notificationType == 'preApproval')
+			dbUser.processNotification(await payment.preapprovalNotification(req.body));
+
+		if (req.body.notificationType == 'transaction')
+			dbUser.processNotification(await payment.transactionNotification(req.body));
+
 	} catch (e) {
 		console.log(e);
 		res.status(400);

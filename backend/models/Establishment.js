@@ -6,6 +6,11 @@ const Establishment = mongoose.Schema ({
 		type: String,
 		require: true
 	},
+	status: {
+		type: Boolean,
+		require: true,
+		default: true
+	},
 	owner: {
 		type: String, 
 		require: true
