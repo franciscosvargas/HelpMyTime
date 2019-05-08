@@ -9,8 +9,9 @@ function getLocation() {
 }
 
 async function getServicesByLocation(position) {
-	await $.get(`/getservicosbylocation?lat=${position.coords.latitude}&long=${position.coords.longitude}`,
+	await $.get(`/getservicesbylocation?lat=${position.coords.latitude}&long=${position.coords.longitude}`,
 		function (resultado) {
+			console.log(resultado)
 			if (resultado.length != 0) {
 				resultado.forEach(element => {
 					$("#nearby-services-carousel").flickity("append", $(`

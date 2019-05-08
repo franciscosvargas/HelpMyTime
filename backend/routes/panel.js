@@ -40,7 +40,8 @@ router.get('/', (req, res) => {
 
 router.get('/buscar-servicos', async (req, res) => {
 	res.render('buscar-servicos', {
-		layout: 'panel'
+		layout: 'panel',
+		statistics: await db_Est.getEst(req.user.establishment)
 	});
 })
 
@@ -64,7 +65,8 @@ router.get('/visao-geral', async (req, res) => {
 
 router.get('/config', async (req, res) => {
 	res.render('config', {
-		layout: 'panel'
+		layout: 'panel',
+		user: req.user
 	});
 });
 
@@ -73,6 +75,7 @@ router.get('/meus-servicos', async (req, res) => {
 		await restrict(req.user.establishment, req.user.plan);
 		
 		const statistics = await db_Est.getStatistics(req.user.establishment);
+		console.log(statistics)
 		res.render('cadastrar-servico', {
 			user: req.user,
 			statistics: statistics,
@@ -93,7 +96,7 @@ router.get('/meus-horarios', async (req, res) => {
 			user: req.user,
 			schedules: schedules,
 			layout: 'panel',
-			establishment: establishment
+			statistics: establishment
 		});
 	} catch (e) {
 		console.log(e);
@@ -107,7 +110,8 @@ router.get('/meus-agendamentos', async (req, res) => {
 	const schedules = await db_Est.getSchedulesFromClient(req.user._id);
 	res.render('agendamentos', {
 		schedules: schedules,
-		layout: 'panel'
+		layout: 'panel',
+		statistics: await db_Est.getEst(req.user.establishment)
 	});
 });
 
@@ -164,6 +168,19 @@ router.get('/getsession', async (req, res) => {
 ██║     ╚██████╔╝███████║   ██║       ██████╔╝██║  ██║   ██║   ██║  ██║
 ╚═╝      ╚═════╝ ╚══════╝   ╚═╝       ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
  */
+
+router.post('/makeschedule', async (req, res) => {
+	try {
+		console.log(req.body)
+		await db_Est.makeSchedule(req.body, req.user._id);
+		res.redirect('/dashboard/meus-horarios');
+	} catch (e) {
+		console.log(e);
+		res.send(e).status(500);
+	}
+});
+
+
 router.post('/adherence', async (req, res) => {
 	try {
 		await paymentController.adherence(JSON.stringify(req.body), req.user._id);

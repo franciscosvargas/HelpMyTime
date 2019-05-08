@@ -6,6 +6,10 @@ const Establishment = mongoose.Schema ({
 		type: String,
 		require: true
 	},
+	slug: {
+		type: String,
+		require: true
+	},
 	status: {
 		type: Boolean,
 		require: true,
