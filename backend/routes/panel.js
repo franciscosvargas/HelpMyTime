@@ -111,7 +111,8 @@ router.get('/meus-horarios', async (req, res) => {
 			schedules: schedules,
 			layout: 'panel',
 			status: establishment.status,
-			slug: establishment.slug
+			slug: establishment.slug,
+			establishment: establishment
 
 		});
 	} catch (e) {

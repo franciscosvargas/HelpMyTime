@@ -29,7 +29,7 @@ router.post('/cadastro', async (req, res) => {
 		req.flash("alert_message", "Usuário criado com sucesso!");
 		res.redirect(307, '/conta/confirm/');
 	} catch (err) {
-		req.flash("alert_message", err);
+		req.flash("error", JSON.stringify(err));
 		res.redirect('/');
 	}
 });

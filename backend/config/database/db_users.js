@@ -16,11 +16,12 @@ class DatabaseUser {
 	async  createUserFromEmail(data) {
 		const newUser = new UserRef(data);
 		try {
-			await userNotExists(newUser.email);
-			newUser.password = await encrypt(newUser.password);
-			newUser.save();
+			await this.userNotExists(newUser.email);
+			newUser.password = await this.encrypt(newUser.password);
+			await newUser.save();
 			return Promise.resolve(true);
 		} catch (err) {
+			console.log(err)
 			return Promise.reject(err);
 		}
 	}
