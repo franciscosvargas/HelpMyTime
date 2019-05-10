@@ -17,7 +17,7 @@ $(function () {
 
 async function getServices(keyword) {
     let services = [];
-    await $.get(`getlistapesquisa/${keyword}`, function (resultado) {
+    await $.get(`/getlistapesquisa?term=${keyword}`, function (resultado) {
         console.log(resultado.length);
         services = resultado;
     });
@@ -38,7 +38,7 @@ async function getServices(keyword) {
                 </div>
                 <div class="mdc-card__actions">
                     <div class="mdc-card__action-buttons">
-                        <button onclick="window.location='/s/${service._id}';" class="mdc-button mdc-card__action mdc-card__action--button">
+                        <button onclick="window.location.href='/e/${service.owner_slug}';" class="mdc-button mdc-card__action mdc-card__action--button">
                             <span class="mdc-button__label">Visualizar</span>
                         </button>
                     </div>

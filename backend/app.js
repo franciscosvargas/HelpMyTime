@@ -89,6 +89,18 @@ app.get('/e/:establishment', async (req, res) => {
 	
 });
 
+app.get('/s', async (req, res) => {
+	//req.query.service
+	const service = await dbEst.searchService(req.query.term);
+	res.render('buscar-servicos', {services: service, layout: 'panel'});
+});
+
+app.get('/getlistapesquisa', async (req, res) => {
+	const service = await dbEst.searchService(req.query.term);
+	res.json(service);
+});
+
+
 app.get('/getservicesbylocation', async (req, res) => {
 	const est = await dbEst.getServicesByLocation(req.query);
 	res.status(200).send(est);

@@ -21,6 +21,12 @@ class EstablishmentController {
 		try {
 			const user = await UserRef.findById(data.owner);
 			await notExists(data.business_id);
+			data.slug = data.name;
+			data.slug = data.slug.toLowerCase();
+			data.slug = data.slug.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+			data.slug = data.slug.replace(/\s/g, '-');
+			data.slug = data.slug.replace("/a", "");
+			data.slug = data.slug.replace("/", "");
 			const newEst = await EstRef.create(data);
 			user.establishment = newEst;
 			user.save();
@@ -41,7 +47,7 @@ class EstablishmentController {
 
 	async getEstBySlug(slug) {
 		try {
-			const Est = await EstRef.findOne({slug: slug}).populate('services');
+			const Est = await EstRef.findOne({ slug: slug }).populate('services');
 			return Est;
 		} catch (e) {
 			return (error)
@@ -53,6 +59,8 @@ class EstablishmentController {
 		const Est = await EstRef.findById(id);
 		data.owner = Est;
 		data.owner_name = Est.name;
+		data.owner_slug = Est.slug;
+		data.location = Est.uf_city;
 		const Service = await ServiceRef.create(data);
 
 		Est.services.push(Service);
@@ -70,11 +78,12 @@ class EstablishmentController {
 
 
 	async searchService(term) {
-		var regex = new RegExp(term, 'i');
-		var criteria = { $or: [{ name: regex }, { category: regex }, { description: regex }, { owner_name: regex }] }
-		const service = await ServiceRef.find(criteria, null, {sort: {price: 1}});
-
-		return service;
+		if (term != '' && term) {
+			var regex = new RegExp(term, 'i');
+			var criteria = { $or: [{ name: regex }, { category: regex }, { description: regex }, { owner_name: regex }] }
+			const service = await ServiceRef.find(criteria).populate('owner');
+			return service;
+		}		
 
 	}
 
@@ -108,9 +117,9 @@ class EstablishmentController {
 				}
 
 				let establishments = await EstRef.find({ uf_city: `${location.city}/${location.state}` }).populate('services');
-				
-				if(establishments.length === 0)
-				 	establishments = await EstRef.find().populate('services');
+
+				if (establishments.length === 0)
+					establishments = await EstRef.find().populate('services');
 
 				shuffle(establishments).slice(0, 6).forEach((item) => {
 					item.services.forEach((service) => {
@@ -274,7 +283,7 @@ class EstablishmentController {
 			}
 			schedules.push(objSchedules);
 		}
-		
+
 
 		for (let i = 0; i < schedules.length; i++) {
 			if ((schedules[i].all / 2) > schedules[i].haveclient || schedules[i].all == 0) {
@@ -491,9 +500,9 @@ class EstablishmentController {
 		schedule.client = user;
 		schedule.save();
 
-		const services = await ServiceRef.find({horary: data.id});
+		const services = await ServiceRef.find({ horary: data.id });
 		services.forEach(async element => {
-			if(element._id != data.service)
+			if (element._id != data.service)
 				await ServiceRef.updateOne({ _id: element._id }, { $pullAll: { 'horary': [data.id] } });
 		});
 	}
@@ -546,7 +555,7 @@ class EstablishmentController {
 				}
 				await ScheduleRef.findByIdAndRemove(horary);
 			})
-			await ServiceRef.findByIdAndRemove(item._id); 
+			await ServiceRef.findByIdAndRemove(item._id);
 		})
 	}
 
@@ -588,22 +597,22 @@ function sortSchedulesByTime(array) {
 
 function shuffle(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
-  
+
 	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {
-  
-	  // Pick a remaining element...
-	  randomIndex = Math.floor(Math.random() * currentIndex);
-	  currentIndex -= 1;
-  
-	  // And swap it with the current element.
-	  temporaryValue = array[currentIndex];
-	  array[currentIndex] = array[randomIndex];
-	  array[randomIndex] = temporaryValue;
+
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
 	}
-  
+
 	return array;
-  }
+}
 
 
 module.exports = new EstablishmentController();

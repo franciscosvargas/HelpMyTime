@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>{{establishment.name}}- HelpMyTime</title>
-	
+
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
@@ -87,7 +87,7 @@
 								<i class="fas fa-dollar-sign mdc-chip__icon mdc-chip__icon--leading"></i>
 								<div class="mdc-chip__text">R${{this.price}}</div>
 							</div>
-							
+
 						</div>
 					</div>
 					<div class="mdc-card__actions">
@@ -100,13 +100,9 @@
 					</div>
 				</div>
 				{{/each}}
-				{{else}}
-				<h4>Não encontramos serviços para esse se estabelecimento.</h4>
-				{{/if}}
+
 			</div>
 		</div>
-
-
 
 		<div id="schedule-tab" class="tab">
 			<div class="schedule-header">
@@ -139,6 +135,10 @@
 				</div>
 			</div>
 		</div>
+		{{else}}
+		<h4>Não encontramos serviços para esse estabelecimento.</h4>
+	</div>
+		{{/if}}
 		<div id="about-tab" class="tab">
 			<ul class="mdc-list mdc-list--two-line">
 				<li class="mdc-list-item" tabindex="0">
@@ -233,7 +233,7 @@
 
 	{{> login}}
 
-	
+
 
 	<div class="mdc-bottom-navigation">
 		<nav class="mdc-bottom-navigation__list">
@@ -253,17 +253,17 @@
 	</div>
 
 	{{#if user}}
-		<script>const logged = true;</script>
+	<script>const logged = true;</script>
 	{{else}}
-		
-		<button class="open-login-panel open-login-panel-fab mdc-fab" aria-label="Entrar/Cadastrar"
-			data-mdc-auto-init="MDCRipple">
-			<span class="mdc-fab__icon">
-				<i class="fas fa-user"></i>
-			</span>
-		</button>
 
-		<script>const logged = false;</script>
+	<button class="open-login-panel open-login-panel-fab mdc-fab" aria-label="Entrar/Cadastrar"
+		data-mdc-auto-init="MDCRipple">
+		<span class="mdc-fab__icon">
+			<i class="fas fa-user"></i>
+		</span>
+	</button>
+
+	<script>const logged = false;</script>
 	{{/if}}
 
 
