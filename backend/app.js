@@ -74,14 +74,41 @@ app.get('/', (req, res) => {
 
 	} else {
 		dbCategories.getCategoryHomeList((categories) => {
-			res.render('home', { categories: categories });
+			res.render('home', { categories: categories, redirect: "/dashboard"});
 		});
 	}
 });
 
-app.get('/getservicosbylocation', async (req, res) => {
+app.get('/e/:establishment', async (req, res) => {
+	const est = await dbEst.getEstBySlug(req.params.establishment);
+	if (est) {
+		res.render('establishment', { layout: 'general', establishment: est, redirect: req.url, user: req.user});
+	} else {
+		res.redirect('/');
+	}
+	
+});
+
+app.get('/s', async (req, res) => {
+	//req.query.service
+	const service = await dbEst.searchService(req.query.term);
+	res.render('buscar-servicos', {services: service, layout: 'panel'});
+});
+
+app.get('/getlistapesquisa', async (req, res) => {
+	const service = await dbEst.searchService(req.query.term);
+	res.json(service);
+});
+
+
+app.get('/getservicesbylocation', async (req, res) => {
 	const est = await dbEst.getServicesByLocation(req.query);
 	res.status(200).send(est);
+});
+
+app.get('/getserviceinformation', async (req, res) => {
+	const service = await dbEst.getSchedulesFromService(req.query.service)
+	res.status(200).json(service);
 });
 
 

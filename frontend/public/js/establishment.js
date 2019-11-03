@@ -12,6 +12,7 @@ $.fn.isBefore = function (sel) {
 isOpenTabRunning = false;
 
 function openTab(target, tabToOpen) {
+	console.log(target)
 	var actualTab = $(".tab:visible");
 	var tabToOpen = `#${tabToOpen}-tab`;
 
@@ -65,6 +66,72 @@ function openTab(target, tabToOpen) {
 		}
 	}
 }
-$(document).on("click", "[data-tab]", (e) => {
-	openTab(e.target, $(e.target).closest("[data-tab]").data("tab"))
+
+
+
+$(document).on("click", "[data-tab]", async (e) => {
+	fetchServiceInformation($(e.target).closest("[data-service-id]").data("service-id"));
+	openTab(e.target, $(e.target).closest("[data-tab]").data("tab"));
+
 });
+
+function fetchServiceInformation(service) {
+	$.get(`/getserviceinformation?service=${service}`,
+		function (resultado) {
+			console.log(resultado)
+			$('.schedule-headline').html(resultado.name);
+			$('.schedule-description').html(resultado.description);
+
+			$(".week-day").html("");
+			$("#monday").html(`<div class="day-name">Seg</div>`);
+			$("#tuesday").html(`<div class="day-name">Ter</div>`);
+			$("#wednesday").html(`<div class="day-name">Qua</div>`);
+			$("#thursday").html(`<div class="day-name">Qui</div>`);
+			$("#friday").html(`<div class="day-name">Sex</div>`);
+			
+			resultado.horary.monday.forEach(element => {
+				if (!element.haveClient)
+					$("#monday").append(`<div onclick="schedule('${element._id}', '${service}')" class="schedule-hour available-hour">${element.time}</div>`)
+			});
+			resultado.horary.tuesday.forEach(element => {
+				if (!element.haveClient)
+					$("#tuesday").append(`<div onclick="schedule('${element._id}', '${service}')" class="schedule-hour available-hour">${element.time}</div>`)
+			});
+
+			resultado.horary.wednesday.forEach(element => {
+				if (!element.haveClient)
+					$("#wednesday").append(`<div onclick="schedule('${element._id}', '${service}')" class="schedule-hour available-hour">${element.time}</div>`)
+			});
+
+			resultado.horary.thursday.forEach(element => {
+				if (!element.haveClient)
+					$("#thursday").append(`<div onclick="schedule('${element._id}', '${service}')" class="schedule-hour available-hour">${element.time}</div>`)
+			});
+
+			resultado.horary.friday.forEach(element => {
+				if (!element.haveClient)
+					$("#friday").append(`<div onclick="schedule('${element._id}', '${service}')" class="schedule-hour available-hour">${element.time}</div>`)
+			});
+		});
+}
+
+function schedule(id, service) {
+	if(logged){
+		swal({
+			title: "Deseja agendar?",
+			text: "Tem certeza que deseja agendar este horário?",
+			buttons: ["Cancelar", "Agendar"],
+			dangerMode: true,
+		  })
+		  .then(confirm => {
+			if (confirm) {
+				$.post("/dashboard/makeschedule", {
+					id: id,
+					service: service
+				});
+			} 
+		  });
+	} else{
+		openLoginContainer();
+	}
+}

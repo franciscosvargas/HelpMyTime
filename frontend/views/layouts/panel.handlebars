@@ -32,6 +32,7 @@
 </head>
 
 <body>
+	{{#if user}}
 	{{!-- Vertical navigation --}}
 	<div id="vertical-nav" class="animated slideInLeft fast">
 		<a id="menu-btn" class="mdc-icon-button">
@@ -78,13 +79,13 @@
 							<i class="fas fa-chevron-right"></i>
 						</span>
 					</a>
-					<a href="/dashboard/config" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					{{!-- <a href="/dashboard/config" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-cogs" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Configurações</span>
 						<span class="mdc-list-item__meta" aria-hidden="true">
 							<i class="fas fa-chevron-right"></i>
 						</span>
-					</a>
+					</a> --}}
 					<a href="/conta/logout" class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-sign-out-alt" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Sair</span>
@@ -97,7 +98,7 @@
 			<div class="menu-panel">
 				<h3 class="panel-title mdc-list-group__subheader">Para o seu negócio</h3>
 				<ul class="mdc-list">
-					{{#if user.plan}}
+					{{#if status}}
 					<a class="mdc-list-item" href="/dashboard/visao-geral" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-eye" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Visão Geral</span>
@@ -119,7 +120,7 @@
 							<i class="fas fa-chevron-right"></i>
 						</span>
 					</a>
-					<a class="mdc-list-item" data-mdc-auto-init="MDCRipple">
+					<a class="mdc-list-item" href="/e/{{slug}}" data-mdc-auto-init="MDCRipple">
 						<span class="mdc-list-item__graphic fas fa-building" aria-hidden="true"></span>
 						<span class="mdc-list-item__text">Estabelecimento</span>
 						<span class="mdc-list-item__meta" aria-hidden="true">
@@ -140,15 +141,27 @@
 		</div>
 
 	</div>
+	{{else}}
+	<style type="text/css">
+		#page-content {
+			margin: 0 !important;
 
+		}
+
+		#open-menu-fab {
+			display: none;
+		}
+	</style>
+
+	{{/if}}
 	{{!-- Page content --}}
 	<div id="page-content">{{{ body }}}</div>
 
 
-	
 
-	
-	
+
+
+
 </body>
 
 </html>

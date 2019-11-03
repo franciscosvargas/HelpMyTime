@@ -1,135 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Barbearia do Cleber - HelpMyTime</title>
-	<link rel="stylesheet/less" href="/css/establishment.less">
+	<title>{{establishment.name}}- HelpMyTime</title>
+
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<link rel="stylesheet/less" href="/css/establishment.less">
+	<link rel="stylesheet/less" href="/css/login.less">
 </head>
 
 <body>
 	<div class="establishment-header">
-		<div class="header-avatar"></div>
-		<h1 class="header-name">Barbearia do Cleber</h1>
-		<div class="header-background"></div>
+		<div class="header-avatar" style="background-image: url(data:image/png;base64,{{establishment.logo}});"></div>
+		<h1 class="header-name">{{establishment.name}}</h1>
+		<div class="header-background"
+			style="background-image: url(data:image/png;base64,{{establishment.logo}}), linear-gradient(90deg, #00418b 0%, #3a3ab0 62%, #087a9e 100%);">
+		</div>
 	</div>
-	<h3 class="body-name">Barbearia do Cleber</h3>
+	<h3 class="body-name">{{establishment.name}}</h3>
 	<div class="establishment-body">
 		<div class="body-sidebar">
 			<div class="sidebar-item">
 				<i class="fas fa-phone"></i>
-				<p>(63) 3223-3200</p>
+				<p>{{establishment.phone}}</p>
 			</div>
 			<div class="sidebar-item">
 				<i class="fas fa-map-marker-alt"></i>
-				<p>Qd 1706 Sul, Alameda 05</p>
+				<p>{{establishment.address}}</p>
 			</div>
+			{{#if establishment.payment_method_credit_card}}
 			<div class="sidebar-item">
 				<i class="fas fa-credit-card"></i>
 				<p>Aceita cartão</p>
 			</div>
+			{{/if}}
+			{{#if establishment.feature_air_conditioner}}
 			<div class="sidebar-item">
 				<i class="fas fa-snowflake"></i>
 				<p>Ambiente climatizado</p>
 			</div>
+			{{/if}}
+			{{#if establishment.feature_wifi}}
+			<div class="sidebar-item">
+				<i class="fas fa-wifi"></i>
+				<p>Wifi disponível</p>
+			</div>
+			{{/if}}
+			{{#if establishment.feature_park}}
+			<div class="sidebar-item">
+				<i class="fas fa-car"></i>
+				<p>Estacionamento</p>
+			</div>
+			{{/if}}
+			{{#if establishment.feature_acessibility}}
+			<div class="sidebar-item">
+				<i class="fa fa-wheelchair"></i>
+				<p>Acessivel para deficientes</p>
+			</div>
+			{{/if}}
+
+			{{#if establishment.addtional_info}}
+			<div class="sidebar-item">
+				<i class="fas fa-info-circle"></i>
+				<p>{{establishment.addtional_info}}</p>
+			</div>
+			{{/if}}
 		</div>
 		<div id="services-tab" class="tab body-content">
 			<h4 class="body-headline">Todos os serviços</h4>
+			{{#if establishment.services}}
+
 			<div class="card-container">
-				<div data-service-id="01" class="mdc-card">
+				{{#each establishment.services}}
+				<div data-service-id="{{this.id}}" class="mdc-card">
 					<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
 						<div class="card-content">
-							<h2 class="mdc-typography--headline6">Corte masculino</h2>
-							<h3 class="mdc-typography--subtitle2">por Barbearia do Cleber</h3>
-							<p class="mdc-typography--body2">Lorem ipsum dolor sit amet consectetur</p>
+							<h2 class="mdc-typography--headline6">{{this.name}}</h2>
+							<h3 class="mdc-typography--subtitle2">por {{../establishment.name}}</h3>
+							<p class="mdc-typography--body2">{{this.description}}</p>
 							<div class="mdc-chip" title="Preço do serviço">
 								<i class="fas fa-dollar-sign mdc-chip__icon mdc-chip__icon--leading"></i>
-								<div class="mdc-chip__text">399,00</div>
+								<div class="mdc-chip__text">R${{this.price}}</div>
 							</div>
-							<div class="mdc-chip" title="Duração da sessão">
-								<i class="fas fa-clock mdc-chip__icon mdc-chip__icon--leading"></i>
-								<div class="mdc-chip__text">30min</div>
-							</div>
+
 						</div>
 					</div>
 					<div class="mdc-card__actions">
 						<div class="mdc-card__action-buttons">
-							<button data-tab="schedule" class="open-schedule mdc-button mdc-card__action mdc-card__action--button">
+							<button data-tab="schedule"
+								class="open-schedule mdc-button mdc-card__action mdc-card__action--button">
 								<span class="mdc-button__label">Ver horários</span>
-							</button>
-						</div>
-						<div class="mdc-card__action-icons">
-							<button class="share-btn mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-								<i class="fas fa-share-alt"></i>
 							</button>
 						</div>
 					</div>
 				</div>
-				<div data-service-id="02" class="mdc-card">
-					<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
-						<div class="card-content">
-							<h2 class="mdc-typography--headline6">Corte masculino</h2>
-							<h3 class="mdc-typography--subtitle2">por Barbearia do Cleber</h3>
-							<p class="mdc-typography--body2">Lorem ipsum dolor sit amet consectetur</p>
-							<div class="mdc-chip" title="Preço do serviço">
-								<i class="fas fa-dollar-sign mdc-chip__icon mdc-chip__icon--leading"></i>
-								<div class="mdc-chip__text">399,00</div>
-							</div>
-							<div class="mdc-chip" title="Duração da sessão">
-								<i class="fas fa-clock mdc-chip__icon mdc-chip__icon--leading"></i>
-								<div class="mdc-chip__text">30min</div>
-							</div>
-						</div>
-					</div>
-					<div class="mdc-card__actions">
-						<div class="mdc-card__action-buttons">
-							<button data-tab="schedule" class="open-schedule mdc-button mdc-card__action mdc-card__action--button">
-								<span class="mdc-button__label">Ver horários</span>
-							</button>
-						</div>
-						<div class="mdc-card__action-icons">
-							<button class="share-btn mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-								<i class="fas fa-share-alt"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div data-service-id="03" class="mdc-card">
-					<div class="mdc-card__primary-action" data-mdc-auto-init="MDCRipple">
-						<div class="card-content">
-							<h2 class="mdc-typography--headline6">Corte masculino</h2>
-							<h3 class="mdc-typography--subtitle2">por Barbearia do Cleber</h3>
-							<p class="mdc-typography--body2">Lorem ipsum dolor sit amet consectetur</p>
-							<div class="mdc-chip" title="Preço do serviço">
-								<i class="fas fa-dollar-sign mdc-chip__icon mdc-chip__icon--leading"></i>
-								<div class="mdc-chip__text">399,00</div>
-							</div>
-							<div class="mdc-chip" title="Duração da sessão">
-								<i class="fas fa-clock mdc-chip__icon mdc-chip__icon--leading"></i>
-								<div class="mdc-chip__text">30min</div>
-							</div>
-						</div>
-					</div>
-					<div class="mdc-card__actions">
-						<div class="mdc-card__action-buttons">
-							<button data-tab="schedule" class="open-schedule mdc-button mdc-card__action mdc-card__action--button">
-								<span class="mdc-button__label">Ver horários</span>
-							</button>
-						</div>
-						<div class="mdc-card__action-icons">
-							<button class="share-btn mdc-icon-button mdc-card__action mdc-card__action--icon" title="Compartilhar">
-								<i class="fas fa-share-alt"></i>
-							</button>
-						</div>
-					</div>
-				</div>
+				{{/each}}
+
 			</div>
 		</div>
+
 		<div id="schedule-tab" class="tab">
 			<div class="schedule-header">
 				<button data-tab="services" class="mdc-icon-button">
@@ -140,37 +114,31 @@
 			<p class="schedule-description">Lorem ipsum dolor sit amet consectetur</p>
 			<h3>Horários</h3>
 			<div class="schedule-week">
-				<div class="week-day">
+				<div id="monday" class="week-day">
 					<div class="day-name">Seg</div>
-					<div class="schedule-hour available-hour">10:00</div>
-					<div class="schedule-hour unavailable-hour">10:30</div>
-					<div class="schedule-hour available-hour">11:00</div>
-					<div class="schedule-hour available-hour">11:30</div>
-					<div class="schedule-hour unavailable-hour">14:00</div>
-					<div class="schedule-hour available-hour">14:30</div>
 				</div>
-				<div class="week-day">
+				<div id="tuesday" class="week-day">
 					<div class="day-name">Ter</div>
-					<div class="schedule-hour available-hour">10:00</div>
-					<div class="schedule-hour unavailable-hour">10:30</div>
+
 				</div>
-				<div class="week-day">
+				<div id="wednesday" class="week-day">
 					<div class="day-name">Qua</div>
-					<div class="schedule-hour available-hour">10:00</div>
-					<div class="schedule-hour unavailable-hour">10:30</div>
+
 				</div>
-				<div class="week-day">
+				<div id="thursday" class="week-day">
 					<div class="day-name">Qui</div>
-					<div class="schedule-hour available-hour">10:00</div>
-					<div class="schedule-hour unavailable-hour">10:30</div>
+
 				</div>
-				<div class="week-day">
+				<div id="friday" class="week-day">
 					<div class="day-name">Sex</div>
-					<div class="schedule-hour available-hour">10:00</div>
-					<div class="schedule-hour unavailable-hour">10:30</div>
+
 				</div>
 			</div>
 		</div>
+		{{else}}
+		<h4>Não encontramos serviços para esse estabelecimento.</h4>
+	</div>
+		{{/if}}
 		<div id="about-tab" class="tab">
 			<ul class="mdc-list mdc-list--two-line">
 				<li class="mdc-list-item" tabindex="0">
@@ -179,7 +147,7 @@
 					</span>
 					<span class="mdc-list-item__text">
 						<span class="mdc-list-item__primary-text">Telefone</span>
-						<span class="mdc-list-item__secondary-text">(63) 3223-3200</span>
+						<span class="mdc-list-item__secondary-text">{{establishment.phone}}</span>
 					</span>
 				</li>
 				<li class="mdc-list-item">
@@ -188,9 +156,10 @@
 					</span>
 					<span class="mdc-list-item__text">
 						<span class="mdc-list-item__primary-text">Endereço</span>
-						<span class="mdc-list-item__secondary-text">Qd 1706 Sul, Alameda 05</span>
+						<span class="mdc-list-item__secondary-text">{{establishment.address}}</span>
 					</span>
 				</li>
+				{{#if establishment.payment_method_credit_card}}
 				<li class="mdc-list-item">
 					<span class="mdc-list-item__graphic" aria-hidden="true">
 						<i class="fas fa-credit-card"></i>
@@ -200,34 +169,110 @@
 						<span class="mdc-list-item__secondary-text">Esse estabelecimento aceita cartão</span>
 					</span>
 				</li>
+				{{/if}}
+				{{#if establishment.feature_air_conditioner}}
 				<li class="mdc-list-item">
 					<span class="mdc-list-item__graphic" aria-hidden="true">
 						<i class="fas fa-snowflake"></i>
 					</span>
 					<span class="mdc-list-item__text">
 						<span class="mdc-list-item__primary-text">Ambiente climatizado</span>
-						<span class="mdc-list-item__secondary-text">Esse estabelecimento possui um ambiente climatizado</span>
+						<span class="mdc-list-item__secondary-text">Esse estabelecimento possui um ambiente
+							climatizado</span>
 					</span>
 				</li>
+				{{/if}}
+				{{#if establishment.feature_wifi}}
+				<li class="mdc-list-item">
+					<span class="mdc-list-item__graphic" aria-hidden="true">
+						<i class="fas fa-wifi"></i>
+					</span>
+					<span class="mdc-list-item__text">
+						<span class="mdc-list-item__primary-text">Wifi disponível</span>
+						<span class="mdc-list-item__secondary-text">Esse estabelecimento oferece WIFI LIBERADO.</span>
+					</span>
+				</li>
+				{{/if}}
+				{{#if establishment.feature_park}}
+				<li class="mdc-list-item">
+					<span class="mdc-list-item__graphic" aria-hidden="true">
+						<i class="fas fa-car"></i>
+					</span>
+					<span class="mdc-list-item__text">
+						<span class="mdc-list-item__primary-text">Estacionamento</span>
+						<span class="mdc-list-item__secondary-text">Você poderá estacionar nesse estabelecimento.</span>
+					</span>
+				</li>
+				{{/if}}
+				{{#if establishment.feature_acessibility}}
+				<li class="mdc-list-item">
+					<span class="mdc-list-item__graphic" aria-hidden="true">
+						<i class="fas fa-wheelchair"></i>
+					</span>
+					<span class="mdc-list-item__text">
+						<span class="mdc-list-item__primary-text">Acessível para deficientes</span>
+						<span class="mdc-list-item__secondary-text">Você poderá estacionar nesse estabelecimento.</span>
+					</span>
+				</li>
+				{{/if}}
+
+				{{#if establishment.addtional_info}}
+				<li class="mdc-list-item">
+					<span class="mdc-list-item__graphic" aria-hidden="true">
+						<i class="fas fa-info-circle"></i>
+					</span>
+					<span class="mdc-list-item__text">
+						<span class="mdc-list-item__primary-text">{{establishment.addtional_info}}</span>
+					</span>
+				</li>
+				{{/if}}
 			</ul>
 		</div>
+
 	</div>
+
+	{{> login}}
+
+
 
 	<div class="mdc-bottom-navigation">
 		<nav class="mdc-bottom-navigation__list">
-			<span data-tab="services" class="mdc-bottom-navigation__list-item mdc-ripple-surface mdc-ripple-surface--primary mdc-bottom-navigation__list-item--activated" data-mdc-auto-init="MDCRipple" data-mdc-ripple-is-unbounded>
+			<span data-tab="services"
+				class="mdc-bottom-navigation__list-item mdc-ripple-surface mdc-ripple-surface--primary mdc-bottom-navigation__list-item--activated"
+				data-mdc-auto-init="MDCRipple" data-mdc-ripple-is-unbounded>
 				<i class="fas fa-wrench mdc-bottom-navigation__list-item__icon"></i>
 				<span class="mdc-bottom-navigation__list-item__text">Serviços</span>
 			</span>
-			<span data-tab="about" class="mdc-bottom-navigation__list-item mdc-ripple-surface mdc-ripple-surface--primary" data-mdc-auto-init="MDCRipple" data-mdc-ripple-is-unbounded>
+			<span data-tab="about"
+				class="mdc-bottom-navigation__list-item mdc-ripple-surface mdc-ripple-surface--primary"
+				data-mdc-auto-init="MDCRipple" data-mdc-ripple-is-unbounded>
 				<i class="fas fa-info-circle mdc-bottom-navigation__list-item__icon"></i>
 				<span class="mdc-bottom-navigation__list-item__text">Sobre</span>
 			</span>
 		</nav>
 	</div>
+
+	{{#if user}}
+	<script>const logged = true;</script>
+	{{else}}
+
+	<button class="open-login-panel open-login-panel-fab mdc-fab" aria-label="Entrar/Cadastrar"
+		data-mdc-auto-init="MDCRipple">
+		<span class="mdc-fab__icon">
+			<i class="fas fa-user"></i>
+		</span>
+	</button>
+
+	<script>const logged = false;</script>
+	{{/if}}
+
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	<script src="/js/login.js"></script>
 	<script src="/js/establishment.js"></script>
 </body>
 

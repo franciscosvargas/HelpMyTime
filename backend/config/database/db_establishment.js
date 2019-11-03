@@ -19,14 +19,19 @@ class EstablishmentController {
 
 	async createEst(data) {
 		try {
-			console.log(data.uf_city)
 			const user = await UserRef.findById(data.owner);
 			await notExists(data.business_id);
+			data.slug = data.name;
+			data.slug = data.slug.toLowerCase();
+			data.slug = data.slug.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+			data.slug = data.slug.replace(/\s/g, '-');
+			data.slug = data.slug.replace("/a", "");
+			data.slug = data.slug.replace("/", "");
 			const newEst = await EstRef.create(data);
 			user.establishment = newEst;
 			user.save();
 		} catch (err) {
-			console.log(err);
+			reject(err);
 		}
 	}
 
@@ -40,10 +45,22 @@ class EstablishmentController {
 
 	}
 
+	async getEstBySlug(slug) {
+		try {
+			const Est = await EstRef.findOne({ slug: slug }).populate('services');
+			return Est;
+		} catch (e) {
+			return (error)
+		}
+
+	}
+
 	async createService(data, id) {
 		const Est = await EstRef.findById(id);
 		data.owner = Est;
 		data.owner_name = Est.name;
+		data.owner_slug = Est.slug;
+		data.location = Est.uf_city;
 		const Service = await ServiceRef.create(data);
 
 		Est.services.push(Service);
@@ -61,11 +78,12 @@ class EstablishmentController {
 
 
 	async searchService(term) {
-		var regex = new RegExp(term, 'i');
-		var criteria = { $or: [{ name: regex }, { category: regex }, { description: regex }, { owner_name: regex }] }
-		const service = await ServiceRef.find(criteria);
-
-		return service;
+		if (term != '' && term) {
+			var regex = new RegExp(term, 'i');
+			var criteria = { $or: [{ name: regex }, { category: regex }, { description: regex }, { owner_name: regex }] }
+			const service = await ServiceRef.find(criteria).populate('owner');
+			return service;
+		}		
 
 	}
 
@@ -99,9 +117,9 @@ class EstablishmentController {
 				}
 
 				let establishments = await EstRef.find({ uf_city: `${location.city}/${location.state}` }).populate('services');
-				
-				if(establishments.length === 0)
-				 	establishments = await EstRef.find().populate('services');
+
+				if (establishments.length === 0)
+					establishments = await EstRef.find().populate('services');
 
 				shuffle(establishments).slice(0, 6).forEach((item) => {
 					item.services.forEach((service) => {
@@ -120,7 +138,6 @@ class EstablishmentController {
 			await ServiceRef.findOneAndUpdate({ _id: data.id }, { $set: data });
 			return Promise.resolve();
 		} catch (e) {
-			console.log(e);
 			return Promise.reject(e);
 		}
 
@@ -155,7 +172,7 @@ class EstablishmentController {
 			return Promise.resolve(back);
 
 		} catch (error) {
-			console.log("Error: " + error);
+			return Promise.reject(error);
 
 		}
 	}
@@ -190,7 +207,6 @@ class EstablishmentController {
 				}
 			}
 
-			console.log(data);
 			data.week_open = data.week_open + data.today_open;
 			data.week_closed = data.week_closed + data.today_closed;
 			return data;
@@ -270,15 +286,15 @@ class EstablishmentController {
 
 
 		for (let i = 0; i < schedules.length; i++) {
-			if ((schedules[i].all / 2) == schedules[i].haveclient) {
-				schedules[i].class = "medium";
-				schedules[i].text = "Média";
+			if ((schedules[i].all / 2) > schedules[i].haveclient || schedules[i].all == 0) {
+				schedules[i].class = "high";
+				schedules[i].text = "Alta";
 			} else if ((schedules[i].all / 2) < schedules[i].haveclient) {
 				schedules[i].class = "low";
 				schedules[i].text = "Baixa";
-			} else if ((schedules[i].all / 2) > schedules[i].haveclient) {
-				schedules[i].class = "high";
-				schedules[i].text = "Alta";
+			} else if ((schedules[i].all / 2) == schedules[i].haveclient) {
+				schedules[i].class = "medium";
+				schedules[i].text = "Média";
 			}
 		}
 
@@ -425,7 +441,71 @@ class EstablishmentController {
 		return days;
 	}
 
+	async  getSchedulesFromService(id) {
+		const days = { sunday: [], monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [] };
+		const service = await this.getService(id);
+		service.horary.forEach(final => {
+			switch (final.day) {
+				case 0:
+					days.sunday.push(final);
+					break;
+				case 1:
+					days.monday.push(final);
+					break;
+				case 2:
+					days.tuesday.push(final);
+					break;
+				case 3:
+					days.wednesday.push(final);
+					break;
+				case 4:
+					days.thursday.push(final);
+					break;
+				case 5:
+					days.friday.push(final);
+					break;
+				case 6:
+					days.saturday.push(final);
+					break;
+			}
 
+		});
+
+		if (days.monday.length > 0)
+			days.monday = sortSchedulesByTime(days.monday);
+		if (days.tuesday.length > 0)
+			days.tuesday = sortSchedulesByTime(days.tuesday);
+		if (days.wednesday.length > 0)
+			days.wednesday = sortSchedulesByTime(days.wednesday);
+		if (days.thursday.length > 0)
+			days.thursday = sortSchedulesByTime(days.thursday);
+		if (days.friday.length > 0)
+			days.friday = sortSchedulesByTime(days.friday);
+		if (days.saturday.length > 0)
+			days.saturday = sortSchedulesByTime(days.saturday);
+		if (days.sunday.length > 0)
+			days.sunday = sortSchedulesByTime(days.sunday);
+
+
+		return {
+			name: service.name,
+			description: service.description,
+			horary: days
+		};
+	}
+
+	async makeSchedule(data, user) {
+		const schedule = await ScheduleRef.findById(data.id);
+		schedule.haveClient = true;
+		schedule.client = user;
+		schedule.save();
+
+		const services = await ServiceRef.find({ horary: data.id });
+		services.forEach(async element => {
+			if (element._id != data.service)
+				await ServiceRef.updateOne({ _id: element._id }, { $pullAll: { 'horary': [data.id] } });
+		});
+	}
 
 	async reschedule(id) {
 		const service = await ServiceRef.findOne({ horary: id });
@@ -475,7 +555,7 @@ class EstablishmentController {
 				}
 				await ScheduleRef.findByIdAndRemove(horary);
 			})
-			await ServiceRef.findByIdAndRemove(item._id); 
+			await ServiceRef.findByIdAndRemove(item._id);
 		})
 	}
 
@@ -517,22 +597,22 @@ function sortSchedulesByTime(array) {
 
 function shuffle(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
-  
+
 	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {
-  
-	  // Pick a remaining element...
-	  randomIndex = Math.floor(Math.random() * currentIndex);
-	  currentIndex -= 1;
-  
-	  // And swap it with the current element.
-	  temporaryValue = array[currentIndex];
-	  array[currentIndex] = array[randomIndex];
-	  array[randomIndex] = temporaryValue;
+
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
 	}
-  
+
 	return array;
-  }
+}
 
 
 module.exports = new EstablishmentController();

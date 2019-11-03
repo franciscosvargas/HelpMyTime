@@ -7,7 +7,7 @@
 		<li class="mdc-list-item" tabindex="0" data-mdc-auto-init="MDCRipple">
 			<span class="mdc-list-item__text">
 				<span class="mdc-list-item__primary-text">Nome</span>
-				<span class="mdc-list-item__secondary-text">John Doe</span>
+				<span class="mdc-list-item__secondary-text">{{user.name}}</span>
 			</span>
 			<span class="edit-name-btn mdc-list-item__meta" aria-hidden="true">
 				<i class="fas fa-edit fa-lg"></i>
@@ -16,21 +16,13 @@
 		<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
 			<span class="mdc-list-item__text">
 				<span class="mdc-list-item__primary-text">Email</span>
-				<span class="mdc-list-item__secondary-text">johndoe@gmail.com</span>
+				<span class="mdc-list-item__secondary-text">{{user.email}}</span>
 			</span>
 			<span class="edit-email-btn mdc-list-item__meta" aria-hidden="true">
 				<i class="fas fa-edit fa-lg"></i>
 			</span>
 		</li>
-		<li class="mdc-list-item" data-mdc-auto-init="MDCRipple">
-			<span class="mdc-list-item__text">
-				<span class="mdc-list-item__primary-text">Senha</span>
-				<span class="mdc-list-item__secondary-text">**********</span>
-			</span>
-			<span class="edit-password-btn mdc-list-item__meta" aria-hidden="true">
-				<i class="fas fa-edit fa-lg"></i>
-			</span>
-		</li>
+		
 		<hr class="mdc-list-divider">
 		<h6 class="mdc-list-group__subheader">Informações do estabelecimento</h6>
 	</ul>

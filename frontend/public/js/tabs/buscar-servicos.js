@@ -7,22 +7,17 @@ $(function () {
         //searchContainerHeight = ($(".search-services-container").height() / 2) - 48;
         //$(".search-input-group").css("margin", `${searchContainerHeight}px auto 0`);
     });
-    $(document).on("input", "input.input-group-input", function () {
-        //searchContainerHeight = ($(".search-services-container").height() / 2) - 48;
-        if ($("input.input-group-input").val().length > 0) {
-            getServices($(".search-input-group input").val());
-            //$(".search-input-group").css("margin", "0 auto").one("transitionend", function () {
-                // The search code goes here...
-            //});
-        } else {
-            //$(".search-input-group").css("margin", `0`);
-        }
+    $(document).keypress(function(e) {
+        if(e.which == 13) getServices($(".search-input-group input").val());
+        if($(".search-input-group input").val() == "") $(".services-body").html("");
     });
+
+    
 });
 
 async function getServices(keyword) {
     let services = [];
-    await $.get(`getlistapesquisa/${keyword}`, function (resultado) {
+    await $.get(`/getlistapesquisa?term=${keyword}`, function (resultado) {
         console.log(resultado.length);
         services = resultado;
     });
@@ -43,7 +38,7 @@ async function getServices(keyword) {
                 </div>
                 <div class="mdc-card__actions">
                     <div class="mdc-card__action-buttons">
-                        <button class="mdc-button mdc-card__action mdc-card__action--button">
+                        <button onclick="window.location.href='/e/${service.owner_slug}';" class="mdc-button mdc-card__action mdc-card__action--button">
                             <span class="mdc-button__label">Visualizar</span>
                         </button>
                     </div>

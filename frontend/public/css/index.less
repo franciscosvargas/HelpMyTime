@@ -272,7 +272,7 @@ body {
 #features-container {
 	display: flex;
 	justify-content: center;
-	padding: 64px 20px;
+	padding: 64px 20px 20px;
 	counter-reset: features;
 
 	.feature-content {
@@ -310,6 +310,11 @@ body {
 					border-radius: 50%;
 					box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5)
 				}
+				&:last-child:after {
+					content: "\f00c";
+					font-weight: 900;
+					font-family: "Font Awesome 5 Free" !important;
+				}
 			}
 		}
 
@@ -328,13 +333,36 @@ body {
 	}
 }
 
+#referral-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-image: url("https://images6.alphacoders.com/454/thumb-1920-454816.jpg"), linear-gradient(to bottom, rgba(234, 234, 234, 1), rgba(63, 94, 251, 1) 15%);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-blend-mode: overlay;
+	padding: 44.75px 32px 32px;
+	text-align: center;
+	color: white;
+
+	.referral-headline {
+		margin: 0;
+		text-shadow: 1px 1px 3px black;
+	}
+
+	.referral-subtitle {
+		margin: 10px 0;
+		text-shadow: 1px 1px 3px black;
+	}
+}
+
 #footer-container {
 	display: flex;
 	flex-direction: column;
 	color: white;
 	text-align: center;
-	background: linear-gradient(to bottom, transparent, #222 10%);
-	padding: 48px 20px 20px;
+	background-color: #222;
+	padding: 32px 20px 20px;
 
 	.footer-row {
 		display: flex;
@@ -400,7 +428,7 @@ body {
 	}
 }
 
-@media only screen and (max-width: 610px) {
+@media only screen and (max-width: 768px) {
 	.input-group {
 		position: relative;
 		bottom: -35px;

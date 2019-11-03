@@ -39,9 +39,20 @@ router.get('/', (req, res) => {
 });
 
 router.get('/buscar-servicos', async (req, res) => {
-	res.render('buscar-servicos', {
-		layout: 'panel'
-	});
+	if (req.user.establishment) {
+		const statistics = await db_Est.getEst(req.user.establishment);
+		res.render('buscar-servicos', {
+			layout: 'panel',
+			status: statistics.status,
+			slug: statistics.slug
+		});
+	} else {
+		res.render('buscar-servicos', {
+			layout: 'panel',
+			status: false
+		});
+	}
+
 })
 
 // Routes for establishment
@@ -52,7 +63,10 @@ router.get('/visao-geral', async (req, res) => {
 		res.render('e_overview', {
 			user: req.user,
 			statistics: statistics,
+			status: statistics.establishment.status,
+			slug: statistics.establishment.slug,
 			layout: 'panel'
+			
 		});
 	} catch (err) {
 		console.log("erro");
@@ -64,18 +78,21 @@ router.get('/visao-geral', async (req, res) => {
 
 router.get('/config', async (req, res) => {
 	res.render('config', {
-		layout: 'panel'
+		layout: 'panel',
+		user: req.user
 	});
 });
 
 router.get('/meus-servicos', async (req, res) => {
 	try {
 		await restrict(req.user.establishment, req.user.plan);
-		
+
 		const statistics = await db_Est.getStatistics(req.user.establishment);
 		res.render('cadastrar-servico', {
 			user: req.user,
 			statistics: statistics,
+			status: statistics.establishment.status,
+			slug: statistics.establishment.slug,
 			layout: 'panel'
 		});
 	} catch (e) {
@@ -93,7 +110,10 @@ router.get('/meus-horarios', async (req, res) => {
 			user: req.user,
 			schedules: schedules,
 			layout: 'panel',
+			status: establishment.status,
+			slug: establishment.slug,
 			establishment: establishment
+
 		});
 	} catch (e) {
 		console.log(e);
@@ -105,10 +125,22 @@ router.get('/meus-horarios', async (req, res) => {
 
 router.get('/meus-agendamentos', async (req, res) => {
 	const schedules = await db_Est.getSchedulesFromClient(req.user._id);
-	res.render('agendamentos', {
-		schedules: schedules,
-		layout: 'panel'
-	});
+	if (req.user.establishment) {
+		const est = await db_Est.getEst(req.user.establishment)
+		res.render('agendamentos', {
+			schedules: schedules,
+			layout: 'panel',
+			status: est.status,
+			slug: est.slug,
+			statistics: est
+		});
+	} else {
+		res.render('agendamentos', {
+			schedules: schedules,
+			layout: 'panel',
+			status: false
+		});
+	}
 });
 
 router.get('/cadastrar-estabelecimento', (req, res) => {
@@ -120,7 +152,7 @@ router.get('/cadastrar-estabelecimento', (req, res) => {
 	} else {
 		res.render('pagamento', { user: req.user, layout: 'panel' });
 	}
-	
+
 });
 
 /* 
@@ -153,7 +185,7 @@ router.get('/getlistapesquisa/:keyword', async (req, res) => {
 });
 
 router.get('/getsession', async (req, res) => {
-    res.send(await paymentController.createSession());
+	res.send(await paymentController.createSession());
 });
 
 /*
@@ -164,6 +196,19 @@ router.get('/getsession', async (req, res) => {
 ██║     ╚██████╔╝███████║   ██║       ██████╔╝██║  ██║   ██║   ██║  ██║
 ╚═╝      ╚═════╝ ╚══════╝   ╚═╝       ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
  */
+
+router.post('/makeschedule', async (req, res) => {
+	try {
+		console.log(req.body)
+		await db_Est.makeSchedule(req.body, req.user._id);
+		res.redirect('/dashboard/meus-horarios');
+	} catch (e) {
+		console.log(e);
+		res.send(e).status(500);
+	}
+});
+
+
 router.post('/adherence', async (req, res) => {
 	try {
 		await paymentController.adherence(JSON.stringify(req.body), req.user._id);
@@ -214,7 +259,7 @@ router.post('/cadastrar-horario', (req, res) => {
 	try {
 		req.body.id = req.user.establishment._id;
 		db_Est.createSchedule(req.body);
-		res.redirect('/dashboard/meus-horarios'); 
+		res.redirect('/dashboard/meus-horarios');
 	} catch (e) {
 		res.send(e);
 	}
